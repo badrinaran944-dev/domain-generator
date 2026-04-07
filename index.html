@@ -8,76 +8,54 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:'Inter',sans-serif;background:#fafafa;color:#111;min-height:100vh}
-
-/* NAV */
 nav{display:flex;justify-content:space-between;align-items:center;padding:18px 48px;background:#fff;border-bottom:1px solid #f0f0f0;position:sticky;top:0;z-index:10}
 .logo{font-size:16px;font-weight:700;color:#111;letter-spacing:-0.5px}
 .logo em{color:#6366f1;font-style:normal}
 .nav-r{display:flex;gap:24px;align-items:center}
 .nl{font-size:13px;color:#888;cursor:pointer;text-decoration:none}
-.nl:hover{color:#111}
-.nb{font-size:13px;padding:8px 20px;border-radius:8px;background:#111;color:#fff;border:none;cursor:pointer;font-family:inherit;font-weight:500;transition:background .15s}
-.nb:hover{background:#333}
-
-/* HERO */
+.nb{font-size:13px;padding:8px 20px;border-radius:8px;background:#111;color:#fff;border:none;cursor:pointer;font-family:inherit;font-weight:500}
 .hero{max-width:680px;margin:0 auto;padding:88px 24px 52px;text-align:center}
 .htag{display:inline-flex;align-items:center;gap:7px;background:#f5f3ff;color:#6366f1;font-size:12px;font-weight:500;padding:5px 14px;border-radius:20px;margin-bottom:28px;border:1px solid #ede9fe}
 .htag-dot{width:7px;height:7px;background:#6366f1;border-radius:50%;animation:blink 2s infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:0.2}}
 h1{font-size:52px;font-weight:700;letter-spacing:-2.5px;line-height:1.08;color:#111;margin-bottom:18px}
 h1 span{color:#6366f1}
-.sub{font-size:17px;color:#999;line-height:1.6;margin-bottom:44px;font-weight:400}
-
-/* SEARCH */
+.sub{font-size:17px;color:#999;line-height:1.6;margin-bottom:44px}
 .sbox{background:#fff;border:1.5px solid #e5e7eb;border-radius:16px;display:flex;align-items:center;padding:6px 6px 6px 20px;gap:8px;transition:border-color .2s;margin-bottom:16px}
 .sbox:focus-within{border-color:#6366f1;box-shadow:0 0 0 4px rgba(99,102,241,0.06)}
 .sbox input{flex:1;border:none;outline:none;font-size:15px;font-family:inherit;color:#111;background:transparent}
 .sbox input::placeholder{color:#ccc}
 .sbtn{background:#111;color:#fff;border:none;padding:13px 26px;border-radius:12px;font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;white-space:nowrap;transition:background .15s}
 .sbtn:hover{background:#333}
-.sbtn:active{transform:scale(0.98)}
-
-/* CHIPS */
 .chips{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-bottom:14px}
 .chip{font-size:12px;padding:6px 14px;border-radius:20px;border:1px solid #e5e7eb;color:#666;cursor:pointer;background:#fff;font-family:inherit;transition:all .15s}
 .chip:hover{border-color:#6366f1;color:#6366f1;background:#f5f3ff}
-
-/* TLD */
 .tlds{display:flex;gap:6px;justify-content:center}
 .tld{font-size:12px;padding:6px 16px;border-radius:20px;border:1px solid #e5e7eb;color:#888;cursor:pointer;background:#fff;font-family:inherit;transition:all .15s}
 .tld.on{background:#6366f1;color:#fff;border-color:#6366f1}
-
-/* STATS */
 .stats{display:flex;justify-content:center;gap:56px;padding:36px 0;border-top:1px solid #f5f5f5;border-bottom:1px solid #f5f5f5;max-width:860px;margin:0 auto 52px}
 .stat-n{font-size:30px;font-weight:700;color:#111;letter-spacing:-1px;text-align:center}
 .stat-l{font-size:12px;color:#bbb;margin-top:3px;text-align:center}
-
-/* RESULTS */
 .section{max-width:880px;margin:0 auto;padding:0 24px 80px}
 .rlabel{font-size:12px;color:#bbb;text-align:center;letter-spacing:.07em;text-transform:uppercase;margin-bottom:28px}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
-
-.dc{background:#fff;border:1px solid #f0f0f0;border-radius:18px;padding:22px;transition:all .2s;cursor:default}
-.dc:hover{border-color:#e0dfff;box-shadow:0 4px 24px rgba(99,102,241,0.06);transform:translateY(-2px)}
+.dc{background:#fff;border:1px solid #f0f0f0;border-radius:18px;padding:22px;transition:all .2s}
+.dc:hover{border-color:#e0dfff;transform:translateY(-2px)}
 .dc.star{border-color:#e0dfff}
-.starbadge{font-size:10px;font-weight:600;color:#6366f1;background:#f5f3ff;border:1px solid #ede9fe;padding:3px 9px;border-radius:6px;display:inline-block;margin-bottom:12px;letter-spacing:.03em}
+.starbadge{font-size:10px;font-weight:600;color:#6366f1;background:#f5f3ff;border:1px solid #ede9fe;padding:3px 9px;border-radius:6px;display:inline-block;margin-bottom:12px}
 .dname{font-size:20px;font-weight:700;color:#111;letter-spacing:-0.5px;margin-bottom:6px;word-break:break-all}
 .dwhy{font-size:13px;color:#999;line-height:1.55;margin-bottom:16px}
 .dfoot{display:flex;align-items:center;gap:8px}
 .sc{font-size:11px;font-weight:600;padding:3px 10px;border-radius:6px}
 .sc-h{background:#ecfdf5;color:#059669}
 .sc-m{background:#fffbeb;color:#d97706}
-.pr{font-size:12px;color:#ccc}
-.cbtn{margin-left:auto;font-size:12px;font-weight:600;color:#6366f1;background:#f5f3ff;border:1px solid #ede9fe;padding:6px 14px;border-radius:8px;cursor:pointer;font-family:inherit;transition:all .15s;text-decoration:none}
+.pr{font-size:12px;color:#bbb}
+.cbtn{margin-left:auto;font-size:12px;font-weight:600;color:#6366f1;background:#f5f3ff;border:1px solid #ede9fe;padding:6px 14px;border-radius:8px;cursor:pointer;font-family:inherit;text-decoration:none}
 .cbtn:hover{background:#ede9fe}
-
-/* LOADING / ERROR */
 .spin-wrap{text-align:center;padding:72px 0}
 .spin{width:34px;height:34px;border:2px solid #f0f0f0;border-top-color:#6366f1;border-radius:50%;margin:0 auto 16px;animation:sp .7s linear infinite}
 @keyframes sp{to{transform:rotate(360deg)}}
 .spin-txt{font-size:13px;color:#bbb}
-
-/* HOW IT WORKS */
 .how{max-width:860px;margin:0 auto 80px;padding:0 24px}
 .how-title{font-size:13px;color:#bbb;letter-spacing:.07em;text-transform:uppercase;text-align:center;margin-bottom:28px}
 .how-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
@@ -85,20 +63,16 @@ h1 span{color:#6366f1}
 .how-num{font-size:28px;font-weight:700;color:#ede9fe;letter-spacing:-1px;margin-bottom:10px}
 .how-h{font-size:14px;font-weight:600;color:#111;margin-bottom:6px}
 .how-p{font-size:13px;color:#999;line-height:1.55}
-
-/* FOOTER */
 footer{border-top:1px solid #f0f0f0;padding:24px 48px;display:flex;justify-content:space-between;align-items:center;background:#fff}
 .fl{font-size:14px;font-weight:700;color:#111}
 .fl em{color:#6366f1;font-style:normal}
 .flinks{display:flex;gap:20px}
 .flink{font-size:12px;color:#bbb;cursor:pointer;text-decoration:none}
 .flink:hover{color:#6366f1}
-
 @media(max-width:600px){
   nav{padding:14px 20px}
   .nl{display:none}
   h1{font-size:34px;letter-spacing:-1.5px}
-  .sub{font-size:15px}
   .hero{padding:60px 16px 40px}
   .stats{gap:28px}
   .how-steps{grid-template-columns:1fr}
@@ -108,25 +82,25 @@ footer{border-top:1px solid #f0f0f0;padding:24px 48px;display:flex;justify-conte
 </style>
 </head>
 <body>
-
+ 
 <nav>
-  <div class="logo">name<em>dhundo</em>.in</div>
+  <div class="logo"><em>vikbro</em>.in</div>
   <div class="nav-r">
     <a class="nl" href="#how">Kaise kaam karta hai</a>
     <button class="nb">Free mein try karo</button>
   </div>
 </nav>
-
+ 
 <div class="hero">
   <div class="htag"><span class="htag-dot"></span> AI Powered &nbsp;·&nbsp; Bilkul Free</div>
   <h1>Perfect domain<br><span>AI se dhundho</span></h1>
   <p class="sub">Business type karo — AI turant<br>8 best domain names suggest karega</p>
-
+ 
   <div class="sbox">
     <input id="bi" type="text" placeholder="e.g. Mumbai restaurant, online saree shop, yoga studio...">
     <button class="sbtn" onclick="go()">Generate karo</button>
   </div>
-
+ 
   <div class="chips">
     <button class="chip" onclick="sx('online grocery delivery Mumbai')">Grocery app</button>
     <button class="chip" onclick="sx('digital marketing agency India')">Marketing agency</button>
@@ -135,7 +109,7 @@ footer{border-top:1px solid #f0f0f0;padding:24px 48px;display:flex;justify-conte
     <button class="chip" onclick="sx('online coaching platform India')">Coaching</button>
     <button class="chip" onclick="sx('restaurant Mumbai')">Restaurant</button>
   </div>
-
+ 
   <div class="tlds" style="margin-top:12px">
     <button class="tld on" onclick="st(this,'.com')">.com</button>
     <button class="tld" onclick="st(this,'.in')">.in</button>
@@ -143,83 +117,83 @@ footer{border-top:1px solid #f0f0f0;padding:24px 48px;display:flex;justify-conte
     <button class="tld" onclick="st(this,'mix')">Mix sabhi</button>
   </div>
 </div>
-
+ 
 <div class="section">
   <div class="stats">
     <div><div class="stat-n">8</div><div class="stat-l">AI suggestions</div></div>
     <div><div class="stat-n">3</div><div class="stat-l">TLD options</div></div>
     <div><div class="stat-n">100%</div><div class="stat-l">Free hamesha</div></div>
   </div>
-
   <div id="ra"></div>
 </div>
-
+ 
 <div class="how" id="how">
   <div class="how-title">Kaise kaam karta hai</div>
   <div class="how-steps">
     <div class="how-card">
       <div class="how-num">01</div>
       <div class="how-h">Business type karo</div>
+      <div class="how-p">Apna business describe karo — restaurant, shop, agency, kuch bhi. Hindi ya English mein.</div>
     </div>
     <div class="how-card">
       <div class="how-num">02</div>
-    
-      <div class="how-p"> this AI instantly generates creative and brandable domain names for your business..</div>
+      <div class="how-h">AI suggest karta hai</div>
+      <div class="how-p">AI turant 8 creative, brandable domain names generate karta hai tumhare business ke liye.</div>
     </div>
     <div class="how-card">
       <div class="how-num">03</div>
-      <div class="how-h"> buy Domain </div>
-    
+      <div class="how-h">Domain kharido</div>
+      <div class="how-p">Pasand aaya domain? "Check karo" dabao — Namecheap pe seedha availability dekho aur kharido.</div>
     </div>
   </div>
 </div>
-
+ 
 <footer>
-  <div class="fl">name<em>search</em>.in</div>
+  <div class="fl"><em>vikbro</em>.in</div>
   <div class="flinks">
     <a class="flink" href="https://www.namecheap.com/affiliates/" target="_blank">Namecheap Affiliate</a>
     <a class="flink" href="https://www.godaddy.com/affiliate-programs" target="_blank">GoDaddy Affiliate</a>
     <a class="flink" href="#">Privacy</a>
   </div>
 </footer>
-
+ 
 <script>
+const GROQ_KEY = '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';
 let tl = '.com';
-
+ 
 function st(el, v) {
   document.querySelectorAll('.tld').forEach(b => b.classList.remove('on'));
-  el.classList.add('on');
-  tl = v;
+  el.classList.add('on'); tl = v;
 }
-
-function sx(t) {
-  document.getElementById('bi').value = t;
-  go();
-}
-
+function sx(t) { document.getElementById('bi').value = t; go(); }
+ 
 async function go() {
   const biz = document.getElementById('bi').value.trim();
   if (!biz) return;
   const ra = document.getElementById('ra');
   ra.innerHTML = '<div class="spin-wrap"><div class="spin"></div><div class="spin-txt">AI soch raha hai...</div></div>';
   ra.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-  const prompt = `You are a domain name expert for Indian businesses. Generate 8 creative brandable domain names for: "${biz}". TLD preference: ${tl === 'mix' ? 'mix of .com .in .co.in' : tl}. Names must be short (under 14 chars ideally), memorable, easy to spell in India. Mix English and Hinglish creatively. First 2 should be the absolute best picks. Respond ONLY in raw JSON array, no markdown, no backticks, nothing else:
-[{"domain":"example.in","reason":"1 line Hindi or Hinglish reason why this works","brand_score":"High","price":"~₹700/yr","top":true}]
-Rules: brand_score = High or Medium only. top = true only for first 2 items.`;
-
+ 
+  const prompt = `You are a domain name expert for Indian businesses. Generate 8 creative brandable domain names for: "${biz}". TLD preference: ${tl === 'mix' ? 'mix of .com .in .co.in' : tl}. Names must be short (under 14 chars), memorable, easy to spell in India. Mix English and Hinglish. First 2 = absolute best picks. ONLY raw JSON array, no markdown, no backticks:
+[{"domain":"example.in","reason":"1 line Hindi or Hinglish reason","brand_score":"High","price":"~700/yr","top":true}]
+brand_score = High or Medium. top = true only for first 2.`;
+ 
   try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
+    const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + GROQ_KEY
+      },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
+        model: 'llama-3.3-70b-versatile',
+        messages: [{ role: 'user', content: prompt }],
         max_tokens: 1000,
-        messages: [{ role: 'user', content: prompt }]
+        temperature: 0.7
       })
     });
     const data = await res.json();
-    const raw = data.content.map(i => i.text || '').join('').replace(/```json|```/g, '').trim();
+    const raw = data.choices[0].message.content.replace(/```json|```/g, '').trim();
     const doms = JSON.parse(raw);
     ra.innerHTML = `
       <div class="rlabel">${doms.length} suggestions — "${biz}" ke liye</div>
@@ -231,17 +205,16 @@ Rules: brand_score = High or Medium only. top = true only for first 2 items.`;
             <div class="dwhy">${x.reason}</div>
             <div class="dfoot">
               <span class="sc ${x.brand_score === 'High' ? 'sc-h' : 'sc-m'}">${x.brand_score}</span>
-              <span class="pr">${x.price || '~₹700/yr'}</span>
-              <a class="cbtn" href="https://www.namecheap.com/domains/registration/results/?domain=${encodeURIComponent(x.domain)}" target="_blank">Check karo →</a>
+              <span class="pr">${x.price || '~700/yr'}</span>
+              <a class="cbtn" href="https://www.namecheap.com/domains/registration/results/?domain=${encodeURIComponent(x.domain)}" target="_blank">Check karo</a>
             </div>
           </div>`).join('')}
       </div>`;
-  } catch (e) {
+  } catch(e) {
     ra.innerHTML = '<div class="spin-wrap"><div class="spin-txt">Kuch error aaya, dobara try karo.</div></div>';
   }
 }
-
-document.getElementById('bi').addEventListener('keydown', e => { if (e.key === 'Enter') go(); });
+document.getElementById('bi').addEventListener('keydown', e => { if(e.key === 'Enter') go(); });
 </script>
 </body>
 </html>
