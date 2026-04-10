@@ -486,7 +486,6 @@ footer{position:relative;z-index:2;border-top:1px solid var(--border);
 </footer>
 
 <script>
-const GROQ_KEY='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';
 let tl='.com';
 let liked=JSON.parse(localStorage.getItem('o7_liked')||'[]');
 
@@ -563,13 +562,17 @@ Respond ONLY as raw JSON array — no markdown, no backticks, no explanation:
 All 50 items required.`;
 
   try{
-    const res=await fetch('https://api.groq.com/openai/v1/chat/completions',{
+    const res=await fetch('https://api.anthropic.com/v1/messages',{
       method:'POST',
-      headers:{'Content-Type':'application/json','Authorization':'Bearer '+GROQ_KEY},
-      body:JSON.stringify({model:'llama-3.3-70b-versatile',messages:[{role:'user',content:prompt}],max_tokens:5000,temperature:0.92})
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({
+        model:'claude-sonnet-4-20250514',
+        max_tokens:5000,
+        messages:[{role:'user',content:prompt}]
+      })
     });
     const data=await res.json();
-    const raw=data.choices[0].message.content.replace(/```json|```/g,'').trim();
+    const raw=data.content[0].text.replace(/```json|```/g,'').trim();
     const doms=JSON.parse(raw);
 
     ra.innerHTML=`
