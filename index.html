@@ -113,13 +113,11 @@ h1 em{font-style:normal;background:linear-gradient(135deg,var(--accent),var(--pu
 .res-label{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.06em;
   margin-bottom:20px;text-align:center;text-transform:uppercase}
 
-/* LOGO GRID - Screenshot style */
 .logo-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
 @media(max-width:1024px){.logo-grid{grid-template-columns:repeat(4,1fr)}}
 @media(max-width:768px){.logo-grid{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:480px){.logo-grid{grid-template-columns:repeat(2,1fr)}}
 
-/* LOGO CARD - the new beautiful tile */
 .lc{
   position:relative;border-radius:16px;overflow:hidden;cursor:pointer;
   aspect-ratio:1.4/1;display:flex;flex-direction:column;align-items:center;
@@ -128,7 +126,6 @@ h1 em{font-style:normal;background:linear-gradient(135deg,var(--accent),var(--pu
 }
 .lc:hover{transform:scale(1.04);box-shadow:0 8px 28px rgba(0,0,0,.18)}
 
-/* TOP PICK badge */
 .lc-top-badge{
   position:absolute;top:8px;left:8px;
   font-size:8px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
@@ -137,7 +134,6 @@ h1 em{font-style:normal;background:linear-gradient(135deg,var(--accent),var(--pu
   z-index:2;backdrop-filter:blur(4px)
 }
 
-/* Like button on card */
 .lc-like{
   position:absolute;top:8px;right:8px;z-index:2;
   width:28px;height:28px;border-radius:7px;cursor:pointer;font-size:14px;
@@ -148,14 +144,12 @@ h1 em{font-style:normal;background:linear-gradient(135deg,var(--accent),var(--pu
 .lc-like:hover{background:rgba(255,255,255,.3);color:#fff}
 .lc-like.liked{background:var(--accent);border-color:var(--accent);color:#fff}
 
-/* Domain name text on card */
 .lc-name{
   font-size:15px;font-weight:700;text-align:center;
   letter-spacing:-.2px;padding:0 10px;line-height:1.2;
   word-break:break-all;z-index:1
 }
 
-/* Availability dot */
 .avail-dot{
   position:absolute;bottom:8px;right:10px;
   width:8px;height:8px;border-radius:50%;z-index:2
@@ -165,14 +159,12 @@ h1 em{font-style:normal;background:linear-gradient(135deg,var(--accent),var(--pu
 .avail-dot.unavailable{background:#f87171}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
 
-/* Mix badge */
 .mix-badge{
   position:absolute;bottom:8px;left:10px;z-index:2;
   font-size:8px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
   background:rgba(0,0,0,.35);color:rgba(255,255,255,.8);border-radius:4px;padding:2px 6px
 }
 
-/* Card tooltip on hover - buy/check */
 .lc-overlay{
   position:absolute;inset:0;background:rgba(0,0,0,.55);
   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;
@@ -189,7 +181,6 @@ h1 em{font-style:normal;background:linear-gradient(135deg,var(--accent),var(--pu
 .lov-buy:hover{opacity:.88}
 .lov-chk:hover{background:rgba(255,255,255,.28)}
 
-/* Color schemes for tiles */
 .cs-0{background:#f5a623;color:#7a4f00}
 .cs-0 .lc-name{color:#3d2600;font-family:'Syne',sans-serif}
 .cs-1{background:#f0f0ed;color:#2c2c2c}
@@ -221,7 +212,6 @@ h1 em{font-style:normal;background:linear-gradient(135deg,var(--accent),var(--pu
 .cs-14{background:#7c3aed;color:#fff}
 .cs-14 .lc-name{color:#fff;font-family:'Syne',sans-serif;font-size:14px;font-weight:800}
 
-/* SPIN */
 .spin-wrap{text-align:center;padding:72px 0}
 .spin{width:32px;height:32px;border:2.5px solid var(--border);
   border-top-color:var(--purple);border-radius:50%;margin:0 auto 14px;
@@ -229,13 +219,11 @@ h1 em{font-style:normal;background:linear-gradient(135deg,var(--accent),var(--pu
 @keyframes sp{to{transform:rotate(360deg)}}
 .spin-txt{font-size:13px;color:var(--muted);font-weight:500}
 
-/* SERVICES */
 .services{position:relative;z-index:2;max-width:960px;margin:0 auto 40px;padding:0 20px}
 .svc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
 @media(max-width:900px){.svc-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:520px){.svc-grid{grid-template-columns:repeat(1,1fr)}}
 
-/* Apple-card style service cards */
 .svc-card{
   border-radius:22px;overflow:hidden;text-decoration:none;
   display:flex;flex-direction:column;position:relative;
@@ -245,13 +233,11 @@ h1 em{font-style:normal;background:linear-gradient(135deg,var(--accent),var(--pu
 }
 .svc-card:hover{transform:translateY(-6px) scale(1.025);box-shadow:0 20px 50px rgba(0,0,0,.22)}
 
-/* card gradient backgrounds */
 .svc-card.card-tm{background:linear-gradient(145deg,#667eea,#764ba2)}
 .svc-card.card-domain{background:linear-gradient(145deg,#06b6d4,#0284c7)}
 .svc-card.card-logo{background:linear-gradient(145deg,#f59e0b,#ef4444)}
 .svc-card.card-web{background:linear-gradient(145deg,#10b981,#059669)}
 
-/* big emoji illustration */
 .svc-emoji{
   font-size:72px;line-height:1;
   position:absolute;bottom:70px;right:-10px;
@@ -283,7 +269,6 @@ h1 em{font-style:normal;background:linear-gradient(135deg,var(--accent),var(--pu
 .svc-learn-arrow{font-size:14px;transition:transform .18s}
 .svc-learn:hover .svc-learn-arrow{transform:translateX(4px)}
 
-/* TM card has 2 buttons */
 .tm-card-btns{display:flex;flex-direction:column;gap:8px}
 .tm-card-btn{
   display:flex;align-items:center;justify-content:center;gap:6px;
@@ -431,7 +416,7 @@ footer{position:relative;z-index:2;border-top:1px solid var(--border);
       <div class="svc-content">
         <div class="svc-tag">Trademark</div>
         <div class="svc-title">Protect Your Brand</div>
-        <div class="svc-desc">Brand naam legally secure karo. Trademark search free — registration from ₹1,499.</div>
+        <div class="svc-desc">Secure your brand name legally. Free trademark search — registration from ₹1,499.</div>
       </div>
       <div class="svc-footer">
         <div class="tm-card-btns">
@@ -447,7 +432,7 @@ footer{position:relative;z-index:2;border-top:1px solid var(--border);
       <div class="svc-content">
         <div class="svc-tag">Domain Registration</div>
         <div class="svc-title">Buy Your Domain</div>
-        <div class="svc-desc">Best price pe domain register karo. .in domains from ₹599/yr. .com from ₹899/yr.</div>
+        <div class="svc-desc">Register your domain at the best price. .in domains from ₹599/yr. .com from ₹899/yr.</div>
       </div>
       <div class="svc-footer">
         <span class="svc-learn">Buy Domain <span class="svc-learn-arrow">→</span></span>
@@ -459,8 +444,8 @@ footer{position:relative;z-index:2;border-top:1px solid var(--border);
       <div class="svc-emoji">🎨</div>
       <div class="svc-content">
         <div class="svc-tag">Business Logo</div>
-        <div class="svc-title">Free Logo Banao</div>
-        <div class="svc-desc">AI se professional logo instantly ready. Koi designer ki zaroorat nahi.</div>
+        <div class="svc-title">Create a Free Logo</div>
+        <div class="svc-desc">Get a professional logo instantly with AI. No designer needed.</div>
       </div>
       <div class="svc-footer">
         <span class="svc-learn">Generate Free <span class="svc-learn-arrow">→</span></span>
@@ -472,8 +457,8 @@ footer{position:relative;z-index:2;border-top:1px solid var(--border);
       <div class="svc-emoji">💻</div>
       <div class="svc-content">
         <div class="svc-tag">Website · ₹199/month</div>
-        <div class="svc-title">Website Banwao</div>
-        <div class="svc-desc">Professional website sirf ₹199/month mein. Indian entrepreneurs ke liye perfect.</div>
+        <div class="svc-title">Get Your Website</div>
+        <div class="svc-desc">A professional website for just ₹199/month. Perfect for Indian entrepreneurs.</div>
       </div>
       <div class="svc-footer">
         <span class="svc-learn">Get Started <span class="svc-learn-arrow">→</span></span>
@@ -502,7 +487,7 @@ footer{position:relative;z-index:2;border-top:1px solid var(--border);
       <div class="how-icon">🚀</div>
       <div class="how-num">03</div>
       <div class="how-h">Save, buy & launch</div>
-      <div class="how-p">Heart favourites, check availability, buy instantly.</div>
+      <div class="how-p">Heart your favourites, check availability, and buy instantly.</div>
     </div>
   </div>
 </div>
@@ -543,7 +528,6 @@ const GROQ_KEY='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';
 let tl='.com';
 let liked=JSON.parse(localStorage.getItem('o7_liked')||'[]');
 
-// 15 color schemes cycling
 const CS_COUNT=15;
 
 function st(el,v){
@@ -582,12 +566,9 @@ function toggleLike(domain,btn){
 }
 renderLikedBar();
 
-// Check availability via RDAP (free, no key needed)
 async function checkAvail(domain, dotEl){
   try{
     const res=await fetch(`https://rdap.verisign.com/com/v1/domain/${domain}`,{method:'HEAD',mode:'no-cors'});
-    // no-cors = opaque response, if we get anything it means registered
-    // Use alternate: whoisjsonapi free tier
     dotEl.className='avail-dot unavailable';
     dotEl.title='Likely taken';
   }catch(e){
