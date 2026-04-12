@@ -16,8 +16,6 @@
 }
 html{scroll-behavior:smooth}
 body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-
-/* ===== SHARED NAV ===== */
 .mesh{position:fixed;inset:0;pointer-events:none;z-index:0;
   background:radial-gradient(ellipse 55% 45% at 10% 15%,rgba(109,40,217,.11) 0%,transparent 65%),
     radial-gradient(ellipse 50% 55% at 90% 10%,rgba(255,69,0,.09) 0%,transparent 65%),
@@ -30,7 +28,6 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 .fe4{font-size:24px;bottom:28%;right:3%;animation-delay:1s}
 .fe5{font-size:20px;bottom:14%;left:7%;animation-delay:2.5s}
 @media(max-width:640px){.fe{display:none}}
-
 nav{display:flex;justify-content:space-between;align-items:center;padding:0 32px;height:56px;
   background:rgba(247,246,243,.9);backdrop-filter:blur(20px);
   border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200}
@@ -41,8 +38,6 @@ nav{display:flex;justify-content:space-between;align-items:center;padding:0 32px
 .nav-pill{font-size:11px;font-weight:600;color:#fff;letter-spacing:.05em;
   background:linear-gradient(135deg,var(--accent),var(--purple));padding:4px 12px;border-radius:20px}
 @media(max-width:480px){nav{padding:0 16px}}
-
-/* ===== HOME PAGE ===== */
 #homePage{position:relative;z-index:2}
 .hero{text-align:center;padding:76px 20px 40px;max-width:700px;margin:0 auto}
 .hero-tag{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:600;
@@ -54,7 +49,6 @@ h1{font-family:'Syne',sans-serif;font-size:58px;font-weight:800;letter-spacing:-
 h1 em{font-style:normal;background:linear-gradient(135deg,var(--accent),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
 .hero-sub{font-size:16px;color:var(--muted);font-weight:400;line-height:1.65;margin-bottom:36px;max-width:460px;margin-left:auto;margin-right:auto}
 @media(max-width:640px){h1{font-size:36px;letter-spacing:-1.5px}.hero{padding:56px 16px 28px}.hero-sub{font-size:14px}}
-
 .search-outer{max-width:580px;margin:0 auto 10px}
 .search-box{display:flex;background:var(--white);border-radius:14px;
   padding:5px 5px 5px 18px;border:1.5px solid var(--border);
@@ -69,20 +63,17 @@ h1 em{font-style:normal;background:linear-gradient(135deg,var(--accent),var(--pu
 .gen-btn:hover{opacity:.82;transform:scale(.98)}
 .gen-btn:active{transform:scale(.96)}
 @media(max-width:480px){.gen-btn{padding:10px 14px;font-size:12px}}
-
 .tld-row{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin:12px 0 18px;padding:0 16px}
 .tld-btn{font-size:12px;font-weight:600;padding:6px 16px;border-radius:20px;
   border:1.5px solid var(--border);color:var(--muted);cursor:pointer;
   background:var(--white);font-family:'Plus Jakarta Sans',sans-serif;transition:all .15s}
 .tld-btn:hover{border-color:var(--purple);color:var(--purple)}
 .tld-btn.on{background:var(--black);color:#fff;border-color:var(--black)}
-
 .stats{display:flex;justify-content:center;gap:28px;flex-wrap:wrap;
   max-width:560px;margin:0 auto 36px;padding:0 16px}
 .stat{text-align:center}
 .stat-n{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--black);letter-spacing:-1px;line-height:1}
 .stat-l{font-size:11px;color:var(--muted);margin-top:2px}
-
 .industry-wrap{max-width:820px;margin:0 auto 14px;padding:0 16px}
 .sec-label{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;
   letter-spacing:.1em;margin-bottom:10px;text-align:center}
@@ -93,8 +84,6 @@ h1 em{font-style:normal;background:linear-gradient(135deg,var(--accent),var(--pu
   transition:all .15s;display:inline-flex;align-items:center;gap:5px}
 .chip:hover{background:var(--black);color:#fff;border-color:var(--black);transform:translateY(-1px)}
 .chip:active{transform:scale(.96)}
-
-/* SERVICES */
 .services{max-width:960px;margin:40px auto;padding:0 20px}
 .svc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
 @media(max-width:900px){.svc-grid{grid-template-columns:repeat(2,1fr)}}
@@ -129,8 +118,6 @@ h1 em{font-style:normal;background:linear-gradient(135deg,var(--accent),var(--pu
   border:1px solid rgba(255,255,255,.28);color:#fff;font-size:11px;font-weight:700;
   padding:9px 14px;border-radius:30px;text-decoration:none;font-family:'Plus Jakarta Sans',sans-serif;transition:all .18s}
 .tm-card-btn:hover{background:rgba(255,255,255,.32)}
-
-/* HOW */
 .how{max-width:920px;margin:0 auto 44px;padding:0 20px}
 .how-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .how-card{background:var(--white);border:1.5px solid var(--border);border-radius:16px;padding:20px}
@@ -139,8 +126,6 @@ h1 em{font-style:normal;background:linear-gradient(135deg,var(--accent),var(--pu
 .how-h{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--black);margin-bottom:4px}
 .how-p{font-size:12px;color:var(--muted);line-height:1.6}
 @media(max-width:640px){.how-grid{grid-template-columns:1fr}}
-
-/* MONKB */
 .monkb-wrap{max-width:920px;margin:0 auto 40px;padding:0 20px}
 .monkb{background:linear-gradient(135deg,#0c0c0c 0%,#181830 60%,#0c0c0c 100%);
   border-radius:20px;padding:32px 34px;display:flex;align-items:center;
@@ -163,7 +148,6 @@ h1 em{font-style:normal;background:linear-gradient(135deg,var(--accent),var(--pu
 .mr-name{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:#fff;letter-spacing:-.3px}
 .mr-sub{font-size:10px;color:rgba(255,255,255,.32);margin-top:2px}
 @media(max-width:640px){.monkb{flex-direction:column;padding:22px 18px;align-items:flex-start}.mr{align-self:center}.ml-title{font-size:21px}}
-
 footer{border-top:1px solid var(--border);padding:20px 32px;display:flex;justify-content:space-between;
   align-items:center;background:var(--white);flex-wrap:wrap;gap:10px;position:relative;z-index:2}
 .foot-logo{font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:var(--black)}
@@ -172,39 +156,21 @@ footer{border-top:1px solid var(--border);padding:20px 32px;display:flex;justify
 .foot-link{font-size:12px;color:var(--muted);text-decoration:none;transition:color .15s}
 .foot-link:hover{color:var(--black)}
 @media(max-width:520px){footer{padding:16px;justify-content:center;text-align:center}}
-
-/* ===== RESULTS PAGE ===== */
-#resultsPage{
-  display:none;
-  position:fixed;inset:0;z-index:150;
-  background:var(--bg);overflow-y:auto;
-}
-.rp-nav{
-  display:flex;justify-content:space-between;align-items:center;
+#resultsPage{display:none;position:fixed;inset:0;z-index:150;background:var(--bg);overflow-y:auto;}
+.rp-nav{display:flex;justify-content:space-between;align-items:center;
   padding:0 24px;height:56px;background:rgba(247,246,243,.95);
   backdrop-filter:blur(20px);border-bottom:1px solid var(--border);
-  position:sticky;top:0;z-index:160;
-}
-.rp-back{
-  display:inline-flex;align-items:center;gap:6px;
+  position:sticky;top:0;z-index:160;}
+.rp-back{display:inline-flex;align-items:center;gap:6px;
   background:var(--white);border:1.5px solid var(--border);
   color:var(--ink);font-size:13px;font-weight:700;
   padding:7px 16px;border-radius:30px;cursor:pointer;
-  font-family:'Plus Jakarta Sans',sans-serif;transition:all .15s;
-}
+  font-family:'Plus Jakarta Sans',sans-serif;transition:all .15s;}
 .rp-back:hover{background:var(--black);color:#fff;border-color:var(--black)}
-.rp-query{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;
-  color:var(--muted);letter-spacing:-.2px}
+.rp-query{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:var(--muted);letter-spacing:-.2px}
 .rp-query span{color:var(--black)}
-
-/* Saved bar on results page */
-.rp-saved-bar{
-  max-width:1100px;margin:16px auto 0;padding:0 20px;display:none;
-}
-.rp-saved-inner{
-  background:var(--white);border-radius:12px;padding:12px 16px;
-  border:1px solid var(--border);
-}
+.rp-saved-bar{max-width:1100px;margin:16px auto 0;padding:0 20px;display:none;}
+.rp-saved-inner{background:var(--white);border-radius:12px;padding:12px 16px;border:1px solid var(--border);}
 .rp-saved-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;flex-wrap:wrap;gap:8px}
 .rp-saved-title{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
 .rp-saved-btns{display:flex;gap:6px;flex-wrap:wrap}
@@ -219,8 +185,6 @@ footer{border-top:1px solid var(--border);padding:20px 32px;display:flex;justify
   border-radius:7px;padding:4px 10px;font-size:12px;font-weight:600;color:var(--ink)}
 .rp-saved-pill button{background:none;border:none;cursor:pointer;font-size:14px;color:var(--muted);line-height:1;padding:0}
 .rp-saved-pill button:hover{color:var(--accent)}
-
-/* Grid */
 .rp-body{max-width:1100px;margin:0 auto;padding:20px 20px 0}
 .res-label{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.06em;
   margin-bottom:20px;text-align:center;text-transform:uppercase}
@@ -228,7 +192,6 @@ footer{border-top:1px solid var(--border);padding:20px 32px;display:flex;justify
 @media(max-width:1024px){.logo-grid{grid-template-columns:repeat(4,1fr)}}
 @media(max-width:768px){.logo-grid{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:480px){.logo-grid{grid-template-columns:repeat(2,1fr)}}
-
 .lc{position:relative;border-radius:16px;overflow:hidden;cursor:pointer;
   aspect-ratio:1.4/1;display:flex;flex-direction:column;align-items:center;
   justify-content:center;transition:transform .2s cubic-bezier(.34,1.4,.64,1),box-shadow .2s;
@@ -238,23 +201,13 @@ footer{border-top:1px solid var(--border);padding:20px 32px;display:flex;justify
   letter-spacing:.06em;text-transform:uppercase;background:rgba(255,255,255,.22);
   color:rgba(255,255,255,.95);border:1px solid rgba(255,255,255,.3);border-radius:5px;
   padding:2px 7px;z-index:4;backdrop-filter:blur(4px)}
-
-/* ========================================================
-   LIKE BUTTON — z-index:5 taaki overlay(z-index:3) ke upar rahe
-   pointer-events:all explicitly set kiya hai
-   ======================================================== */
-.lc-like{
-  position:absolute;top:8px;right:8px;z-index:5;
+.lc-like{position:absolute;top:8px;right:8px;z-index:5;
   width:28px;height:28px;border-radius:7px;cursor:pointer;font-size:14px;
-  border:1.5px solid rgba(255,255,255,.3);
-  background:rgba(255,255,255,.15);
+  border:1.5px solid rgba(255,255,255,.3);background:rgba(255,255,255,.15);
   display:flex;align-items:center;justify-content:center;
-  transition:all .15s;backdrop-filter:blur(4px);color:rgba(255,255,255,.8);
-  pointer-events:all;
-}
+  transition:all .15s;backdrop-filter:blur(4px);color:rgba(255,255,255,.8);pointer-events:all;}
 .lc-like:hover{background:rgba(255,255,255,.3);color:#fff}
 .lc-like.liked{background:var(--accent);border-color:var(--accent);color:#fff}
-
 .lc-name{font-size:15px;font-weight:700;text-align:center;letter-spacing:-.2px;
   padding:0 10px;line-height:1.2;word-break:break-all;z-index:1}
 .avail-dot{position:absolute;bottom:8px;right:10px;width:8px;height:8px;border-radius:50%;z-index:2}
@@ -263,21 +216,11 @@ footer{border-top:1px solid var(--border);padding:20px 32px;display:flex;justify
 .mix-badge{position:absolute;bottom:8px;left:10px;z-index:2;font-size:8px;font-weight:700;
   letter-spacing:.05em;text-transform:uppercase;background:rgba(0,0,0,.35);
   color:rgba(255,255,255,.8);border-radius:4px;padding:2px 6px}
-
-/* ========================================================
-   OVERLAY — sirf tab dikhega jab like button pe hover NAHI hai
-   ======================================================== */
-.lc-overlay{
-  position:absolute;inset:0;
-  background:rgba(0,0,0,.55);
+.lc-overlay{position:absolute;inset:0;background:rgba(0,0,0,.55);
   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;
-  opacity:0;transition:opacity .18s;z-index:3;border-radius:16px;
-  pointer-events:none;
-}
+  opacity:0;transition:opacity .18s;z-index:3;border-radius:16px;pointer-events:none;}
 .lc:hover .lc-overlay{opacity:1;pointer-events:all}
-/* FIX: Jab like button pe hover ho tab overlay band */
 .lc:has(.lc-like:hover) .lc-overlay{opacity:0 !important;pointer-events:none !important}
-
 .lov-btn{font-size:11px;font-weight:700;padding:7px 20px;border-radius:8px;
   text-decoration:none;text-align:center;font-family:'Plus Jakarta Sans',sans-serif;
   cursor:pointer;border:none;width:120px;transition:opacity .1s}
@@ -285,8 +228,6 @@ footer{border-top:1px solid var(--border);padding:20px 32px;display:flex;justify
 .lov-chk{background:rgba(255,255,255,.18);color:#fff;border:1.5px solid rgba(255,255,255,.4)}
 .lov-buy:hover{opacity:.88}
 .lov-chk:hover{background:rgba(255,255,255,.28)}
-
-/* Color schemes */
 .cs-0{background:#f5a623}.cs-0 .lc-name{color:#3d2600;font-family:'Syne',sans-serif}
 .cs-1{background:#f0f0ed}.cs-1 .lc-name{color:#1a1a1a;font-family:'Space Grotesk',sans-serif;font-weight:600}
 .cs-2{background:#f8f8f8}.cs-2 .lc-name{color:#111;font-family:'Montserrat',sans-serif;letter-spacing:.5px;font-size:13px}
@@ -302,37 +243,25 @@ footer{border-top:1px solid var(--border);padding:20px 32px;display:flex;justify
 .cs-12{background:#14532d}.cs-12 .lc-name{color:#bbf7d0;font-family:'Poppins',sans-serif;font-size:13px}
 .cs-13{background:#312e81}.cs-13 .lc-name{color:#e0e7ff;font-family:'Raleway',sans-serif;font-size:13px;font-weight:800}
 .cs-14{background:#7c3aed}.cs-14 .lc-name{color:#fff;font-family:'Syne',sans-serif;font-size:14px;font-weight:800}
-
-/* Spin */
 .spin-wrap{text-align:center;padding:100px 0}
 .spin{width:36px;height:36px;border:2.5px solid var(--border);border-top-color:var(--purple);
   border-radius:50%;margin:0 auto 16px;animation:sp .7s linear infinite}
 @keyframes sp{to{transform:rotate(360deg)}}
 .spin-txt{font-size:14px;color:var(--muted);font-weight:500}
 .spin-sub{font-size:12px;color:var(--border);margin-top:6px}
-
-/* ===== BOTTOM CTA after all names ===== */
-.rp-bottom-cta{
-  max-width:1100px;margin:0 auto;padding:36px 20px 60px;
-  opacity:0;transform:translateY(30px);
-  transition:opacity .5s ease,transform .5s ease;
-}
+.rp-bottom-cta{max-width:1100px;margin:0 auto;padding:36px 20px 60px;
+  opacity:0;transform:translateY(30px);transition:opacity .5s ease,transform .5s ease;}
 .rp-bottom-cta.visible{opacity:1;transform:translateY(0)}
 .rp-cta-label{font-size:11px;font-weight:700;color:var(--muted);
   text-transform:uppercase;letter-spacing:.1em;text-align:center;margin-bottom:18px}
 .rp-cta-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
 @media(max-width:540px){.rp-cta-grid{grid-template-columns:1fr}}
-
-.rp-cta-card{
-  border-radius:20px;padding:24px 22px;text-decoration:none;
-  display:flex;align-items:center;gap:18px;cursor:pointer;
-  transition:transform .2s,box-shadow .2s;
-}
+.rp-cta-card{border-radius:20px;padding:24px 22px;text-decoration:none;
+  display:flex;align-items:center;gap:18px;cursor:pointer;transition:transform .2s,box-shadow .2s;}
 .rp-cta-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,.18)}
 .rp-cta-card.cta-logo{background:linear-gradient(135deg,#f59e0b,#ef4444)}
 .rp-cta-card.cta-tm{background:linear-gradient(135deg,#667eea,#764ba2)}
 .rp-cta-icon{font-size:44px;line-height:1;flex-shrink:0}
-.rp-cta-text{}
 .rp-cta-title{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;color:#fff;margin-bottom:5px}
 .rp-cta-desc{font-size:12px;color:rgba(255,255,255,.72);line-height:1.55}
 .rp-cta-btn{display:inline-flex;align-items:center;gap:6px;margin-top:12px;
@@ -340,15 +269,12 @@ footer{border-top:1px solid var(--border);padding:20px 32px;display:flex;justify
   padding:8px 18px;border-radius:30px;border:1px solid rgba(255,255,255,.3);
   font-family:'Plus Jakarta Sans',sans-serif;transition:background .15s}
 .rp-cta-btn:hover{background:rgba(255,255,255,.35)}
-
-/* toast */
 #toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(20px);
   background:var(--black);color:#fff;font-size:13px;font-weight:600;
   padding:10px 22px;border-radius:30px;z-index:9999;
   opacity:0;transition:opacity .25s,transform .25s;pointer-events:none;
   font-family:'Plus Jakarta Sans',sans-serif;white-space:nowrap}
 #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-
 @media(max-width:640px){
   .services,.how,.monkb-wrap{padding-left:14px;padding-right:14px}
   .svc-grid{grid-template-columns:1fr}
@@ -365,13 +291,11 @@ footer{border-top:1px solid var(--border);padding:20px 32px;display:flex;justify
 <div class="fe fe5">⚡</div>
 <div id="toast"></div>
 
-<!-- ===================== HOME PAGE ===================== -->
 <div id="homePage">
   <nav>
     <div class="logo" onclick="goHome()"><div class="logo-dot"></div>orbit07<span style="color:var(--muted)">.ai</span></div>
     <div class="nav-pill">Orbit07 AI · Free</div>
   </nav>
-
   <div id="homeContent">
     <div class="hero">
       <div class="hero-tag"><span>✦</span> Orbit07 AI · India's Favourite</div>
@@ -392,14 +316,12 @@ footer{border-top:1px solid var(--border);padding:20px 32px;display:flex;justify
         <button class="tld-btn" onclick="st(this,'mix')">✦ Mix All</button>
       </div>
     </div>
-
     <div class="stats">
       <div class="stat"><div class="stat-n">50K+</div><div class="stat-l">Domains Generated</div></div>
       <div class="stat"><div class="stat-n">100</div><div class="stat-l">Names per Search</div></div>
       <div class="stat"><div class="stat-n">100%</div><div class="stat-l">Free Forever</div></div>
       <div class="stat"><div class="stat-n">&lt;5s</div><div class="stat-l">Generation Time</div></div>
     </div>
-
     <div class="industry-wrap">
       <div class="sec-label">Popular Industries — tap to search instantly</div>
       <div class="chips">
@@ -423,7 +345,6 @@ footer{border-top:1px solid var(--border);padding:20px 32px;display:flex;justify
         <button class="chip" onclick="sx('automotive car service')">🚗 Automotive</button>
       </div>
     </div>
-
     <div class="services" style="position:relative;z-index:2">
       <div class="sec-label" style="margin-bottom:20px;">Our Services</div>
       <div class="svc-grid">
@@ -470,7 +391,6 @@ footer{border-top:1px solid var(--border);padding:20px 32px;display:flex;justify
         </div>
       </div>
     </div>
-
     <div class="how" style="position:relative;z-index:2">
       <div class="sec-label" style="margin-bottom:14px;">How It Works</div>
       <div class="how-grid">
@@ -491,7 +411,6 @@ footer{border-top:1px solid var(--border);padding:20px 32px;display:flex;justify
         </div>
       </div>
     </div>
-
     <div class="monkb-wrap" style="position:relative;z-index:2">
       <div class="monkb">
         <div class="mb1"></div><div class="mb2"></div>
@@ -510,7 +429,6 @@ footer{border-top:1px solid var(--border);padding:20px 32px;display:flex;justify
         </div>
       </div>
     </div>
-
     <footer>
       <div class="foot-logo">orbit07.ai</div>
       <div class="foot-made">Made with ❤️ in India</div>
@@ -522,15 +440,12 @@ footer{border-top:1px solid var(--border);padding:20px 32px;display:flex;justify
   </div>
 </div>
 
-<!-- ===================== RESULTS PAGE ===================== -->
 <div id="resultsPage">
   <div class="rp-nav">
     <button class="rp-back" onclick="goHome()">← Back</button>
     <div class="rp-query">Results for: <span id="rpQueryLabel"></span></div>
     <div class="nav-pill">Orbit07 AI · Free</div>
   </div>
-
-  <!-- Saved bar -->
   <div class="rp-saved-bar" id="rpSavedBar">
     <div class="rp-saved-inner">
       <div class="rp-saved-top">
@@ -544,13 +459,9 @@ footer{border-top:1px solid var(--border);padding:20px 32px;display:flex;justify
       <div class="rp-saved-list" id="rpSavedList"></div>
     </div>
   </div>
-
-  <!-- Grid -->
   <div class="rp-body">
     <div id="rpGrid"></div>
   </div>
-
-  <!-- Bottom CTA -->
   <div class="rp-bottom-cta" id="rpBottomCta">
     <div class="rp-cta-label">✦ Your domain is ready — what's next?</div>
     <div class="rp-cta-grid">
@@ -577,8 +488,13 @@ footer{border-top:1px solid var(--border);padding:20px 32px;display:flex;justify
 <script>
 const GROQ_KEY='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';
 let tl='.com';
-let liked=JSON.parse(localStorage.getItem('o7_liked')||'[]');
+let liked=[];
 const CS_COUNT=15;
+
+/* localStorage safe wrapper */
+function lsGet(k){try{return JSON.parse(localStorage.getItem(k)||'[]');}catch(e){return[];}}
+function lsSet(k,v){try{localStorage.setItem(k,JSON.stringify(v));}catch(e){}}
+liked=lsGet('o7_liked');
 
 function st(el,v){
   document.querySelectorAll('.tld-btn').forEach(b=>b.classList.remove('on'));
@@ -595,7 +511,7 @@ function showToast(msg){
 
 /* ---- LIKED ---- */
 function saveLiked(){
-  localStorage.setItem('o7_liked',JSON.stringify(liked));
+  lsSet('o7_liked',liked);
   renderSavedBar();
 }
 
@@ -606,7 +522,6 @@ function renderSavedBar(){
   if(!liked.length){bar.style.display='none';return;}
   bar.style.display='block';
   list.innerHTML=liked.map(d=>`<div class="rp-saved-pill"><span>${d}</span><button onclick="removeLiked('${d.replace(/'/g,"\\'")}')">×</button></div>`).join('');
-  /* grid mein like buttons sync karo */
   document.querySelectorAll('.lc-like').forEach(btn=>{
     const d=btn.dataset.domain;
     if(liked.includes(d)){btn.classList.add('liked');btn.innerHTML='♥';}
@@ -618,10 +533,6 @@ function removeLiked(d){
   liked=liked.filter(x=>x!==d);saveLiked();
 }
 
-/* ========================================================
-   toggleLike — event.stopPropagation() se card click cancel,
-   sirf like/unlike hoga, overlay nahi aayega
-   ======================================================== */
 function toggleLike(domain,btn,e){
   if(e){e.stopPropagation();e.preventDefault();}
   if(liked.includes(domain)){
@@ -636,23 +547,57 @@ function toggleLike(domain,btn,e){
   saveLiked();
 }
 
-/* ---- COPY LIKED ---- */
+/* ====================================================
+   COPY LIKED — FIXED
+   3 methods try karta hai:
+   1. navigator.clipboard (modern browsers)
+   2. document.execCommand fallback
+   3. prompt() se manually copy karo
+   ==================================================== */
 function copyLiked(){
-  if(!liked.length)return;
+  if(!liked.length){showToast('❌ Koi domain save nahi hai!');return;}
   const btn=document.getElementById('rpCopyBtn');
-  const text='My saved domain names from Orbit07 AI:\n\n'+liked.map((d,i)=>`${i+1}. ${d}`).join('\n')+'\n\nGenerated at orbit07.ai';
-  navigator.clipboard.writeText(text).then(()=>{
+  const text=liked.map((d,i)=>(i+1)+'. '+d).join('\n')+'\n\nGenerated at orbit07.ai';
+
+  function onSuccess(){
     if(btn){btn.textContent='✅ Copied!';btn.classList.add('copied');}
-    showToast('✅ Domain list copied to clipboard!');
-    setTimeout(()=>{if(btn){btn.textContent='📋 Copy List';btn.classList.remove('copied');}},2200);
-  }).catch(()=>{
-    const ta=document.createElement('textarea');
-    ta.value=text;ta.style.cssText='position:fixed;opacity:0';
-    document.body.appendChild(ta);ta.select();document.execCommand('copy');document.body.removeChild(ta);
-    if(btn){btn.textContent='✅ Copied!';btn.classList.add('copied');}
-    showToast('✅ Domain list copied to clipboard!');
-    setTimeout(()=>{if(btn){btn.textContent='📋 Copy List';btn.classList.remove('copied');}},2200);
-  });
+    showToast('✅ Copy ho gaya! Clipboard mein hai.');
+    setTimeout(()=>{if(btn){btn.textContent='📋 Copy List';btn.classList.remove('copied');}},2500);
+  }
+  function onFail(){
+    /* Last fallback: prompt box mein show karo — user manually Ctrl+C kar sakta hai */
+    window.prompt('Yeh domains copy karo (Ctrl+C dabao):',text);
+  }
+
+  /* Method 1: Modern Clipboard API */
+  if(navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(text).then(onSuccess).catch(()=>{
+      /* Method 2: execCommand fallback */
+      execCopy(text,onSuccess,onFail);
+    });
+  } else {
+    /* Method 2 directly */
+    execCopy(text,onSuccess,onFail);
+  }
+}
+
+function execCopy(text,onSuccess,onFail){
+  const ta=document.createElement('textarea');
+  ta.value=text;
+  ta.setAttribute('readonly','');
+  ta.style.cssText='position:fixed;top:-9999px;left:-9999px;opacity:0;';
+  document.body.appendChild(ta);
+  ta.focus();
+  ta.select();
+  ta.setSelectionRange(0,99999);
+  try{
+    const ok=document.execCommand('copy');
+    document.body.removeChild(ta);
+    if(ok){onSuccess();}else{onFail();}
+  }catch(err){
+    document.body.removeChild(ta);
+    onFail();
+  }
 }
 
 /* ---- PAGE SWITCH ---- */
@@ -674,7 +619,7 @@ async function go(){
   const biz=document.getElementById('bi').value.trim();
   if(!biz)return;
 
-  document.getElementById('rpQueryLabel').textContent=`"${biz}"`;
+  document.getElementById('rpQueryLabel').textContent='"'+biz+'"';
   document.getElementById('rpGrid').innerHTML=`
     <div class="spin-wrap">
       <div class="spin"></div>
@@ -712,36 +657,29 @@ All 100 items required.`;
     const raw=data.choices[0].message.content.replace(/```json|```/g,'').trim();
     const doms=JSON.parse(raw);
 
-    const gridHTML=`
-      <div class="res-label">✦ ${doms.length} brand names by Orbit07 AI for "${biz}"</div>
-      <div class="logo-grid">
-        ${doms.map((x,i)=>{
-          const iL=liked.includes(x.domain);
-          const safe=x.domain.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
-          const cs=i%CS_COUNT;
-          const availClass=x.likely_available?'available':'unavailable';
-          const availTitle=x.likely_available?'Likely available ✓':'Possibly taken';
-          return`<div class="lc cs-${cs}" title="${(x.reason||'').replace(/"/g,'&quot;')}">
-            ${x.top?'<div class="lc-top-badge">✦ Top Pick</div>':''}
-            <button class="lc-like${iL?' liked':''}" data-domain="${x.domain}"
-              onclick="toggleLike('${safe}',this,event)">${iL?'♥':'♡'}</button>
-            <div class="lc-name">${x.domain}</div>
-            <div class="avail-dot ${availClass}" title="${availTitle}"></div>
-            ${x.likely_available?'<div class="mix-badge">✓ Available</div>':''}
-            <div class="lc-overlay">
-              <a class="lov-btn lov-buy" href="https://www.namecheap.com/domains/registration/results/?domain=${encodeURIComponent(x.domain)}" target="_blank" onclick="event.stopPropagation()">Buy Now</a>
-              <a class="lov-btn lov-chk" href="https://www.godaddy.com/domainsearch/find?checkAvail=1&domainToCheck=${encodeURIComponent(x.domain)}" target="_blank" onclick="event.stopPropagation()">Check →</a>
-            </div>
-          </div>`;
-        }).join('')}
-      </div>`;
+    const gridHTML='<div class="res-label">✦ '+doms.length+' brand names by Orbit07 AI for "'+biz+'"</div><div class="logo-grid">'+
+      doms.map(function(x,i){
+        const iL=liked.includes(x.domain);
+        const safe=x.domain.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+        const cs=i%CS_COUNT;
+        const availClass=x.likely_available?'available':'unavailable';
+        const availTitle=x.likely_available?'Likely available ✓':'Possibly taken';
+        return '<div class="lc cs-'+cs+'" title="'+(x.reason||'').replace(/"/g,'&quot;')+'">'+
+          (x.top?'<div class="lc-top-badge">✦ Top Pick</div>':'')+
+          '<button class="lc-like'+(iL?' liked':'')+'" data-domain="'+x.domain+'" onclick="toggleLike(\''+safe+'\',this,event)">'+(iL?'♥':'♡')+'</button>'+
+          '<div class="lc-name">'+x.domain+'</div>'+
+          '<div class="avail-dot '+availClass+'" title="'+availTitle+'"></div>'+
+          (x.likely_available?'<div class="mix-badge">✓ Available</div>':'')+
+          '<div class="lc-overlay">'+
+          '<a class="lov-btn lov-buy" href="https://www.namecheap.com/domains/registration/results/?domain='+encodeURIComponent(x.domain)+'" target="_blank" onclick="event.stopPropagation()">Buy Now</a>'+
+          '<a class="lov-btn lov-chk" href="https://www.godaddy.com/domainsearch/find?checkAvail=1&domainToCheck='+encodeURIComponent(x.domain)+'" target="_blank" onclick="event.stopPropagation()">Check →</a>'+
+          '</div></div>';
+      }).join('')+
+    '</div>';
 
     document.getElementById('rpGrid').innerHTML=gridHTML;
     renderSavedBar();
-
-    setTimeout(()=>{
-      document.getElementById('rpBottomCta').classList.add('visible');
-    },600);
+    setTimeout(function(){document.getElementById('rpBottomCta').classList.add('visible');},600);
 
   }catch(e){
     document.getElementById('rpGrid').innerHTML='<div class="spin-wrap"><div class="spin-txt">Something went wrong. Please try again.</div></div>';
@@ -749,7 +687,7 @@ All 100 items required.`;
   }
 }
 
-document.getElementById('bi').addEventListener('keydown',e=>{if(e.key==='Enter')go();});
+document.getElementById('bi').addEventListener('keydown',function(e){if(e.key==='Enter')go();});
 </script>
 </body>
 </html>
