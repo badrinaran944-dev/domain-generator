@@ -237,13 +237,24 @@ footer{border-top:1px solid var(--border);padding:20px 32px;display:flex;justify
 .lc-top-badge{position:absolute;top:8px;left:8px;font-size:8px;font-weight:800;
   letter-spacing:.06em;text-transform:uppercase;background:rgba(255,255,255,.22);
   color:rgba(255,255,255,.95);border:1px solid rgba(255,255,255,.3);border-radius:5px;
-  padding:2px 7px;z-index:2;backdrop-filter:blur(4px)}
-.lc-like{position:absolute;top:8px;right:8px;z-index:2;width:28px;height:28px;
-  border-radius:7px;cursor:pointer;font-size:14px;border:1.5px solid rgba(255,255,255,.3);
-  background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;
-  transition:all .15s;backdrop-filter:blur(4px);color:rgba(255,255,255,.8)}
+  padding:2px 7px;z-index:4;backdrop-filter:blur(4px)}
+
+/* ========================================================
+   LIKE BUTTON — z-index:5 taaki overlay(z-index:3) ke upar rahe
+   pointer-events:all explicitly set kiya hai
+   ======================================================== */
+.lc-like{
+  position:absolute;top:8px;right:8px;z-index:5;
+  width:28px;height:28px;border-radius:7px;cursor:pointer;font-size:14px;
+  border:1.5px solid rgba(255,255,255,.3);
+  background:rgba(255,255,255,.15);
+  display:flex;align-items:center;justify-content:center;
+  transition:all .15s;backdrop-filter:blur(4px);color:rgba(255,255,255,.8);
+  pointer-events:all;
+}
 .lc-like:hover{background:rgba(255,255,255,.3);color:#fff}
 .lc-like.liked{background:var(--accent);border-color:var(--accent);color:#fff}
+
 .lc-name{font-size:15px;font-weight:700;text-align:center;letter-spacing:-.2px;
   padding:0 10px;line-height:1.2;word-break:break-all;z-index:1}
 .avail-dot{position:absolute;bottom:8px;right:10px;width:8px;height:8px;border-radius:50%;z-index:2}
@@ -252,10 +263,21 @@ footer{border-top:1px solid var(--border);padding:20px 32px;display:flex;justify
 .mix-badge{position:absolute;bottom:8px;left:10px;z-index:2;font-size:8px;font-weight:700;
   letter-spacing:.05em;text-transform:uppercase;background:rgba(0,0,0,.35);
   color:rgba(255,255,255,.8);border-radius:4px;padding:2px 6px}
-.lc-overlay{position:absolute;inset:0;background:rgba(0,0,0,.55);display:flex;
-  flex-direction:column;align-items:center;justify-content:center;gap:7px;
-  opacity:0;transition:opacity .18s;z-index:3;border-radius:16px}
-.lc:hover .lc-overlay{opacity:1}
+
+/* ========================================================
+   OVERLAY — sirf tab dikhega jab like button pe hover NAHI hai
+   ======================================================== */
+.lc-overlay{
+  position:absolute;inset:0;
+  background:rgba(0,0,0,.55);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;
+  opacity:0;transition:opacity .18s;z-index:3;border-radius:16px;
+  pointer-events:none;
+}
+.lc:hover .lc-overlay{opacity:1;pointer-events:all}
+/* FIX: Jab like button pe hover ho tab overlay band */
+.lc:has(.lc-like:hover) .lc-overlay{opacity:0 !important;pointer-events:none !important}
+
 .lov-btn{font-size:11px;font-weight:700;padding:7px 20px;border-radius:8px;
   text-decoration:none;text-align:center;font-family:'Plus Jakarta Sans',sans-serif;
   cursor:pointer;border:none;width:120px;transition:opacity .1s}
@@ -528,7 +550,7 @@ footer{border-top:1px solid var(--border);padding:20px 32px;display:flex;justify
     <div id="rpGrid"></div>
   </div>
 
-  <!-- Bottom CTA — Logo + Trademark (appears after names load) -->
+  <!-- Bottom CTA -->
   <div class="rp-bottom-cta" id="rpBottomCta">
     <div class="rp-cta-label">✦ Your domain is ready — what's next?</div>
     <div class="rp-cta-grid">
@@ -584,7 +606,7 @@ function renderSavedBar(){
   if(!liked.length){bar.style.display='none';return;}
   bar.style.display='block';
   list.innerHTML=liked.map(d=>`<div class="rp-saved-pill"><span>${d}</span><button onclick="removeLiked('${d.replace(/'/g,"\\'")}')">×</button></div>`).join('');
-  // sync like buttons in grid
+  /* grid mein like buttons sync karo */
   document.querySelectorAll('.lc-like').forEach(btn=>{
     const d=btn.dataset.domain;
     if(liked.includes(d)){btn.classList.add('liked');btn.innerHTML='♥';}
@@ -596,17 +618,25 @@ function removeLiked(d){
   liked=liked.filter(x=>x!==d);saveLiked();
 }
 
-function toggleLike(domain,btn){
+/* ========================================================
+   toggleLike — event.stopPropagation() se card click cancel,
+   sirf like/unlike hoga, overlay nahi aayega
+   ======================================================== */
+function toggleLike(domain,btn,e){
+  if(e){e.stopPropagation();e.preventDefault();}
   if(liked.includes(domain)){
     liked=liked.filter(x=>x!==domain);
     btn.classList.remove('liked');btn.innerHTML='♡';
+    showToast('💔 Removed: '+domain);
   } else {
     liked.push(domain);
     btn.classList.add('liked');btn.innerHTML='♥';
+    showToast('❤️ Saved: '+domain);
   }
   saveLiked();
 }
 
+/* ---- COPY LIKED ---- */
 function copyLiked(){
   if(!liked.length)return;
   const btn=document.getElementById('rpCopyBtn');
@@ -636,8 +666,6 @@ function showResultsPage(){
   document.getElementById('homePage').style.display='none';
   document.getElementById('resultsPage').style.display='block';
   document.getElementById('resultsPage').scrollTop=0;
-  document.body.style.overflow='hidden'; // results page handles its own scroll
-  // fix: results page is fixed so body overflow doesn't matter
   document.body.style.overflow='';
 }
 
@@ -646,7 +674,6 @@ async function go(){
   const biz=document.getElementById('bi').value.trim();
   if(!biz)return;
 
-  // Switch to results page immediately, show loader
   document.getElementById('rpQueryLabel').textContent=`"${biz}"`;
   document.getElementById('rpGrid').innerHTML=`
     <div class="spin-wrap">
@@ -697,7 +724,7 @@ All 100 items required.`;
           return`<div class="lc cs-${cs}" title="${(x.reason||'').replace(/"/g,'&quot;')}">
             ${x.top?'<div class="lc-top-badge">✦ Top Pick</div>':''}
             <button class="lc-like${iL?' liked':''}" data-domain="${x.domain}"
-              onclick="event.stopPropagation();toggleLike('${safe}',this)">${iL?'♥':'♡'}</button>
+              onclick="toggleLike('${safe}',this,event)">${iL?'♥':'♡'}</button>
             <div class="lc-name">${x.domain}</div>
             <div class="avail-dot ${availClass}" title="${availTitle}"></div>
             ${x.likely_available?'<div class="mix-badge">✓ Available</div>':''}
@@ -712,7 +739,6 @@ All 100 items required.`;
     document.getElementById('rpGrid').innerHTML=gridHTML;
     renderSavedBar();
 
-    // Show bottom CTA after a short delay (names are now all visible)
     setTimeout(()=>{
       document.getElementById('rpBottomCta').classList.add('visible');
     },600);
