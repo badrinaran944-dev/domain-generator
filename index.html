@@ -57,20 +57,71 @@ h1 em{font-style:normal;background:linear-gradient(135deg,var(--accent),var(--pu
   margin-bottom:36px;max-width:460px;margin-left:auto;margin-right:auto}
 @media(max-width:640px){h1{font-size:36px;letter-spacing:-1.5px}.hero{padding:56px 16px 28px}.hero-sub{font-size:14px}}
 
-.search-outer{max-width:580px;margin:0 auto 10px}
-.search-box{display:flex;background:var(--white);border-radius:14px;
-  padding:5px 5px 5px 18px;border:1.5px solid var(--border);
-  box-shadow:0 4px 20px rgba(0,0,0,.06);transition:border-color .2s,box-shadow .2s}
-.search-box:focus-within{border-color:var(--purple);box-shadow:0 4px 28px rgba(109,40,217,.12)}
-.search-box input{flex:1;border:none;outline:none;font-size:15px;
-  font-family:'Plus Jakarta Sans',sans-serif;color:var(--ink);background:transparent;min-width:0}
+/* ===== MODERN AI SEARCH BOX ===== */
+.search-outer{max-width:600px;margin:0 auto 10px;position:relative}
+.search-box{
+  display:flex;
+  background:var(--white);
+  border-radius:18px;
+  padding:6px 6px 6px 20px;
+  border:2px solid transparent;
+  background-clip:padding-box;
+  box-shadow:0 4px 24px rgba(0,0,0,.08),0 1px 3px rgba(0,0,0,.04);
+  transition:all .3s cubic-bezier(.4,0,.2,1);
+  position:relative;
+}
+.search-box::before{
+  content:'';position:absolute;inset:-2px;border-radius:20px;
+  background:linear-gradient(135deg,var(--purple),var(--accent),#06b6d4);
+  z-index:-1;opacity:0;transition:opacity .3s;
+}
+.search-box:focus-within{
+  box-shadow:0 8px 36px rgba(109,40,217,.18),0 2px 8px rgba(0,0,0,.06);
+}
+.search-box:focus-within::before{opacity:1}
+.search-input-wrap{flex:1;display:flex;align-items:center;gap:10px;min-width:0}
+.search-ai-icon{
+  font-size:18px;flex-shrink:0;
+  background:linear-gradient(135deg,var(--purple),var(--accent));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  animation:ai-pulse 3s ease-in-out infinite;
+}
+@keyframes ai-pulse{0%,100%{filter:brightness(1)}50%{filter:brightness(1.3)}}
+.search-box input{
+  flex:1;border:none;outline:none;font-size:15px;
+  font-family:'Plus Jakarta Sans',sans-serif;color:var(--ink);background:transparent;min-width:0;
+  padding:10px 0;
+}
 .search-box input::placeholder{color:#c0bdb8}
-.gen-btn{background:var(--black);color:#fff;border:none;padding:11px 22px;border-radius:10px;
-  font-size:13px;font-weight:700;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;
-  white-space:nowrap;display:flex;align-items:center;gap:6px;
-  transition:opacity .15s,transform .1s;flex-shrink:0}
-.gen-btn:hover{opacity:.82;transform:scale(.98)}
-.gen-btn:active{transform:scale(.96)}
+
+/* Modern AI Generate Button */
+.gen-btn{
+  background:linear-gradient(135deg,#0c0c0c 0%,#1a1a2e 50%,#0c0c0c 100%);
+  color:#fff;border:none;padding:12px 24px;border-radius:13px;
+  font-size:13px;font-weight:700;cursor:pointer;
+  font-family:'Plus Jakarta Sans',sans-serif;
+  white-space:nowrap;display:flex;align-items:center;gap:8px;
+  transition:all .25s cubic-bezier(.4,0,.2,1);flex-shrink:0;
+  position:relative;overflow:hidden;
+  box-shadow:0 2px 12px rgba(0,0,0,.25);
+}
+.gen-btn::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,var(--accent),var(--purple));
+  opacity:0;transition:opacity .25s;
+}
+.gen-btn:hover::before{opacity:1}
+.gen-btn:hover{transform:scale(.98);box-shadow:0 4px 20px rgba(109,40,217,.35)}
+.gen-btn:active{transform:scale(.95)}
+.gen-btn-text,.gen-btn-icon{position:relative;z-index:1}
+.gen-btn-icon{
+  width:20px;height:20px;border-radius:6px;
+  background:rgba(255,255,255,.15);
+  display:flex;align-items:center;justify-content:center;
+  font-size:11px;transition:transform .25s;
+}
+.gen-btn:hover .gen-btn-icon{transform:rotate(20deg) scale(1.1)}
+
 @media(max-width:480px){.gen-btn{padding:10px 14px;font-size:12px}}
 
 .tld-row{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin:12px 0 18px;padding:0 16px}
@@ -87,16 +138,47 @@ h1 em{font-style:normal;background:linear-gradient(135deg,var(--accent),var(--pu
   color:var(--black);letter-spacing:-1px;line-height:1}
 .stat-l{font-size:11px;color:var(--muted);margin-top:2px}
 
-.industry-wrap{position:relative;z-index:2;max-width:820px;margin:0 auto 14px;padding:0 16px}
+/* ===== MODERN INDUSTRIES SECTION ===== */
+.industry-wrap{position:relative;z-index:2;max-width:860px;margin:0 auto 14px;padding:0 16px}
 .sec-label{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;
   letter-spacing:.1em;margin-bottom:10px;text-align:center}
-.chips{display:flex;gap:6px;flex-wrap:wrap;justify-content:center}
-.chip{font-size:12px;font-weight:600;padding:7px 15px;border-radius:20px;
-  border:1.5px solid var(--border);color:var(--ink);cursor:pointer;
-  background:var(--white);font-family:'Plus Jakarta Sans',sans-serif;
-  transition:all .15s;display:inline-flex;align-items:center;gap:5px}
-.chip:hover{background:var(--black);color:#fff;border-color:var(--black);transform:translateY(-1px)}
-.chip:active{transform:scale(.96)}
+
+.industry-grid{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:8px;
+}
+@media(max-width:900px){.industry-grid{grid-template-columns:repeat(4,1fr)}}
+@media(max-width:580px){.industry-grid{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:380px){.industry-grid{grid-template-columns:repeat(2,1fr)}}
+
+.ind-card{
+  background:var(--white);
+  border:1.5px solid var(--border);
+  border-radius:14px;
+  padding:12px 8px 10px;
+  cursor:pointer;
+  display:flex;flex-direction:column;align-items:center;gap:5px;
+  transition:all .2s cubic-bezier(.34,1.4,.64,1);
+  text-align:center;
+  position:relative;overflow:hidden;
+}
+.ind-card::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,var(--purple),var(--accent));
+  opacity:0;transition:opacity .2s;border-radius:12px;
+}
+.ind-card:hover{
+  transform:translateY(-3px) scale(1.03);
+  box-shadow:0 8px 24px rgba(109,40,217,.15);
+  border-color:var(--purple);
+}
+.ind-card:hover::before{opacity:.06}
+.ind-card:active{transform:scale(.97)}
+.ind-emoji{font-size:22px;line-height:1;position:relative;z-index:1;transition:transform .2s}
+.ind-card:hover .ind-emoji{transform:scale(1.2) rotate(-5deg)}
+.ind-label{font-size:10px;font-weight:700;color:var(--ink);line-height:1.2;
+  position:relative;z-index:1;letter-spacing:-.1px}
 
 .liked-bar{position:relative;z-index:2;max-width:900px;margin:20px auto 0;padding:0 20px;display:none}
 .liked-inner{background:var(--white);border-radius:12px;padding:12px 16px;border:1px solid var(--border)}
@@ -113,13 +195,11 @@ h1 em{font-style:normal;background:linear-gradient(135deg,var(--accent),var(--pu
 .res-label{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.06em;
   margin-bottom:20px;text-align:center;text-transform:uppercase}
 
-/* LOGO GRID - Screenshot style */
 .logo-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
 @media(max-width:1024px){.logo-grid{grid-template-columns:repeat(4,1fr)}}
 @media(max-width:768px){.logo-grid{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:480px){.logo-grid{grid-template-columns:repeat(2,1fr)}}
 
-/* LOGO CARD - the new beautiful tile */
 .lc{
   position:relative;border-radius:16px;overflow:hidden;cursor:pointer;
   aspect-ratio:1.4/1;display:flex;flex-direction:column;align-items:center;
@@ -128,7 +208,6 @@ h1 em{font-style:normal;background:linear-gradient(135deg,var(--accent),var(--pu
 }
 .lc:hover{transform:scale(1.04);box-shadow:0 8px 28px rgba(0,0,0,.18)}
 
-/* TOP PICK badge */
 .lc-top-badge{
   position:absolute;top:8px;left:8px;
   font-size:8px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
@@ -137,7 +216,6 @@ h1 em{font-style:normal;background:linear-gradient(135deg,var(--accent),var(--pu
   z-index:2;backdrop-filter:blur(4px)
 }
 
-/* Like button on card */
 .lc-like{
   position:absolute;top:8px;right:8px;z-index:2;
   width:28px;height:28px;border-radius:7px;cursor:pointer;font-size:14px;
@@ -148,14 +226,12 @@ h1 em{font-style:normal;background:linear-gradient(135deg,var(--accent),var(--pu
 .lc-like:hover{background:rgba(255,255,255,.3);color:#fff}
 .lc-like.liked{background:var(--accent);border-color:var(--accent);color:#fff}
 
-/* Domain name text on card */
 .lc-name{
   font-size:15px;font-weight:700;text-align:center;
   letter-spacing:-.2px;padding:0 10px;line-height:1.2;
   word-break:break-all;z-index:1
 }
 
-/* Availability dot */
 .avail-dot{
   position:absolute;bottom:8px;right:10px;
   width:8px;height:8px;border-radius:50%;z-index:2
@@ -165,14 +241,12 @@ h1 em{font-style:normal;background:linear-gradient(135deg,var(--accent),var(--pu
 .avail-dot.unavailable{background:#f87171}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
 
-/* Mix badge */
 .mix-badge{
   position:absolute;bottom:8px;left:10px;z-index:2;
   font-size:8px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
   background:rgba(0,0,0,.35);color:rgba(255,255,255,.8);border-radius:4px;padding:2px 6px
 }
 
-/* Card tooltip on hover - buy/check */
 .lc-overlay{
   position:absolute;inset:0;background:rgba(0,0,0,.55);
   display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;
@@ -189,7 +263,6 @@ h1 em{font-style:normal;background:linear-gradient(135deg,var(--accent),var(--pu
 .lov-buy:hover{opacity:.88}
 .lov-chk:hover{background:rgba(255,255,255,.28)}
 
-/* Color schemes for tiles */
 .cs-0{background:#f5a623;color:#7a4f00}
 .cs-0 .lc-name{color:#3d2600;font-family:'Syne',sans-serif}
 .cs-1{background:#f0f0ed;color:#2c2c2c}
@@ -221,13 +294,75 @@ h1 em{font-style:normal;background:linear-gradient(135deg,var(--accent),var(--pu
 .cs-14{background:#7c3aed;color:#fff}
 .cs-14 .lc-name{color:#fff;font-family:'Syne',sans-serif;font-size:14px;font-weight:800}
 
-/* SPIN */
-.spin-wrap{text-align:center;padding:72px 0}
-.spin{width:32px;height:32px;border:2.5px solid var(--border);
-  border-top-color:var(--purple);border-radius:50%;margin:0 auto 14px;
-  animation:sp .7s linear infinite}
-@keyframes sp{to{transform:rotate(360deg)}}
-.spin-txt{font-size:13px;color:var(--muted);font-weight:500}
+/* ===== BEAUTIFUL AI LOADING ===== */
+.ai-loader{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:80px 20px;gap:28px;
+}
+.ai-orb{
+  width:90px;height:90px;position:relative;
+}
+.ai-orb-ring{
+  position:absolute;inset:0;border-radius:50%;
+  border:2px solid transparent;
+  background:linear-gradient(var(--bg),var(--bg)) padding-box,
+    linear-gradient(135deg,var(--purple),var(--accent),#06b6d4,var(--purple)) border-box;
+  animation:orb-spin 2s linear infinite;
+}
+.ai-orb-ring2{
+  position:absolute;inset:8px;border-radius:50%;
+  border:2px solid transparent;
+  background:linear-gradient(var(--bg),var(--bg)) padding-box,
+    linear-gradient(225deg,var(--accent),var(--purple),#06b6d4,var(--accent)) border-box;
+  animation:orb-spin 1.4s linear infinite reverse;
+}
+.ai-orb-core{
+  position:absolute;inset:18px;border-radius:50%;
+  background:linear-gradient(135deg,var(--purple),var(--accent));
+  display:flex;align-items:center;justify-content:center;
+  font-size:22px;
+  animation:core-pulse 2s ease-in-out infinite;
+  box-shadow:0 0 20px rgba(109,40,217,.4);
+}
+@keyframes orb-spin{to{transform:rotate(360deg)}}
+@keyframes core-pulse{
+  0%,100%{transform:scale(1);box-shadow:0 0 20px rgba(109,40,217,.4)}
+  50%{transform:scale(1.08);box-shadow:0 0 35px rgba(255,69,0,.5)}
+}
+
+.ai-loader-text{text-align:center}
+.ai-loader-title{
+  font-family:'Syne',sans-serif;font-size:20px;font-weight:800;
+  color:var(--black);letter-spacing:-.5px;margin-bottom:6px;
+}
+.ai-loader-sub{font-size:13px;color:var(--muted);font-weight:500;margin-bottom:16px}
+
+.ai-words{
+  display:flex;gap:8px;flex-wrap:wrap;justify-content:center;max-width:400px;
+}
+.ai-word{
+  font-size:11px;font-weight:600;padding:4px 12px;border-radius:20px;
+  background:var(--white);border:1.5px solid var(--border);color:var(--muted);
+  animation:word-pop .5s cubic-bezier(.34,1.4,.64,1) both;
+  opacity:0;
+}
+@keyframes word-pop{
+  0%{opacity:0;transform:translateY(8px) scale(.9)}
+  100%{opacity:1;transform:none}
+}
+
+.ai-progress{
+  width:240px;height:3px;background:var(--border);border-radius:3px;overflow:hidden;
+}
+.ai-progress-bar{
+  height:100%;width:0%;
+  background:linear-gradient(90deg,var(--purple),var(--accent));
+  border-radius:3px;
+  animation:progress-fill 4s ease-in-out infinite;
+}
+@keyframes progress-fill{
+  0%{width:0%}80%{width:88%}100%{width:92%}
+}
 
 /* SERVICES */
 .services{position:relative;z-index:2;max-width:960px;margin:0 auto 40px;padding:0 20px}
@@ -235,7 +370,6 @@ h1 em{font-style:normal;background:linear-gradient(135deg,var(--accent),var(--pu
 @media(max-width:900px){.svc-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:520px){.svc-grid{grid-template-columns:repeat(1,1fr)}}
 
-/* Apple-card style service cards */
 .svc-card{
   border-radius:22px;overflow:hidden;text-decoration:none;
   display:flex;flex-direction:column;position:relative;
@@ -245,13 +379,11 @@ h1 em{font-style:normal;background:linear-gradient(135deg,var(--accent),var(--pu
 }
 .svc-card:hover{transform:translateY(-6px) scale(1.025);box-shadow:0 20px 50px rgba(0,0,0,.22)}
 
-/* card gradient backgrounds */
 .svc-card.card-tm{background:linear-gradient(145deg,#667eea,#764ba2)}
 .svc-card.card-domain{background:linear-gradient(145deg,#06b6d4,#0284c7)}
 .svc-card.card-logo{background:linear-gradient(145deg,#f59e0b,#ef4444)}
 .svc-card.card-web{background:linear-gradient(145deg,#10b981,#059669)}
 
-/* big emoji illustration */
 .svc-emoji{
   font-size:72px;line-height:1;
   position:absolute;bottom:70px;right:-10px;
@@ -283,7 +415,6 @@ h1 em{font-style:normal;background:linear-gradient(135deg,var(--accent),var(--pu
 .svc-learn-arrow{font-size:14px;transition:transform .18s}
 .svc-learn:hover .svc-learn-arrow{transform:translateX(4px)}
 
-/* TM card has 2 buttons */
 .tm-card-btns{display:flex;flex-direction:column;gap:8px}
 .tm-card-btn{
   display:flex;align-items:center;justify-content:center;gap:6px;
@@ -366,7 +497,6 @@ footer{position:relative;z-index:2;border-top:1px solid var(--border);
 .rp-saved-pill button{background:none;border:none;cursor:pointer;font-size:16px;color:#f97316;line-height:1;padding:0}
 .rp-grid-wrap{max-width:1100px;margin:20px auto 60px;padding:0 20px}
 .rp-res-label{font-size:11px;font-weight:700;color:var(--muted);letter-spacing:.06em;margin-bottom:18px;text-align:center;text-transform:uppercase}
-/* Domain card CSS for results page */
 .lc{border-radius:16px;overflow:hidden;display:flex;flex-direction:column;border:1.5px solid var(--border);transition:transform .25s cubic-bezier(.34,1.3,.64,1),box-shadow .25s;animation:cardIn .4s ease both}
 @keyframes cardIn{from{opacity:0;transform:translateY(14px) scale(.97)}to{opacity:1;transform:none}}
 .lc:hover{transform:translateY(-4px) scale(1.02);box-shadow:0 12px 36px rgba(0,0,0,.15)}
@@ -386,7 +516,6 @@ footer{position:relative;z-index:2;border-top:1px solid var(--border);
 .lov-buy:hover{background:#fff}
 .lov-chk{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3)}
 .lov-chk:hover{background:rgba(255,255,255,.25)}
-/* 15 color schemes */
 .cs-0 .lc-logo{background:linear-gradient(135deg,#667eea,#764ba2)}.cs-0 .lc-name{color:#fff;font-family:'Syne',sans-serif;font-weight:800}.cs-0 .lc-actions{background:#4c3399}
 .cs-1 .lc-logo{background:linear-gradient(135deg,#f093fb,#f5576c)}.cs-1 .lc-name{color:#fff;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:12px}.cs-1 .lc-actions{background:#b01055}
 .cs-2 .lc-logo{background:linear-gradient(135deg,#0f172a,#1e3a5f)}.cs-2 .lc-name{color:#38bdf8;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:12px}.cs-2 .lc-actions{background:#0a1420}
@@ -425,11 +554,17 @@ footer{position:relative;z-index:2;border-top:1px solid var(--border);
 <div class="hero">
   <div class="hero-tag"><span>✦</span> Orbit07 AI · India's Favourite</div>
   <h1>Find your<br><em>perfect domain</em><br>instantly</h1>
-  <p class="hero-sub">Describe your business in any language — Orbit07 AI generates 50 creative domain names in seconds</p>
+  <p class="hero-sub">Describe your business in any language — Orbit07 AI generates unlimited creative domain names in seconds</p>
   <div class="search-outer">
     <div class="search-box">
-      <input id="bi" type="text" placeholder="e.g. Mumbai restaurant, fashion boutique, yoga studio...">
-      <button class="gen-btn" onclick="go()"><span>✦</span> Generate</button>
+      <div class="search-input-wrap">
+        <span class="search-ai-icon">✦</span>
+        <input id="bi" type="text" placeholder="e.g. Mumbai restaurant, fashion boutique, yoga studio...">
+      </div>
+      <button class="gen-btn" onclick="go()">
+        <span class="gen-btn-icon">✦</span>
+        <span class="gen-btn-text">Generate</span>
+      </button>
     </div>
   </div>
   <div class="tld-row">
@@ -444,45 +579,52 @@ footer{position:relative;z-index:2;border-top:1px solid var(--border);
 
 <div class="stats">
   <div class="stat"><div class="stat-n">50K+</div><div class="stat-l">Domains Generated</div></div>
-  <div class="stat"><div class="stat-n">50</div><div class="stat-l">Names per Search</div></div>
+  <div class="stat"><div class="stat-n">∞</div><div class="stat-l">Names per Search</div></div>
   <div class="stat"><div class="stat-n">100%</div><div class="stat-l">Free Forever</div></div>
   <div class="stat"><div class="stat-n">&lt;5s</div><div class="stat-l">Generation Time</div></div>
 </div>
 
 <div class="industry-wrap">
   <div class="sec-label">Popular Industries — tap to search instantly</div>
-  <div class="chips">
-    <button class="chip" onclick="sx('online grocery delivery')">🛒 Grocery</button>
-    <button class="chip" onclick="sx('digital marketing agency')">📣 Marketing</button>
-    <button class="chip" onclick="sx('women fashion boutique')">👗 Fashion</button>
-    <button class="chip" onclick="sx('CA accounting firm')">📊 CA / Finance</button>
-    <button class="chip" onclick="sx('online coaching education platform')">🎓 Education</button>
-    <button class="chip" onclick="sx('restaurant food delivery')">🍽️ Restaurant</button>
-    <button class="chip" onclick="sx('real estate property India')">🏠 Real Estate</button>
-    <button class="chip" onclick="sx('healthcare clinic hospital')">🏥 Healthcare</button>
-    <button class="chip" onclick="sx('travel agency tours India')">✈️ Travel</button>
-    <button class="chip" onclick="sx('software IT company India')">💻 IT / Software</button>
-    <button class="chip" onclick="sx('beauty salon spa')">💆 Beauty & Spa</button>
-    <button class="chip" onclick="sx('gym fitness center')">💪 Fitness</button>
-    <button class="chip" onclick="sx('law firm legal services India')">⚖️ Legal</button>
-    <button class="chip" onclick="sx('ecommerce online store India')">🛍️ E-Commerce</button>
-    <button class="chip" onclick="sx('photography studio')">📸 Photography</button>
-    <button class="chip" onclick="sx('wedding planning event management')">💍 Events</button>
-    <button class="chip" onclick="sx('interior design home decor')">🛋️ Interior</button>
-    <button class="chip" onclick="sx('automotive car service')">🚗 Automotive</button>
+  <div class="industry-grid">
+    <div class="ind-card" onclick="sx('online grocery delivery','grocery')"><div class="ind-emoji">🛒</div><div class="ind-label">Grocery</div></div>
+    <div class="ind-card" onclick="sx('digital marketing agency','marketing')"><div class="ind-emoji">📣</div><div class="ind-label">Marketing</div></div>
+    <div class="ind-card" onclick="sx('women fashion boutique','fashion')"><div class="ind-emoji">👗</div><div class="ind-label">Fashion</div></div>
+    <div class="ind-card" onclick="sx('CA accounting firm','finance')"><div class="ind-emoji">📊</div><div class="ind-label">CA / Finance</div></div>
+    <div class="ind-card" onclick="sx('online coaching education platform','education')"><div class="ind-emoji">🎓</div><div class="ind-label">Education</div></div>
+    <div class="ind-card" onclick="sx('restaurant food delivery','restaurant')"><div class="ind-emoji">🍽️</div><div class="ind-label">Restaurant</div></div>
+    <div class="ind-card" onclick="sx('real estate property India','realestate')"><div class="ind-emoji">🏠</div><div class="ind-label">Real Estate</div></div>
+    <div class="ind-card" onclick="sx('healthcare clinic hospital','healthcare')"><div class="ind-emoji">🏥</div><div class="ind-label">Healthcare</div></div>
+    <div class="ind-card" onclick="sx('travel agency tours India','travel')"><div class="ind-emoji">✈️</div><div class="ind-label">Travel</div></div>
+    <div class="ind-card" onclick="sx('software IT company India','tech')"><div class="ind-emoji">💻</div><div class="ind-label">IT / Software</div></div>
+    <div class="ind-card" onclick="sx('beauty salon spa','beauty')"><div class="ind-emoji">💆</div><div class="ind-label">Beauty & Spa</div></div>
+    <div class="ind-card" onclick="sx('gym fitness center','fitness')"><div class="ind-emoji">💪</div><div class="ind-label">Fitness</div></div>
+    <div class="ind-card" onclick="sx('law firm legal services India','legal')"><div class="ind-emoji">⚖️</div><div class="ind-label">Legal</div></div>
+    <div class="ind-card" onclick="sx('ecommerce online store India','ecommerce')"><div class="ind-emoji">🛍️</div><div class="ind-label">E-Commerce</div></div>
+    <div class="ind-card" onclick="sx('photography studio','photography')"><div class="ind-emoji">📸</div><div class="ind-label">Photography</div></div>
+    <div class="ind-card" onclick="sx('wedding planning event management','events')"><div class="ind-emoji">💍</div><div class="ind-label">Events</div></div>
+    <div class="ind-card" onclick="sx('interior design home decor','interior')"><div class="ind-emoji">🛋️</div><div class="ind-label">Interior</div></div>
+    <div class="ind-card" onclick="sx('automotive car service','auto')"><div class="ind-emoji">🚗</div><div class="ind-label">Automotive</div></div>
+    <div class="ind-card" onclick="sx('fintech payments startup India','fintech')"><div class="ind-emoji">💳</div><div class="ind-label">Fintech</div></div>
+    <div class="ind-card" onclick="sx('online pharmacy medicine delivery','pharma')"><div class="ind-emoji">💊</div><div class="ind-label">Pharma</div></div>
+    <div class="ind-card" onclick="sx('pet care grooming veterinary','pets')"><div class="ind-emoji">🐾</div><div class="ind-label">Pet Care</div></div>
+    <div class="ind-card" onclick="sx('cloud kitchen tiffin service','tiffin')"><div class="ind-emoji">🍱</div><div class="ind-label">Cloud Kitchen</div></div>
+    <div class="ind-card" onclick="sx('news media blog portal India','media')"><div class="ind-emoji">📰</div><div class="ind-label">News / Media</div></div>
+    <div class="ind-card" onclick="sx('gaming esports platform India','gaming')"><div class="ind-emoji">🎮</div><div class="ind-label">Gaming</div></div>
+    <div class="ind-card" onclick="sx('startup SaaS B2B product','saas')"><div class="ind-emoji">🚀</div><div class="ind-label">SaaS / Startup</div></div>
+    <div class="ind-card" onclick="sx('kids toys children products','kids')"><div class="ind-emoji">🧸</div><div class="ind-label">Kids & Toys</div></div>
+    <div class="ind-card" onclick="sx('agriculture farming rural India','agri')"><div class="ind-emoji">🌾</div><div class="ind-label">Agriculture</div></div>
+    <div class="ind-card" onclick="sx('logistics courier delivery service','logistics')"><div class="ind-emoji">📦</div><div class="ind-label">Logistics</div></div>
+    <div class="ind-card" onclick="sx('music streaming artist platform','music')"><div class="ind-emoji">🎵</div><div class="ind-label">Music</div></div>
+    <div class="ind-card" onclick="sx('solar energy green environment startup','green')"><div class="ind-emoji">🌱</div><div class="ind-label">Green / Energy</div></div>
   </div>
 </div>
 
-
 </div>
-
-
 
 <div class="services">
   <div class="sec-label" style="margin-bottom:20px;">Our Services</div>
   <div class="svc-grid">
-
-    <!-- Trademark -->
     <div class="svc-card card-tm">
       <div class="svc-emoji">⚖️</div>
       <div class="svc-content">
@@ -497,8 +639,6 @@ footer{position:relative;z-index:2;border-top:1px solid var(--border);
         </div>
       </div>
     </div>
-
-    <!-- Buy Domain -->
     <a class="svc-card card-domain" href="https://www.namecheap.com/domains/" target="_blank">
       <div class="svc-emoji">🌐</div>
       <div class="svc-content">
@@ -510,8 +650,6 @@ footer{position:relative;z-index:2;border-top:1px solid var(--border);
         <span class="svc-learn">Buy Domain <span class="svc-learn-arrow">→</span></span>
       </div>
     </a>
-
-    <!-- Free Logo -->
     <a class="svc-card card-logo" href="https://looka.com" target="_blank">
       <div class="svc-emoji">🎨</div>
       <div class="svc-content">
@@ -523,8 +661,6 @@ footer{position:relative;z-index:2;border-top:1px solid var(--border);
         <span class="svc-learn">Generate Free <span class="svc-learn-arrow">→</span></span>
       </div>
     </a>
-
-    <!-- Website -->
     <div class="svc-card card-web">
       <div class="svc-emoji">💻</div>
       <div class="svc-content">
@@ -536,7 +672,6 @@ footer{position:relative;z-index:2;border-top:1px solid var(--border);
         <span class="svc-learn">Get Started <span class="svc-learn-arrow">→</span></span>
       </div>
     </div>
-
   </div>
 </div>
 
@@ -553,7 +688,7 @@ footer{position:relative;z-index:2;border-top:1px solid var(--border);
       <div class="how-icon">✨</div>
       <div class="how-num">02</div>
       <div class="how-h">Orbit07 generates names</div>
-      <div class="how-p">Orbit07 AI instantly generates 50 creative, brandable domain names.</div>
+      <div class="how-p">Orbit07 AI instantly generates unlimited creative, brandable domain names.</div>
     </div>
     <div class="how-card">
       <div class="how-icon">🚀</div>
@@ -601,8 +736,62 @@ let tl='.com';
 let liked=JSON.parse(localStorage.getItem('o7_liked')||'[]');
 const CS=15;
 
+// Industry keywords mapping for smart matching
+const INDUSTRY_KEYWORDS={
+  grocery:['grocery','kirana','supermarket','vegetables','fresh','organic','daal','sabzi','mart'],
+  marketing:['marketing','digital','agency','seo','ads','brand','social media','campaign'],
+  fashion:['fashion','clothes','boutique','dress','kurta','saree','outfit','wear','style'],
+  finance:['ca','finance','accounting','tax','gst','audit','money','invest','loan','credit'],
+  education:['education','coaching','tuition','school','college','learning','course','skill','training'],
+  restaurant:['restaurant','food','hotel','dhaba','cafe','canteen','biryani','thali','eat'],
+  realestate:['real estate','property','flat','plot','ghar','makaan','builder','rent','house'],
+  healthcare:['health','clinic','hospital','doctor','medical','medicine','pharmacy','care','wellness'],
+  travel:['travel','tour','trip','holiday','vacation','flight','hotel','booking','yatra'],
+  tech:['software','it','tech','app','website','coding','developer','computer','digital'],
+  beauty:['beauty','salon','spa','parlour','makeup','skin','hair','nail','cosmetic'],
+  fitness:['gym','fitness','yoga','workout','health','exercise','weight','diet','zumba'],
+  legal:['law','legal','advocate','court','lawyer','justice','compliance','contract'],
+  ecommerce:['ecommerce','online store','shop','sell','product','marketplace','delivery'],
+  photography:['photo','photography','camera','studio','wedding photo','portrait','shoot'],
+  events:['wedding','event','party','celebration','decorator','catering','management'],
+  interior:['interior','design','decor','furniture','renovation','vastu','architect'],
+  auto:['car','automotive','bike','vehicle','garage','service','tyre','repair','mechanic'],
+  fintech:['fintech','payment','wallet','upi','banking','insurance','mutual fund','neobank'],
+  pharma:['pharma','medicine','drug','tablet','health','ayurved','homeopathy','chemist'],
+  pets:['pet','dog','cat','grooming','vet','animal','kennel','aquarium','birds'],
+  tiffin:['tiffin','cloud kitchen','dabba','meal','lunch','dinner','home food','catering'],
+  media:['news','media','blog','portal','journalism','magazine','podcast','content'],
+  gaming:['game','gaming','esports','play','streamer','ludo','cricket game','mobile game'],
+  saas:['saas','startup','b2b','software','platform','tool','crm','erp','dashboard'],
+  kids:['kids','children','baby','toy','school','nursery','playschool','child'],
+  agri:['agriculture','farm','kisan','crop','seeds','tractor','rural','harvest','mandi'],
+  logistics:['logistics','courier','delivery','shipping','transport','cargo','warehouse'],
+  music:['music','song','artist','band','studio','streaming','playlist','concert'],
+  green:['solar','green','energy','environment','eco','sustainable','renewable','clean']
+};
+
+function detectIndustry(text){
+  const t=text.toLowerCase();
+  for(const[ind,kws]of Object.entries(INDUSTRY_KEYWORDS)){
+    for(const kw of kws){if(t.includes(kw))return ind}
+  }
+  return null;
+}
+
 function st(el,v){document.querySelectorAll('.tld-btn').forEach(b=>b.classList.remove('on'));el.classList.add('on');tl=v}
-function sx(t){document.getElementById('bi').value=t;go()}
+
+// Industry card click — set industry context and trigger
+function sx(query, indKey){
+  const bi=document.getElementById('bi');
+  // If user has typed something, combine it
+  const existing=bi.value.trim();
+  if(existing && existing.length>2){
+    bi.value=existing+', '+query;
+  } else {
+    bi.value=query;
+  }
+  go();
+}
 
 function openResults(){
   document.getElementById('homePage').style.display='none';
@@ -638,19 +827,51 @@ function toggleLike(domain,btn){
   saveLiked();
 }
 
+// Animated loading words
+const loadingWords=[
+  ['✦ Analyzing','🔍 Industry','💡 Brainstorming','🌐 Domains'],
+  ['🚀 Generating','✨ Creative','🎯 Brandable','💎 Names'],
+  ['⚡ AI Working','🧠 Processing','🌟 Crafting','🎨 Ideas'],
+];
+
+function showLoader(biz){
+  const wordSet=loadingWords[Math.floor(Math.random()*loadingWords.length)];
+  const wordsHTML=wordSet.map((w,i)=>`<div class="ai-word" style="animation-delay:${i*0.15}s">${w}</div>`).join('');
+  return`<div class="ai-loader">
+    <div class="ai-orb">
+      <div class="ai-orb-ring"></div>
+      <div class="ai-orb-ring2"></div>
+      <div class="ai-orb-core">✦</div>
+    </div>
+    <div class="ai-loader-text">
+      <div class="ai-loader-title">Orbit07 AI kaam par hai...</div>
+      <div class="ai-loader-sub">Unlimited brand names generate ho rahe hain</div>
+      <div class="ai-words">${wordsHTML}</div>
+    </div>
+    <div class="ai-progress"><div class="ai-progress-bar"></div></div>
+  </div>`;
+}
+
 async function go(){
   const biz=document.getElementById('bi').value.trim();
   if(!biz)return;
+
+  // Detect industry from input
+  const detectedIndustry=detectIndustry(biz);
+
   document.getElementById('rpTitle').textContent='"'+biz+'"';
   document.getElementById('rpCount').textContent='Loading...';
   document.getElementById('rpResLabel').textContent='';
-  document.getElementById('rpGrid').innerHTML='<div class="spin-wrap"><div class="spin"></div><div class="spin-txt">Orbit07 AI kaam par hai...</div><div class="spin-sub">100 brand names generate ho rahe hain...</div></div>';
+  document.getElementById('rpGrid').innerHTML=showLoader(biz);
   openResults();
   renderSaved();
 
+  // Build smart prompt with keyword matching instruction
+  const industryHint=detectedIndustry?`Industry detected: ${detectedIndustry}. `:'';
   const prompt=`You are Orbit07, world-class domain branding AI. Generate exactly 100 unique creative brandable domain names for: "${biz}".
+${industryHint}IMPORTANT: Include names that contain the main keyword/s from the business description (keyword matching). Mix keyword-based names with creative portmanteau/brandable names.
 TLD: ${tl==='mix'?'mix of .com .in .co.in .ai .tv':tl}.
-Rules: short memorable professional, mix compound/portmanteau/suffix(-ify-ly-hub-go-now-hq)/prefix(get-my-try-), no duplicates.
+Rules: short memorable professional, mix compound/portmanteau/suffix(-ify-ly-hub-go-now-hq)/prefix(get-my-try-), no duplicates, include keyword-match names.
 First 8: top:true, rest top:false. likely_available:true if made-up word, false if common phrase.
 Respond ONLY raw JSON array no markdown no backticks:
 [{"domain":"x.com","reason":"why","top":true,"likely_available":true}]
@@ -687,7 +908,7 @@ All 100 required.`;
     }).join('');
     renderSaved();
   }catch(e){
-    document.getElementById('rpGrid').innerHTML='<div class="spin-wrap"><div class="spin-txt" style="color:#ef4444">Kuch gadbad ho gayi. Dobara try karo.</div></div>';
+    document.getElementById('rpGrid').innerHTML='<div style="text-align:center;padding:60px 20px"><div style="font-size:40px;margin-bottom:12px">😕</div><div style="font-size:14px;color:#ef4444;font-weight:600">Kuch gadbad ho gayi. Dobara try karo.</div></div>';
     console.error(e);
   }
 }
