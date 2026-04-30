@@ -495,7 +495,7 @@ footer{position:relative;z-index:2;border-top:1px solid var(--border);
 @media(max-width:520px){.logo-grid{grid-template-columns:repeat(2,1fr)}}
 
 .flow-modal{position:fixed;inset:0;background:rgba(12,12,12,.55);display:none;align-items:center;justify-content:center;z-index:700;padding:16px}.flow-modal.open{display:flex}.flow-panel{background:#fff;width:min(860px,100%);border-radius:18px;padding:22px}.industry-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}.industry-card{border:1px solid var(--border);padding:12px;border-radius:12px;background:#fff;cursor:pointer;font-weight:600}.industry-card:hover,.industry-card.active{border-color:var(--purple);background:#f4f0ff}
-.flow-page{display:none;position:fixed;inset:0;z-index:550;background:var(--bg);overflow:auto;padding:40px 16px}.flow-page.open{display:block}.flow-card{max-width:760px;margin:0 auto;background:#fff;border:1px solid var(--border);border-radius:16px;padding:20px}.flow-step{font-size:11px;color:var(--muted);text-transform:uppercase;margin-bottom:8px}.kw-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}.kw-grid input, .flow-options select{width:100%;padding:10px;border:1px solid var(--border);border-radius:10px}.flow-options{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}.flow-options label{display:block;font-size:12px;font-weight:700;margin-bottom:6px}.filter-bar{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:14px}.filter-bar select{padding:9px 12px;border-radius:10px;border:1px solid var(--border);background:#fff}
+.flow-page{display:none;position:fixed;inset:0;z-index:550;background:var(--bg);overflow:auto;padding:40px 16px}.flow-page.open{display:block}.flow-card{max-width:760px;margin:0 auto;background:#fff;border:1px solid var(--border);border-radius:16px;padding:20px}.flow-step{font-size:11px;color:var(--muted);text-transform:uppercase;margin-bottom:8px}.kw-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}.kw-grid input, .flow-options select{width:100%;padding:10px;border:1px solid var(--border);border-radius:10px}.flow-options{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0 14px}.extra-options{padding-top:10px;border-top:1px solid var(--border)}.flow-options label{display:block;font-size:12px;font-weight:700;margin-bottom:6px}.filter-bar{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:14px}.filter-bar select{padding:9px 12px;border-radius:10px;border:1px solid var(--border);background:#fff}
 @media(max-width:640px){.industry-grid{grid-template-columns:repeat(2,1fr)}.kw-grid,.flow-options{grid-template-columns:1fr}}
 
 </style>
@@ -522,11 +522,11 @@ footer{position:relative;z-index:2;border-top:1px solid var(--border);
     <div class="search-box">
       <div class="search-input-wrap">
         <span class="search-ai-icon">✦</span>
-        <input id="bi" type="text" placeholder="e.g. Mumbai restaurant, fashion boutique, yoga studio...">
+        <input id="bi" type="text" placeholder="Search Name">
       </div>
-      <button class="gen-btn" onclick="go()">
+      <button class="gen-btn" onclick="startSearchFlow()">
         <span class="gen-btn-icon">✦</span>
-        <span class="gen-btn-text">Generate</span>
+        <span class="gen-btn-text">Search</span>
       </button>
     </div>
   </div>
@@ -560,25 +560,23 @@ footer{position:relative;z-index:2;border-top:1px solid var(--border);
       <input id="kw2" type="text" placeholder="Keyword 2">
       <input id="kw3" type="text" placeholder="Keyword 3">
     </div>
-    <div class="flow-options">
+    <div class="flow-options extra-options">
       <div>
-        <label>Name Length</label>
-        <select id="nameLength">
-          <option value="short">Short (3–6 letters)</option>
-          <option value="medium" selected>Medium (6–10 letters)</option>
-          <option value="long">Long (10+ letters)</option>
+        <label>Domain Selection</label>
+        <select id="domainSelection" onchange="setDomainSelection(this.value)">
+          <option value=".com" selected>.com</option>
+          <option value=".in">.in</option>
+          <option value=".ai">.ai</option>
+          <option value="mix">Mix</option>
         </select>
       </div>
       <div>
-        <label>Domain Type</label>
-        <div class="tld-row" id="namePageTld">
-          <button class="tld-btn on" onclick="st(this,'.com')">.com</button>
-          <button class="tld-btn" onclick="st(this,'.in')">.in</button>
-          <button class="tld-btn" onclick="st(this,'.co.in')">.co.in</button>
-          <button class="tld-btn" onclick="st(this,'.ai')">.ai</button>
-          <button class="tld-btn" onclick="st(this,'.tv')">.tv</button>
-          <button class="tld-btn" onclick="st(this,'mix')">Mix All</button>
-        </div>
+        <label>Name Length Option</label>
+        <select id="nameLength">
+          <option value="short">Short</option>
+          <option value="medium" selected>Medium</option>
+          <option value="long">Long</option>
+        </select>
       </div>
     </div>
     <button class="gen-btn" onclick="goFromStep2()"><span class="gen-btn-text">Generate Names</span></button>
@@ -743,20 +741,19 @@ function detectIndustry(text){
   return null;
 }
 
-function st(el,v){document.querySelectorAll('.tld-btn').forEach(b=>b.classList.remove('on'));el.classList.add('on');tl=v}
+function setDomainSelection(v){tl=v}
+
+
+function startSearchFlow(){
+  const biz=document.getElementById('bi').value.trim();
+  if(!biz)return;
+  document.getElementById('industryModal').classList.remove('open');
+  document.getElementById('namePage').classList.add('open');
+  document.getElementById('kw1').value=biz;
+}
 
 // Industry card click — set industry context and trigger
-function sx(query, indKey){
-  const bi=document.getElementById('bi');
-  // If user has typed something, combine it
-  const existing=bi.value.trim();
-  if(existing && existing.length>2){
-    bi.value=existing+', '+query;
-  } else {
-    bi.value=query;
-  }
-  go();
-}
+function sx(query, indKey){const bi=document.getElementById('bi');bi.value=query;startSearchFlow();}
 
 function openResults(){
   document.getElementById('homePage').style.display='none';
@@ -817,8 +814,10 @@ function showLoader(biz){
   </div>`;
 }
 
-async function go(){
-  const biz=document.getElementById('bi').value.trim();
+async function go(opts={}){
+  const biz=(opts.biz||document.getElementById('bi').value).trim();
+  const nameLength=opts.nameLength||document.getElementById('nameLength').value||'medium';
+  const domainChoice=opts.domainChoice||tl;
   if(!biz)return;
 
   // Detect industry from input
@@ -836,7 +835,8 @@ async function go(){
   const industryHint=detectedIndustry?`Industry detected: ${detectedIndustry}. `:'';
   const prompt=`You are Flappio, world-class domain branding AI. Generate exactly 200 unique creative brandable domain names for: "${biz}".
 ${industryHint}IMPORTANT: Include names that contain the main keyword/s from the business description (keyword matching). Mix keyword-based names with creative portmanteau/brandable names.
-TLD: ${tl==='mix'?'mix of .com .in .co.in .ai .tv':tl}.
+TLD: ${domainChoice==='mix'?'mix of .com .in .ai':domainChoice}.
+Name length preference: ${nameLength}.
 Rules: short memorable professional, mix compound/portmanteau/suffix(-ify-ly-hub-go-now-hq)/prefix(get-my-try-), no duplicates, include keyword-match names.
 First 8: top:true, rest top:false. likely_available:true if made-up word, false if common phrase.
 Respond ONLY raw JSON array no markdown no backticks:
@@ -885,14 +885,14 @@ All 200 required.`;
 const INDUSTRIES=['Technology','E-commerce','Fashion','Food & Restaurant','Healthcare','Education','Finance','Travel','Real Estate','Beauty','Fitness','Legal'];
 function renderIndustries(){const g=document.getElementById('industryGrid');g.innerHTML=INDUSTRIES.map(x=>`<button class="industry-card ${selectedIndustry===x?'active':''}" onclick="selectIndustry('${x}')">${x}</button>`).join('')}
 function selectIndustry(v){selectedIndustry=v;localStorage.setItem('o7_industry',v);document.getElementById('industryModal').classList.remove('open');document.getElementById('namePage').classList.add('open');renderIndustries()}
-function goFromStep2(){const kws=[kw1.value.trim(),kw2.value.trim(),kw3.value.trim()].filter(Boolean);if(kws.length<3){alert('Please enter 3 keywords.');return;}bi.value=`${selectedIndustry} ${kws.join(' ')}`;go()}
+function goFromStep2(){const kws=[kw1.value.trim(),kw2.value.trim(),kw3.value.trim()].filter(Boolean);if(!kws.length){alert('Please enter at least 1 keyword.');return;}const industryPrefix=selectedIndustry?selectedIndustry+' ':'';const biz=`${industryPrefix}${kws.join(' ')}`.trim();bi.value=biz;go({biz,nameLength:document.getElementById('nameLength').value,domainChoice:document.getElementById('domainSelection').value})}
 function estimatePrice(domain){if(domain.endsWith('.in'))return 599;if(domain.endsWith('.co.in'))return 499;if(domain.endsWith('.ai'))return 2499;if(domain.endsWith('.tv'))return 1499;return 899}
 function applyFilters(){const d=document.getElementById('filterDomain').value;const p=document.getElementById('filterPrice').value;const filtered=allResults.filter(x=>{const okD=d==='all'||x.domain.endsWith(d);const pr=estimatePrice(x.domain);const okP=p==='all'||(p==='under500'&&pr<500)||(p==='500to1000'&&pr>=500&&pr<=1000)||(p==='above1000'&&pr>1000);return okD&&okP});renderResults(filtered)}
 function copyDomain(d){navigator.clipboard.writeText(d)}
 function renderResults(doms){document.getElementById('rpCount').textContent=doms.length+' names';document.getElementById('rpGrid').innerHTML=doms.map((x,i)=>{const iL=liked.includes(x.domain);const safe=x.domain.replace(/\\/g,'\\\\').replace(/'/g,"\\'");return `<div class="lc cs-${i%CS}" title="${(x.reason||'').replace(/"/g,'&quot;')}" style="animation-delay:${Math.min(i*.025,1.2)}s"><div class="lc-logo">${x.top?'<div class="lc-top-badge">✦ TOP PICK</div>':''}<div class="lc-avail ${x.likely_available?'av':'un'}"></div><div class="lc-name">${x.domain}</div></div><div class="lc-actions"><div class="lc-row"><button class="lc-like${iL?' liked':''}" data-domain="${x.domain}" onclick="toggleLike('${safe}',this)">❤️</button><button class="lov-buy" onclick="copyDomain('${safe}')">📋 Copy</button><a class="lov-chk" href="https://www.namecheap.com/domains/registration/results/?domain=${encodeURIComponent(x.domain)}" target="_blank">Buy</a></div></div></div>`}).join('');renderSaved()}
 renderIndustries();
 
-document.getElementById('bi').addEventListener('keydown',e=>{if(e.key==='Enter')go()});
+document.getElementById('bi').addEventListener('keydown',e=>{if(e.key==='Enter')startSearchFlow()});
 </script>
 </div>
 
