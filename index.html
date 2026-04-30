@@ -138,48 +138,6 @@ h1 em{font-style:normal;background:linear-gradient(135deg,var(--accent),var(--pu
   color:var(--black);letter-spacing:-1px;line-height:1}
 .stat-l{font-size:11px;color:var(--muted);margin-top:2px}
 
-/* ===== MODERN INDUSTRIES SECTION ===== */
-.industry-wrap{position:relative;z-index:2;max-width:860px;margin:0 auto 14px;padding:0 16px}
-.sec-label{font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;
-  letter-spacing:.1em;margin-bottom:10px;text-align:center}
-
-.industry-grid{
-  display:grid;
-  grid-template-columns:repeat(6,1fr);
-  gap:8px;
-}
-@media(max-width:900px){.industry-grid{grid-template-columns:repeat(4,1fr)}}
-@media(max-width:580px){.industry-grid{grid-template-columns:repeat(3,1fr)}}
-@media(max-width:380px){.industry-grid{grid-template-columns:repeat(2,1fr)}}
-
-.ind-card{
-  background:var(--white);
-  border:1.5px solid var(--border);
-  border-radius:14px;
-  padding:12px 8px 10px;
-  cursor:pointer;
-  display:flex;flex-direction:column;align-items:center;gap:5px;
-  transition:all .2s cubic-bezier(.34,1.4,.64,1);
-  text-align:center;
-  position:relative;overflow:hidden;
-}
-.ind-card::before{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(135deg,var(--purple),var(--accent));
-  opacity:0;transition:opacity .2s;border-radius:12px;
-}
-.ind-card:hover{
-  transform:translateY(-3px) scale(1.03);
-  box-shadow:0 8px 24px rgba(109,40,217,.15);
-  border-color:var(--purple);
-}
-.ind-card:hover::before{opacity:.06}
-.ind-card:active{transform:scale(.97)}
-.ind-emoji{font-size:22px;line-height:1;position:relative;z-index:1;transition:transform .2s}
-.ind-card:hover .ind-emoji{transform:scale(1.2) rotate(-5deg)}
-.ind-label{font-size:10px;font-weight:700;color:var(--ink);line-height:1.2;
-  position:relative;z-index:1;letter-spacing:-.1px}
-
 .liked-bar{position:relative;z-index:2;max-width:900px;margin:20px auto 0;padding:0 20px;display:none}
 .liked-inner{background:var(--white);border-radius:12px;padding:12px 16px;border:1px solid var(--border)}
 .liked-title{font-size:10px;font-weight:700;color:var(--muted);
@@ -471,7 +429,7 @@ footer{position:relative;z-index:2;border-top:1px solid var(--border);
 @media(max-width:520px){footer{padding:16px;justify-content:center;text-align:center}}
 
 @media(max-width:640px){
-  .results,.services,.how,.industry-wrap,.liked-bar,.monkb-wrap{padding-left:14px;padding-right:14px}
+  .results,.services,.how,.liked-bar,.monkb-wrap{padding-left:14px;padding-right:14px}
   .svc-grid{grid-template-columns:1fr}
   .stats{gap:16px;padding:0 12px}
 }
@@ -582,42 +540,6 @@ footer{position:relative;z-index:2;border-top:1px solid var(--border);
   <div class="stat"><div class="stat-n">∞</div><div class="stat-l">Names per Search</div></div>
   <div class="stat"><div class="stat-n">100%</div><div class="stat-l">Free Forever</div></div>
   <div class="stat"><div class="stat-n">&lt;5s</div><div class="stat-l">Generation Time</div></div>
-</div>
-
-<div class="industry-wrap">
-  <div class="sec-label">Popular Industries — tap to search instantly</div>
-  <div class="industry-grid">
-    <div class="ind-card" onclick="sx('online grocery delivery','grocery')"><div class="ind-emoji">🛒</div><div class="ind-label">Grocery</div></div>
-    <div class="ind-card" onclick="sx('digital marketing agency','marketing')"><div class="ind-emoji">📣</div><div class="ind-label">Marketing</div></div>
-    <div class="ind-card" onclick="sx('women fashion boutique','fashion')"><div class="ind-emoji">👗</div><div class="ind-label">Fashion</div></div>
-    <div class="ind-card" onclick="sx('CA accounting firm','finance')"><div class="ind-emoji">📊</div><div class="ind-label">CA / Finance</div></div>
-    <div class="ind-card" onclick="sx('online coaching education platform','education')"><div class="ind-emoji">🎓</div><div class="ind-label">Education</div></div>
-    <div class="ind-card" onclick="sx('restaurant food delivery','restaurant')"><div class="ind-emoji">🍽️</div><div class="ind-label">Restaurant</div></div>
-    <div class="ind-card" onclick="sx('real estate property India','realestate')"><div class="ind-emoji">🏠</div><div class="ind-label">Real Estate</div></div>
-    <div class="ind-card" onclick="sx('healthcare clinic hospital','healthcare')"><div class="ind-emoji">🏥</div><div class="ind-label">Healthcare</div></div>
-    <div class="ind-card" onclick="sx('travel agency tours India','travel')"><div class="ind-emoji">✈️</div><div class="ind-label">Travel</div></div>
-    <div class="ind-card" onclick="sx('software IT company India','tech')"><div class="ind-emoji">💻</div><div class="ind-label">IT / Software</div></div>
-    <div class="ind-card" onclick="sx('beauty salon spa','beauty')"><div class="ind-emoji">💆</div><div class="ind-label">Beauty & Spa</div></div>
-    <div class="ind-card" onclick="sx('gym fitness center','fitness')"><div class="ind-emoji">💪</div><div class="ind-label">Fitness</div></div>
-    <div class="ind-card" onclick="sx('law firm legal services India','legal')"><div class="ind-emoji">⚖️</div><div class="ind-label">Legal</div></div>
-    <div class="ind-card" onclick="sx('ecommerce online store India','ecommerce')"><div class="ind-emoji">🛍️</div><div class="ind-label">E-Commerce</div></div>
-    <div class="ind-card" onclick="sx('photography studio','photography')"><div class="ind-emoji">📸</div><div class="ind-label">Photography</div></div>
-    <div class="ind-card" onclick="sx('wedding planning event management','events')"><div class="ind-emoji">💍</div><div class="ind-label">Events</div></div>
-    <div class="ind-card" onclick="sx('interior design home decor','interior')"><div class="ind-emoji">🛋️</div><div class="ind-label">Interior</div></div>
-    <div class="ind-card" onclick="sx('automotive car service','auto')"><div class="ind-emoji">🚗</div><div class="ind-label">Automotive</div></div>
-    <div class="ind-card" onclick="sx('fintech payments startup India','fintech')"><div class="ind-emoji">💳</div><div class="ind-label">Fintech</div></div>
-    <div class="ind-card" onclick="sx('online pharmacy medicine delivery','pharma')"><div class="ind-emoji">💊</div><div class="ind-label">Pharma</div></div>
-    <div class="ind-card" onclick="sx('pet care grooming veterinary','pets')"><div class="ind-emoji">🐾</div><div class="ind-label">Pet Care</div></div>
-    <div class="ind-card" onclick="sx('cloud kitchen tiffin service','tiffin')"><div class="ind-emoji">🍱</div><div class="ind-label">Cloud Kitchen</div></div>
-    <div class="ind-card" onclick="sx('news media blog portal India','media')"><div class="ind-emoji">📰</div><div class="ind-label">News / Media</div></div>
-    <div class="ind-card" onclick="sx('gaming esports platform India','gaming')"><div class="ind-emoji">🎮</div><div class="ind-label">Gaming</div></div>
-    <div class="ind-card" onclick="sx('startup SaaS B2B product','saas')"><div class="ind-emoji">🚀</div><div class="ind-label">SaaS / Startup</div></div>
-    <div class="ind-card" onclick="sx('kids toys children products','kids')"><div class="ind-emoji">🧸</div><div class="ind-label">Kids & Toys</div></div>
-    <div class="ind-card" onclick="sx('agriculture farming rural India','agri')"><div class="ind-emoji">🌾</div><div class="ind-label">Agriculture</div></div>
-    <div class="ind-card" onclick="sx('logistics courier delivery service','logistics')"><div class="ind-emoji">📦</div><div class="ind-label">Logistics</div></div>
-    <div class="ind-card" onclick="sx('music streaming artist platform','music')"><div class="ind-emoji">🎵</div><div class="ind-label">Music</div></div>
-    <div class="ind-card" onclick="sx('solar energy green environment startup','green')"><div class="ind-emoji">🌱</div><div class="ind-label">Green / Energy</div></div>
-  </div>
 </div>
 
 </div>
