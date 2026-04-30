@@ -735,41 +735,6 @@ const GROQ_KEY='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';
 let tl='.com';
 let liked=JSON.parse(localStorage.getItem('o7_liked')||'[]');
 const CS=15;
-
-// Industry keywords mapping for smart matching
-const INDUSTRY_KEYWORDS={
-  grocery:['grocery','kirana','supermarket','vegetables','fresh','organic','daal','sabzi','mart'],
-  marketing:['marketing','digital','agency','seo','ads','brand','social media','campaign'],
-  fashion:['fashion','clothes','boutique','dress','kurta','saree','outfit','wear','style'],
-  finance:['ca','finance','accounting','tax','gst','audit','money','invest','loan','credit'],
-  education:['education','coaching','tuition','school','college','learning','course','skill','training'],
-  restaurant:['restaurant','food','hotel','dhaba','cafe','canteen','biryani','thali','eat'],
-  realestate:['real estate','property','flat','plot','ghar','makaan','builder','rent','house'],
-  healthcare:['health','clinic','hospital','doctor','medical','medicine','pharmacy','care','wellness'],
-  travel:['travel','tour','trip','holiday','vacation','flight','hotel','booking','yatra'],
-  tech:['software','it','tech','app','website','coding','developer','computer','digital'],
-  beauty:['beauty','salon','spa','parlour','makeup','skin','hair','nail','cosmetic'],
-  fitness:['gym','fitness','yoga','workout','health','exercise','weight','diet','zumba'],
-  legal:['law','legal','advocate','court','lawyer','justice','compliance','contract'],
-  ecommerce:['ecommerce','online store','shop','sell','product','marketplace','delivery'],
-  photography:['photo','photography','camera','studio','wedding photo','portrait','shoot'],
-  events:['wedding','event','party','celebration','decorator','catering','management'],
-  interior:['interior','design','decor','furniture','renovation','vastu','architect'],
-  auto:['car','automotive','bike','vehicle','garage','service','tyre','repair','mechanic'],
-  fintech:['fintech','payment','wallet','upi','banking','insurance','mutual fund','neobank'],
-  pharma:['pharma','medicine','drug','tablet','health','ayurved','homeopathy','chemist'],
-  pets:['pet','dog','cat','grooming','vet','animal','kennel','aquarium','birds'],
-  tiffin:['tiffin','cloud kitchen','dabba','meal','lunch','dinner','home food','catering'],
-  media:['news','media','blog','portal','journalism','magazine','podcast','content'],
-  gaming:['game','gaming','esports','play','streamer','ludo','cricket game','mobile game'],
-  saas:['saas','startup','b2b','software','platform','tool','crm','erp','dashboard'],
-  kids:['kids','children','baby','toy','school','nursery','playschool','child'],
-  agri:['agriculture','farm','kisan','crop','seeds','tractor','rural','harvest','mandi'],
-  logistics:['logistics','courier','delivery','shipping','transport','cargo','warehouse'],
-  music:['music','song','artist','band','studio','streaming','playlist','concert'],
-  green:['solar','green','energy','environment','eco','sustainable','renewable','clean']
-};
-
 function detectIndustry(text){
   const t=text.toLowerCase();
   for(const[ind,kws]of Object.entries(INDUSTRY_KEYWORDS)){
