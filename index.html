@@ -493,6 +493,11 @@ footer{position:relative;z-index:2;border-top:1px solid var(--border);
 @media(max-width:1100px){.logo-grid{grid-template-columns:repeat(4,1fr)}}
 @media(max-width:800px){.logo-grid{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:520px){.logo-grid{grid-template-columns:repeat(2,1fr)}}
+
+.flow-modal{position:fixed;inset:0;background:rgba(12,12,12,.55);display:none;align-items:center;justify-content:center;z-index:700;padding:16px}.flow-modal.open{display:flex}.flow-panel{background:#fff;width:min(860px,100%);border-radius:18px;padding:22px}.industry-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}.industry-card{border:1px solid var(--border);padding:12px;border-radius:12px;background:#fff;cursor:pointer;font-weight:600}.industry-card:hover,.industry-card.active{border-color:var(--purple);background:#f4f0ff}
+.flow-page{display:none;position:fixed;inset:0;z-index:550;background:var(--bg);overflow:auto;padding:40px 16px}.flow-page.open{display:block}.flow-card{max-width:760px;margin:0 auto;background:#fff;border:1px solid var(--border);border-radius:16px;padding:20px}.flow-step{font-size:11px;color:var(--muted);text-transform:uppercase;margin-bottom:8px}.kw-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}.kw-grid input, .flow-options select{width:100%;padding:10px;border:1px solid var(--border);border-radius:10px}.flow-options{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px}.flow-options label{display:block;font-size:12px;font-weight:700;margin-bottom:6px}.flow-settings{margin-top:12px;padding-top:14px;border-top:1px solid var(--border)}.flow-settings-title{font-size:13px;font-weight:700;margin-bottom:10px;color:var(--ink)}.filter-bar{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:14px}.filter-bar select{padding:9px 12px;border-radius:10px;border:1px solid var(--border);background:#fff}
+@media(max-width:640px){.industry-grid{grid-template-columns:repeat(2,1fr)}.kw-grid,.flow-options{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body>
@@ -517,21 +522,13 @@ footer{position:relative;z-index:2;border-top:1px solid var(--border);
     <div class="search-box">
       <div class="search-input-wrap">
         <span class="search-ai-icon">✦</span>
-        <input id="bi" type="text" placeholder="e.g. Mumbai restaurant, fashion boutique, yoga studio...">
+        <input id="bi" type="text" placeholder="Search Name">
       </div>
-      <button class="gen-btn" onclick="go()">
+      <button class="gen-btn" onclick="startSearchFlow()">
         <span class="gen-btn-icon">✦</span>
-        <span class="gen-btn-text">Generate</span>
+        <span class="gen-btn-text">Search</span>
       </button>
     </div>
-  </div>
-  <div class="tld-row">
-    <button class="tld-btn on" onclick="st(this,'.com')">.com</button>
-    <button class="tld-btn" onclick="st(this,'.in')">.in</button>
-    <button class="tld-btn" onclick="st(this,'.co.in')">.co.in</button>
-    <button class="tld-btn" onclick="st(this,'.ai')">.ai</button>
-    <button class="tld-btn" onclick="st(this,'.tv')">.tv</button>
-    <button class="tld-btn" onclick="st(this,'mix')">✦ Mix All</button>
   </div>
 </div>
 
@@ -544,6 +541,53 @@ footer{position:relative;z-index:2;border-top:1px solid var(--border);
 
 </div>
 
+
+<div id="industryModal" class="flow-modal open">
+  <div class="flow-panel">
+    <h2>Select Your Industry</h2>
+    <p>Pick one category to personalize your name ideas.</p>
+    <div class="industry-grid" id="industryGrid"></div>
+  </div>
+</div>
+
+<div id="namePage" class="flow-page">
+  <div class="flow-card">
+    <div class="flow-step">Step 2 of 3</div>
+    <h2>Enter 3 Preferred Keywords</h2>
+    <p>These can be brand words, products, or themes you want in your name.</p>
+    <div class="kw-grid">
+      <input id="kw1" type="text" placeholder="Keyword 1">
+      <input id="kw2" type="text" placeholder="Keyword 2">
+      <input id="kw3" type="text" placeholder="Keyword 3">
+    </div>
+    <div class="flow-settings">
+      <h3 class="flow-settings-title">Search Preferences</h3>
+      <div class="flow-options">
+      <div>
+        <label>Name Length</label>
+        <select id="nameLength">
+          <option value="short">Short (3–6 letters)</option>
+          <option value="medium" selected>Medium (6–10 letters)</option>
+          <option value="long">Long (10+ letters)</option>
+        </select>
+      </div>
+      <div>
+        <label>Domain Type</label>
+        <div class="tld-row" id="namePageTld">
+          <button class="tld-btn on" onclick="st(this,'.com')">.com</button>
+          <button class="tld-btn" onclick="st(this,'.in')">.in</button>
+          <button class="tld-btn" onclick="st(this,'.co.in')">.co.in</button>
+          <button class="tld-btn" onclick="st(this,'.ai')">.ai</button>
+          <button class="tld-btn" onclick="st(this,'.tv')">.tv</button>
+          <button class="tld-btn" onclick="st(this,'mix')">Mix All</button>
+        </div>
+      </div>
+    </div>
+    </div>
+    <button class="gen-btn" onclick="goFromStep2()"><span class="gen-btn-text">Generate Names</span></button>
+  </div>
+</div>
+
 <div class="services">
   <div class="sec-label" style="margin-bottom:20px;">Our Services</div>
   <div class="svc-grid">
@@ -552,7 +596,7 @@ footer{position:relative;z-index:2;border-top:1px solid var(--border);
       <div class="svc-content">
         <div class="svc-tag">Trademark</div>
         <div class="svc-title">Protect Your Brand</div>
-        <div class="svc-desc">Brand naam legally secure karo. Trademark search free — registration from ₹1,499.</div>
+        <div class="svc-desc">Secure your brand legally. Trademark search is free — registration starts at ₹1,499.</div>
       </div>
       <div class="svc-footer">
         <div class="tm-card-btns">
@@ -566,7 +610,7 @@ footer{position:relative;z-index:2;border-top:1px solid var(--border);
       <div class="svc-content">
         <div class="svc-tag">Domain Registration</div>
         <div class="svc-title">Buy Your Domain</div>
-        <div class="svc-desc">Best price pe domain register karo. .in domains from ₹599/yr. .com from ₹899/yr.</div>
+        <div class="svc-desc">Register domains at competitive prices. .in domains from ₹599/yr, .com from ₹899/yr.</div>
       </div>
       <div class="svc-footer">
         <span class="svc-learn">Buy Domain <span class="svc-learn-arrow">→</span></span>
@@ -576,8 +620,8 @@ footer{position:relative;z-index:2;border-top:1px solid var(--border);
       <div class="svc-emoji">🎨</div>
       <div class="svc-content">
         <div class="svc-tag">Business Logo</div>
-        <div class="svc-title">Free Logo Banao</div>
-        <div class="svc-desc">AI se professional logo instantly ready. Koi designer ki zaroorat nahi.</div>
+        <div class="svc-title">Create a Free Logo</div>
+        <div class="svc-desc">Create a professional logo instantly with AI. No designer required.</div>
       </div>
       <div class="svc-footer">
         <span class="svc-learn">Generate Free <span class="svc-learn-arrow">→</span></span>
@@ -587,8 +631,8 @@ footer{position:relative;z-index:2;border-top:1px solid var(--border);
       <div class="svc-emoji">💻</div>
       <div class="svc-content">
         <div class="svc-tag">Website · ₹199/month</div>
-        <div class="svc-title">Website Banwao</div>
-        <div class="svc-desc">Professional website sirf ₹199/month mein. Indian entrepreneurs ke liye perfect.</div>
+        <div class="svc-title">Build Your Website</div>
+        <div class="svc-desc">Professional website at just ₹199/month. Ideal for Indian entrepreneurs.</div>
       </div>
       <div class="svc-footer">
         <span class="svc-learn">Get Started <span class="svc-learn-arrow">→</span></span>
@@ -655,6 +699,8 @@ footer{position:relative;z-index:2;border-top:1px solid var(--border);
 <script>
 const GROQ_KEY='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'; 
 let tl='.com';
+let selectedIndustry=localStorage.getItem('o7_industry')||'';
+let allResults=[];
 let liked=JSON.parse(localStorage.getItem('o7_liked')||'[]');
 const CS=15;
 
@@ -766,12 +812,23 @@ function showLoader(biz){
       <div class="ai-orb-core">✦</div>
     </div>
     <div class="ai-loader-text">
-      <div class="ai-loader-title">Flappio AI kaam par hai...</div>
-      <div class="ai-loader-sub">Unlimited brand names generate ho rahe hain</div>
+      <div class="ai-loader-title">Flappio AI is working...</div>
+      <div class="ai-loader-sub">Generating brand names for you</div>
       <div class="ai-words">${wordsHTML}</div>
     </div>
     <div class="ai-progress"><div class="ai-progress-bar"></div></div>
   </div>`;
+}
+
+
+function startSearchFlow(){
+  const q=document.getElementById('bi').value.trim();
+  if(!selectedIndustry){
+    document.getElementById('industryModal').classList.add('open');
+    return;
+  }
+  document.getElementById('namePage').classList.add('open');
+  if(q && !document.getElementById('kw1').value.trim())document.getElementById('kw1').value=q;
 }
 
 async function go(){
@@ -785,19 +842,22 @@ async function go(){
   document.getElementById('rpCount').textContent='Loading...';
   document.getElementById('rpResLabel').textContent='';
   document.getElementById('rpGrid').innerHTML=showLoader(biz);
+  document.getElementById('namePage').classList.remove('open');
   openResults();
   renderSaved();
 
   // Build smart prompt with keyword matching instruction
   const industryHint=detectedIndustry?`Industry detected: ${detectedIndustry}. `:'';
-  const prompt=`You are Flappio, world-class domain branding AI. Generate exactly 100 unique creative brandable domain names for: "${biz}".
+  const lengthPref=(document.getElementById('nameLength')?.value||'medium');
+  const lengthRule=lengthPref==='short'?'Prefer short names (3-6 letters before TLD).':(lengthPref==='long'?'Prefer long names (10+ letters before TLD).':'Prefer medium names (6-10 letters before TLD).');
+  const prompt=`You are Flappio, world-class domain branding AI. Generate exactly 200 unique creative brandable domain names for: "${biz}".
 ${industryHint}IMPORTANT: Include names that contain the main keyword/s from the business description (keyword matching). Mix keyword-based names with creative portmanteau/brandable names.
 TLD: ${tl==='mix'?'mix of .com .in .co.in .ai .tv':tl}.
-Rules: short memorable professional, mix compound/portmanteau/suffix(-ify-ly-hub-go-now-hq)/prefix(get-my-try-), no duplicates, include keyword-match names.
+Rules: short memorable professional, mix compound/portmanteau/suffix(-ify-ly-hub-go-now-hq)/prefix(get-my-try-), no duplicates, include keyword-match names. ${lengthRule}
 First 8: top:true, rest top:false. likely_available:true if made-up word, false if common phrase.
 Respond ONLY raw JSON array no markdown no backticks:
 [{"domain":"x.com","reason":"why","top":true,"likely_available":true}]
-All 100 required.`;
+All 200 required.`;
 
   try{
     const r=await fetch('https://api.groq.com/openai/v1/chat/completions',{
@@ -808,8 +868,10 @@ All 100 required.`;
     const d=await r.json();
     const raw=d.choices[0].message.content.replace(/```json|```/g,'').trim();
     const doms=JSON.parse(raw);
-    document.getElementById('rpCount').textContent=doms.length+' names';
-    document.getElementById('rpResLabel').textContent='✦ '+doms.length+' brand names for "'+biz+'"';
+    allResults=doms.slice(0,200);
+    document.getElementById('rpResLabel').textContent='✦ '+allResults.length+' brand names for "'+biz+'"';
+    renderResults(allResults);
+    return;
     document.getElementById('rpGrid').innerHTML=doms.map((x,i)=>{
       const iL=liked.includes(x.domain);
       const safe=x.domain.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
@@ -821,8 +883,9 @@ All 100 required.`;
         </div>
         <div class="lc-actions">
           <div class="lc-row">
-            <button class="lc-like${iL?' liked':''}" data-domain="${x.domain}" onclick="toggleLike('${safe}',this)">${iL?'♥':'♡'}</button>
-            <a class="lov-buy" href="https://www.namecheap.com/domains/registration/results/?domain=${encodeURIComponent(x.domain)}" target="_blank">Buy Now</a>
+            <button class="lc-like${iL?' liked':''}" data-domain="${x.domain}" onclick="toggleLike('${safe}',this)">❤️</button>
+            <button class="lov-buy" onclick="copyDomain('${safe}')">📋 Copy</button>
+            <a class="lov-chk" href="https://www.namecheap.com/domains/registration/results/?domain=${encodeURIComponent(x.domain)}" target="_blank">Buy</a>
             <a class="lov-chk" href="https://www.godaddy.com/domainsearch/find?checkAvail=1&domainToCheck=${encodeURIComponent(x.domain)}" target="_blank">Check</a>
           </div>
         </div>
@@ -830,11 +893,22 @@ All 100 required.`;
     }).join('');
     renderSaved();
   }catch(e){
-    document.getElementById('rpGrid').innerHTML='<div style="text-align:center;padding:60px 20px"><div style="font-size:40px;margin-bottom:12px">😕</div><div style="font-size:14px;color:#ef4444;font-weight:600">Kuch gadbad ho gayi. Dobara try karo.</div></div>';
+    document.getElementById('rpGrid').innerHTML='<div style="text-align:center;padding:60px 20px"><div style="font-size:40px;margin-bottom:12px">😕</div><div style="font-size:14px;color:#ef4444;font-weight:600">Something went wrong. Please try again.</div></div>';
     console.error(e);
   }
 }
-document.getElementById('bi').addEventListener('keydown',e=>{if(e.key==='Enter')go()});
+
+const INDUSTRIES=['Technology','E-commerce','Fashion','Food & Restaurant','Healthcare','Education','Finance','Travel','Real Estate','Beauty','Fitness','Legal'];
+function renderIndustries(){const g=document.getElementById('industryGrid');g.innerHTML=INDUSTRIES.map(x=>`<button class="industry-card ${selectedIndustry===x?'active':''}" onclick="selectIndustry('${x}')">${x}</button>`).join('')}
+function selectIndustry(v){selectedIndustry=v;localStorage.setItem('o7_industry',v);document.getElementById('industryModal').classList.remove('open');document.getElementById('namePage').classList.add('open');renderIndustries()}
+function goFromStep2(){const kws=[kw1.value.trim(),kw2.value.trim(),kw3.value.trim()].filter(Boolean);if(kws.length<3){alert('Please enter 3 keywords.');return;}bi.value=`${selectedIndustry} ${kws.join(' ')}`.trim();go()}
+function estimatePrice(domain){if(domain.endsWith('.in'))return 599;if(domain.endsWith('.co.in'))return 499;if(domain.endsWith('.ai'))return 2499;if(domain.endsWith('.tv'))return 1499;return 899}
+function applyFilters(){const d=document.getElementById('filterDomain').value;const p=document.getElementById('filterPrice').value;const filtered=allResults.filter(x=>{const okD=d==='all'||x.domain.endsWith(d);const pr=estimatePrice(x.domain);const okP=p==='all'||(p==='under500'&&pr<500)||(p==='500to1000'&&pr>=500&&pr<=1000)||(p==='above1000'&&pr>1000);return okD&&okP});renderResults(filtered)}
+function copyDomain(d){navigator.clipboard.writeText(d)}
+function renderResults(doms){document.getElementById('rpCount').textContent=doms.length+' names';document.getElementById('rpGrid').innerHTML=doms.map((x,i)=>{const iL=liked.includes(x.domain);const safe=x.domain.replace(/\\/g,'\\\\').replace(/'/g,"\\'");return `<div class="lc cs-${i%CS}" title="${(x.reason||'').replace(/"/g,'&quot;')}" style="animation-delay:${Math.min(i*.025,1.2)}s"><div class="lc-logo">${x.top?'<div class="lc-top-badge">✦ TOP PICK</div>':''}<div class="lc-avail ${x.likely_available?'av':'un'}"></div><div class="lc-name">${x.domain}</div></div><div class="lc-actions"><div class="lc-row"><button class="lc-like${iL?' liked':''}" data-domain="${x.domain}" onclick="toggleLike('${safe}',this)">❤️</button><button class="lov-buy" onclick="copyDomain('${safe}')">📋 Copy</button><a class="lov-chk" href="https://www.namecheap.com/domains/registration/results/?domain=${encodeURIComponent(x.domain)}" target="_blank">Buy</a></div></div></div>`}).join('');renderSaved()}
+renderIndustries();
+
+document.getElementById('bi').addEventListener('keydown',e=>{if(e.key==='Enter')startSearchFlow()});
 </script>
 </div>
 
@@ -849,12 +923,16 @@ document.getElementById('bi').addEventListener('keydown',e=>{if(e.key==='Enter')
     <div class="rp-saved-box" id="rpSavedBox">
       <div class="rp-saved-hd">
         <div class="rp-saved-hd-left">❤️ Saved Domains <span class="saved-cnt" id="savedCnt">0</span></div>
-        <button class="rp-saved-clear" onclick="clearAllLiked()">Sab hatao</button>
+        <button class="rp-saved-clear" onclick="clearAllLiked()">Clear all</button>
       </div>
       <div class="rp-saved-list" id="rpSavedList"></div>
     </div>
   </div>
   <div class="rp-grid-wrap">
+    <div class="filter-bar">
+      <select id="filterDomain" onchange="applyFilters()"><option value="all">All Domains</option><option value=".com">.com</option><option value=".in">.in</option><option value=".co.in">.co.in</option><option value=".ai">.ai</option><option value=".tv">.tv</option></select>
+      <select id="filterPrice" onchange="applyFilters()"><option value="all">All Prices</option><option value="under500">Under ₹500</option><option value="500to1000">₹500–₹1000</option><option value="above1000">Above ₹1000</option></select>
+    </div>
     <div class="rp-res-label" id="rpResLabel"></div>
     <div class="logo-grid" id="rpGrid"></div>
   </div>
