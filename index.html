@@ -896,8 +896,29 @@ function copyDomain(d){navigator.clipboard.writeText(d)}
 function renderResults(doms){document.getElementById('rpCount').textContent=doms.length+' names';document.getElementById('rpGrid').innerHTML=doms.map((x,i)=>{const iL=liked.includes(x.domain);const safe=x.domain.replace(/\\/g,'\\\\').replace(/'/g,"\\'");return `<div class="lc cs-${i%CS}" title="${(x.reason||'').replace(/"/g,'&quot;')}" style="animation-delay:${Math.min(i*.025,1.2)}s"><div class="lc-logo">${x.top?'<div class="lc-top-badge">✦ TOP PICK</div>':''}<div class="lc-avail ${x.likely_available?'av':'un'}"></div><div class="lc-name">${x.domain}</div></div><div class="lc-actions"><div class="lc-row"><button class="lc-like${iL?' liked':''}" data-domain="${x.domain}" onclick="toggleLike('${safe}',this)">❤️</button><button class="lov-buy" onclick="copyDomain('${safe}')">📋 Copy</button><a class="lov-chk" href="https://www.namecheap.com/domains/registration/results/?domain=${encodeURIComponent(x.domain)}" target="_blank">Buy</a></div></div></div>`}).join('');renderSaved()}
 renderIndustries();
 
-document.getElementById('bi').addEventListener('keydown',e=>{if(e.key==='Enter')startSearchFlow()});
-document.getElementById('searchBtn').addEventListener('click',startSearchFlow);
+function initSearchBindings(){
+  const searchInput=document.getElementById('bi');
+  const searchButton=document.getElementById('searchBtn');
+  if(!searchInput||!searchButton)return;
+
+  // Guard against duplicate listener attachment.
+  if(!searchInput.dataset.bound){
+    searchInput.addEventListener('keydown',e=>{if(e.key==='Enter')startSearchFlow()});
+    searchInput.dataset.bound='1';
+  }
+  if(!searchButton.dataset.bound){
+    searchButton.addEventListener('click',startSearchFlow);
+    // Keep inline and JS-bound click paths consistent.
+    searchButton.onclick=startSearchFlow;
+    searchButton.dataset.bound='1';
+  }
+}
+
+if(document.readyState==='loading'){
+  document.addEventListener('DOMContentLoaded',initSearchBindings);
+}else{
+  initSearchBindings();
+}
 </script>
 </div>
 
