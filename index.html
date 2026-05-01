@@ -100,10 +100,10 @@ h1 em{font-style:normal;background:linear-gradient(135deg,var(--accent),var(--pu
   color:#fff;border:none;padding:10px 18px;border-radius:11px;
   font-size:12px;font-weight:700;cursor:pointer;
   font-family:'Plus Jakarta Sans',sans-serif;
-  white-space:nowrap;display:flex;align-items:center;gap:8px;
+  white-space:nowrap;display:flex;align-items:center;gap:6px;
   transition:all .25s cubic-bezier(.4,0,.2,1);flex-shrink:0;
   position:relative;overflow:hidden;
-  box-shadow:0 2px 12px rgba(0,0,0,.25);
+  box-shadow:0 2px 10px rgba(0,0,0,.22);
 }
 .gen-btn::before{
   content:'';position:absolute;inset:0;
@@ -123,7 +123,10 @@ h1 em{font-style:normal;background:linear-gradient(135deg,var(--accent),var(--pu
 }
 .gen-btn:hover .gen-btn-icon{transform:rotate(20deg) scale(1.1)}
 
-@media(max-width:480px){.gen-btn{padding:9px 13px;font-size:11px}}
+
+.gen-btn.compact{padding:8px 12px;font-size:11px;border-radius:10px;min-height:34px}
+.gen-btn.compact .gen-btn-icon{display:none}
+@media(max-width:480px){.gen-btn{padding:8px 11px;font-size:11px}}
 
 .tld-row{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin:12px 0 18px;padding:0 16px}
 .tld-btn{font-size:12px;font-weight:600;padding:6px 16px;border-radius:20px;
@@ -496,8 +499,8 @@ footer{position:relative;z-index:2;border-top:1px solid var(--border);
 @media(max-width:520px){.logo-grid{grid-template-columns:repeat(2,1fr)}}
 
 .flow-modal{position:fixed;inset:0;background:rgba(12,12,12,.55);display:none;align-items:center;justify-content:center;z-index:700;padding:16px}.flow-modal.open{display:flex}.flow-panel{background:#fff;width:min(860px,100%);border-radius:18px;padding:22px}.industry-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}.industry-card{border:1px solid var(--border);padding:12px;border-radius:12px;background:#fff;cursor:pointer;font-weight:600}.industry-card:hover,.industry-card.active{border-color:var(--purple);background:#f4f0ff}
-.flow-page{display:none;position:fixed;inset:0;z-index:550;background:var(--bg);overflow:auto;padding:40px 16px}.flow-page.open{display:block}.flow-card{max-width:760px;margin:0 auto;background:#fff;border:1px solid var(--border);border-radius:16px;padding:20px}.flow-step{font-size:11px;color:var(--muted);text-transform:uppercase;margin-bottom:8px}.kw-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}.kw-grid input, .flow-options select{width:100%;padding:10px;border:1px solid var(--border);border-radius:10px}.flow-options{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0 14px}.extra-options{padding-top:10px;border-top:1px solid var(--border)}.flow-options label{display:block;font-size:12px;font-weight:700;margin-bottom:6px}.filter-bar{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:14px}.filter-bar select{padding:9px 12px;border-radius:10px;border:1px solid var(--border);background:#fff}
-@media(max-width:640px){.industry-grid{grid-template-columns:repeat(2,1fr)}.kw-grid,.flow-options{grid-template-columns:1fr}}
+.flow-page{display:none;position:fixed;inset:0;z-index:550;background:var(--bg);overflow:auto;padding:40px 16px}.flow-page.open{display:block}.flow-card{max-width:760px;margin:0 auto;background:#fff;border:1px solid var(--border);border-radius:16px;padding:20px}.flow-step{font-size:11px;color:var(--muted);text-transform:uppercase;margin-bottom:8px}.flow-section{padding:14px 0;border-top:1px solid var(--border)}.flow-section:first-of-type{border-top:none;padding-top:8px}.flow-section h3{font-size:14px;margin-bottom:10px;font-family:'Syne',sans-serif}.kw-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.kw-grid input,.flow-select{width:100%;padding:10px;border:1px solid var(--border);border-radius:10px;background:#fff;font-family:'Plus Jakarta Sans',sans-serif}.flow-options{display:grid;grid-template-columns:1fr 1fr;gap:12px}.flow-options label,.flow-label{display:block;font-size:12px;font-weight:700;margin-bottom:6px;color:var(--muted)}.filter-bar{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:14px}.filter-bar select{padding:9px 12px;border-radius:10px;border:1px solid var(--border);background:#fff}
+@media(max-width:640px){.kw-grid,.flow-options{grid-template-columns:1fr}}
 
 </style>
 </head>
@@ -525,8 +528,7 @@ footer{position:relative;z-index:2;border-top:1px solid var(--border);
         <span class="search-ai-icon">✦</span>
         <input id="bi" type="text" placeholder="Search Name">
       </div>
-      <button id="searchBtn" type="button" class="gen-btn" onclick="startSearchFlow()">
-        <span class="gen-btn-icon">✦</span>
+      <button id="searchBtn" type="button" class="gen-btn compact" onclick="startSearchFlow()">
         <span class="gen-btn-text">Search Name</span>
       </button>
     </div>
@@ -554,36 +556,45 @@ footer{position:relative;z-index:2;border-top:1px solid var(--border);
 <div id="namePage" class="flow-page">
   <div class="flow-card">
     <div class="flow-step">Step 2 of 3</div>
-    <h2>Enter 3 Preferred Keywords</h2>
-    <p>These can be brand words, products, or themes you want in your name.</p>
-    <div style="margin-top:14px">
-      <label style="display:block;font-size:12px;font-weight:700;margin-bottom:8px">Industry Selection</label>
-      <div class="industry-grid" id="industryGrid"></div>
+    <h2>Generate Your Domain Names</h2>
+    <p>Minimal flow for fast selections before generation.</p>
+
+    <div class="flow-section">
+      <h3>Section 1: Industry Selection</h3>
+      <label class="flow-label" for="industrySelect">Industry Selection</label>
+      <select id="industrySelect" class="flow-select" onchange="selectIndustry(this.value)"></select>
     </div>
-    <div class="kw-grid">
-      <input id="kw1" type="text" placeholder="Keyword 1">
-      <input id="kw2" type="text" placeholder="Keyword 2">
-      <input id="kw3" type="text" placeholder="Keyword 3">
-    </div>
-    <div class="flow-options extra-options">
-      <div>
-        <label>Domain Selection</label>
-        <select id="domainSelection" onchange="setDomainSelection(this.value)">
-          <option value=".com" selected>.com</option>
-          <option value=".in">.in</option>
-          <option value=".ai">.ai</option>
-          <option value="mix">Mix</option>
-        </select>
-      </div>
-      <div>
-        <label>Name Length Option</label>
-        <select id="nameLength">
-          <option value="short">Short</option>
-          <option value="medium" selected>Medium</option>
-          <option value="long">Long</option>
-        </select>
+
+    <div class="flow-section">
+      <h3>Section 2: Enter 3 Keywords</h3>
+      <div class="kw-grid">
+        <input id="kw1" type="text" placeholder="Keyword 1">
+        <input id="kw2" type="text" placeholder="Keyword 2">
+        <input id="kw3" type="text" placeholder="Keyword 3">
       </div>
     </div>
+
+    <div class="flow-section">
+      <h3>Section 3: Domain Selection</h3>
+      <label class="flow-label" for="domainSelection">.com / .in / .ai / mix</label>
+      <select id="domainSelection" class="flow-select" onchange="setDomainSelection(this.value)">
+        <option value=".com" selected>.com</option>
+        <option value=".in">.in</option>
+        <option value=".ai">.ai</option>
+        <option value="mix">mix</option>
+      </select>
+    </div>
+
+    <div class="flow-section">
+      <h3>Section 4: Name Length Option</h3>
+      <label class="flow-label" for="nameLength">Short / Medium / Long</label>
+      <select id="nameLength" class="flow-select">
+        <option value="short">Short</option>
+        <option value="medium" selected>Medium</option>
+        <option value="long">Long</option>
+      </select>
+    </div>
+
     <button class="gen-btn" onclick="goFromStep2()"><span class="gen-btn-text">Generate Names</span></button>
   </div>
 </div>
@@ -887,7 +898,7 @@ All 200 required.`;
 }
 
 const INDUSTRIES=['Technology','E-commerce','Fashion','Food & Restaurant','Healthcare','Education','Finance','Travel','Real Estate','Beauty','Fitness','Legal'];
-function renderIndustries(){const g=document.getElementById('industryGrid');g.innerHTML=INDUSTRIES.map(x=>`<button class="industry-card ${selectedIndustry===x?'active':''}" onclick="selectIndustry('${x}')">${x}</button>`).join('')}
+function renderIndustries(){const s=document.getElementById('industrySelect');if(!s)return;s.innerHTML=['<option value=\"\">Select Industry</option>',...INDUSTRIES.map(x=>`<option value=\"${x}\" ${selectedIndustry===x?'selected':''}>${x}</option>`)].join('')}
 function selectIndustry(v){selectedIndustry=v;localStorage.setItem('o7_industry',v);renderIndustries()}
 function goFromStep2(){const kws=[kw1.value.trim(),kw2.value.trim(),kw3.value.trim()].filter(Boolean);if(!kws.length){alert('Please enter at least 1 keyword.');return;}const industryPrefix=selectedIndustry?selectedIndustry+' ':'';const biz=`${industryPrefix}${kws.join(' ')}`.trim();bi.value=biz;go({biz,nameLength:document.getElementById('nameLength').value,domainChoice:document.getElementById('domainSelection').value})}
 function estimatePrice(domain){if(domain.endsWith('.in'))return 599;if(domain.endsWith('.co.in'))return 499;if(domain.endsWith('.ai'))return 2499;if(domain.endsWith('.tv'))return 1499;return 899}
@@ -941,7 +952,7 @@ if(document.readyState==='loading'){
   <div class="rp-grid-wrap">
     <div class="filter-bar">
       <select id="filterDomain" onchange="applyFilters()"><option value="all">All Domains</option><option value=".com">.com</option><option value=".in">.in</option><option value=".co.in">.co.in</option><option value=".ai">.ai</option><option value=".tv">.tv</option></select>
-      <select id="filterPrice" onchange="applyFilters()"><option value="all">All Prices</option><option value="under500">Under ₹500</option><option value="500to1000">₹500–₹1000</option><option value="above1000">Above ₹1000</option></select>
+      <select id="filterPrice" onchange="applyFilters()"><option value="all">All Prices</option><option value="under500">Under 500</option><option value="500to1000">₹500–₹1000</option><option value="above1000">Above ₹1000</option></select>
     </div>
     <div class="rp-res-label" id="rpResLabel"></div>
     <div class="logo-grid" id="rpGrid"></div>
