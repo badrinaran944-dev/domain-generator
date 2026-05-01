@@ -542,7 +542,7 @@ footer{position:relative;z-index:2;border-top:1px solid var(--border);
 </div>
 
 
-<div id="industryModal" class="flow-modal open">
+<div id="industryModal" class="flow-modal">
   <div class="flow-panel">
     <h2>Select Your Industry</h2>
     <p>Pick one category to personalize your name ideas.</p>
@@ -555,6 +555,10 @@ footer{position:relative;z-index:2;border-top:1px solid var(--border);
     <div class="flow-step">Step 2 of 3</div>
     <h2>Enter 3 Preferred Keywords</h2>
     <p>These can be brand words, products, or themes you want in your name.</p>
+    <div style="margin-top:14px">
+      <label style="display:block;font-size:12px;font-weight:700;margin-bottom:8px">Industry Selection</label>
+      <div class="industry-grid" id="industryGrid"></div>
+    </div>
     <div class="kw-grid">
       <input id="kw1" type="text" placeholder="Keyword 1">
       <input id="kw2" type="text" placeholder="Keyword 2">
@@ -747,7 +751,6 @@ function setDomainSelection(v){tl=v}
 function startSearchFlow(){
   const biz=document.getElementById('bi').value.trim();
   if(!biz)return;
-  document.getElementById('industryModal').classList.remove('open');
   document.getElementById('namePage').classList.add('open');
   document.getElementById('kw1').value=biz;
 }
@@ -884,7 +887,7 @@ All 200 required.`;
 
 const INDUSTRIES=['Technology','E-commerce','Fashion','Food & Restaurant','Healthcare','Education','Finance','Travel','Real Estate','Beauty','Fitness','Legal'];
 function renderIndustries(){const g=document.getElementById('industryGrid');g.innerHTML=INDUSTRIES.map(x=>`<button class="industry-card ${selectedIndustry===x?'active':''}" onclick="selectIndustry('${x}')">${x}</button>`).join('')}
-function selectIndustry(v){selectedIndustry=v;localStorage.setItem('o7_industry',v);document.getElementById('industryModal').classList.remove('open');document.getElementById('namePage').classList.add('open');renderIndustries()}
+function selectIndustry(v){selectedIndustry=v;localStorage.setItem('o7_industry',v);renderIndustries()}
 function goFromStep2(){const kws=[kw1.value.trim(),kw2.value.trim(),kw3.value.trim()].filter(Boolean);if(!kws.length){alert('Please enter at least 1 keyword.');return;}const industryPrefix=selectedIndustry?selectedIndustry+' ':'';const biz=`${industryPrefix}${kws.join(' ')}`.trim();bi.value=biz;go({biz,nameLength:document.getElementById('nameLength').value,domainChoice:document.getElementById('domainSelection').value})}
 function estimatePrice(domain){if(domain.endsWith('.in'))return 599;if(domain.endsWith('.co.in'))return 499;if(domain.endsWith('.ai'))return 2499;if(domain.endsWith('.tv'))return 1499;return 899}
 function applyFilters(){const d=document.getElementById('filterDomain').value;const p=document.getElementById('filterPrice').value;const filtered=allResults.filter(x=>{const okD=d==='all'||x.domain.endsWith(d);const pr=estimatePrice(x.domain);const okP=p==='all'||(p==='under500'&&pr<500)||(p==='500to1000'&&pr>=500&&pr<=1000)||(p==='above1000'&&pr>1000);return okD&&okP});renderResults(filtered)}
