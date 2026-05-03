@@ -716,23 +716,29 @@ function setDomainSelection(v){tl=v}
 
 
 function startSearchFlow(){
-  const biz=document.getElementById('bi').value.trim();
+  const bi=document.getElementById('bi');
+  const namePage=document.getElementById('namePage');
+  const kw1=document.getElementById('kw1');
+  const biz=(bi?.value||'').trim();
   if(!biz)return;
-  document.getElementById('namePage').classList.add('open');
-  document.getElementById('kw1').value=biz;
+  if(namePage)namePage.classList.add('open');
+  if(kw1)kw1.value=biz;
 }
 
 // Industry card click — set industry context and trigger
 function sx(query, indKey){const bi=document.getElementById('bi');bi.value=query;startSearchFlow();}
 
 function openResults(){
-  document.getElementById('homePage').style.display='none';
+  const homePage=document.getElementById('homePage');
   const rp=document.getElementById('resultsPage');
-  rp.classList.add('open');rp.scrollTop=0;
+  if(homePage)homePage.style.display='none';
+  if(rp){rp.classList.add('open');rp.scrollTop=0;}
 }
 function goHome(){
-  document.getElementById('homePage').style.display='block';
-  document.getElementById('resultsPage').classList.remove('open');
+  const homePage=document.getElementById('homePage');
+  const resultsPage=document.getElementById('resultsPage');
+  if(homePage)homePage.style.display='block';
+  if(resultsPage)resultsPage.classList.remove('open');
 }
 
 function saveLiked(){localStorage.setItem('o7_liked',JSON.stringify(liked));renderSaved()}
@@ -740,6 +746,10 @@ function renderSaved(){
   const box=document.getElementById('rpSavedBox');
   const list=document.getElementById('rpSavedList');
   const cnt=document.getElementById('savedCnt');
+
+  // Saved-items UI was removed in latest layout; safely no-op when elements are missing.
+  if(!box||!list)return;
+
   if(!liked.length){box.classList.remove('show');return}
   box.classList.add('show');
   if(cnt)cnt.textContent=liked.length;
@@ -785,19 +795,27 @@ function showLoader(biz){
 }
 
 async function go(opts={}){
-  const biz=(opts.biz||document.getElementById('bi').value).trim();
-  const nameLength=opts.nameLength||document.getElementById('nameLength').value||'medium';
+  const bi=document.getElementById('bi');
+  const nameLengthEl=document.getElementById('nameLength');
+  const rpTitle=document.getElementById('rpTitle');
+  const rpCount=document.getElementById('rpCount');
+  const rpResLabel=document.getElementById('rpResLabel');
+  const rpGrid=document.getElementById('rpGrid');
+  const namePage=document.getElementById('namePage');
+
+  const biz=(opts.biz||bi?.value||'').trim();
+  const nameLength=opts.nameLength||nameLengthEl?.value||'medium';
   const domainChoice=opts.domainChoice||tl;
   if(!biz)return;
 
   // Detect industry from input
   const detectedIndustry=detectIndustry(biz);
 
-  document.getElementById('rpTitle').textContent='"'+biz+'"';
-  document.getElementById('rpCount').textContent='Loading...';
-  document.getElementById('rpResLabel').textContent='';
-  document.getElementById('rpGrid').innerHTML=showLoader(biz);
-  document.getElementById('namePage').classList.remove('open');
+  if(rpTitle)rpTitle.textContent='"'+biz+'"';
+  if(rpCount)rpCount.textContent='Loading...';
+  if(rpResLabel)rpResLabel.textContent='';
+  if(rpGrid)rpGrid.innerHTML=showLoader(biz);
+  if(namePage)namePage.classList.remove('open');
   openResults();
   renderSaved();
 
@@ -823,7 +841,7 @@ All 200 required.`;
     const raw=d.choices[0].message.content.replace(/```json|```/g,'').trim();
     const doms=JSON.parse(raw);
     allResults=doms.slice(0,200);
-    document.getElementById('rpResLabel').textContent='✦ '+allResults.length+' brand names for "'+biz+'"';
+    if(rpResLabel)rpResLabel.textContent='✦ '+allResults.length+' brand names for "'+biz+'"';
     renderResults(allResults);
     return;
     document.getElementById('rpGrid').innerHTML=doms.map((x,i)=>{
@@ -847,7 +865,7 @@ All 200 required.`;
     }).join('');
     renderSaved();
   }catch(e){
-    document.getElementById('rpGrid').innerHTML='<div style="text-align:center;padding:60px 20px"><div style="font-size:40px;margin-bottom:12px">😕</div><div style="font-size:14px;color:#ef4444;font-weight:600">Something went wrong. Please try again.</div></div>';
+    if(rpGrid)rpGrid.innerHTML='<div style="text-align:center;padding:60px 20px"><div style="font-size:40px;margin-bottom:12px">😕</div><div style="font-size:14px;color:#ef4444;font-weight:600">Something went wrong. Please try again.</div></div>';
     console.error(e);
   }
 }
@@ -855,7 +873,7 @@ All 200 required.`;
 const INDUSTRIES=['Technology','E-commerce','Fashion','Food & Restaurant','Healthcare','Education','Finance','Travel','Real Estate','Beauty','Fitness','Legal'];
 function renderIndustries(){const s=document.getElementById('industrySelect');if(!s)return;s.innerHTML=['<option value=\"\">Select Industry</option>',...INDUSTRIES.map(x=>`<option value=\"${x}\" ${selectedIndustry===x?'selected':''}>${x}</option>`)].join('')}
 function selectIndustry(v){selectedIndustry=v;localStorage.setItem('o7_industry',v);renderIndustries()}
-function goFromStep2(){const kws=[kw1.value.trim(),kw2.value.trim(),kw3.value.trim()].filter(Boolean);if(!kws.length){alert('Please enter at least 1 keyword.');return;}const industryPrefix=selectedIndustry?selectedIndustry+' ':'';const biz=`${industryPrefix}${kws.join(' ')}`.trim();bi.value=biz;go({biz,nameLength:document.getElementById('nameLength').value,domainChoice:document.getElementById('domainSelection').value})}
+function goFromStep2(){const kw1=document.getElementById('kw1');const kw2=document.getElementById('kw2');const kw3=document.getElementById('kw3');const bi=document.getElementById('bi');const nameLength=document.getElementById('nameLength');const domainSelection=document.getElementById('domainSelection');const kws=[kw1?.value.trim(),kw2?.value.trim(),kw3?.value.trim()].filter(Boolean);if(!kws.length){alert('Please enter at least 1 keyword.');return;}const industryPrefix=selectedIndustry?selectedIndustry+' ':'';const biz=`${industryPrefix}${kws.join(' ')}`.trim();if(bi)bi.value=biz;go({biz,nameLength:nameLength?.value,domainChoice:domainSelection?.value})}
 function estimatePrice(domain){if(domain.endsWith('.in'))return 599;if(domain.endsWith('.co.in'))return 499;if(domain.endsWith('.ai'))return 2499;if(domain.endsWith('.tv'))return 1499;return 899}
 let activePrice='all';let activeExt=[];function setPriceFilter(v){activePrice=v;applyFilters()}function toggleExt(el){if(el.checked){activeExt.push(el.value)}else{activeExt=activeExt.filter(x=>x!==el.value)}applyFilters()}function applyFilters(){const av=document.getElementById('availableOnly')?.checked;let filtered=allResults.filter(x=>{const okD=!activeExt.length||activeExt.some(ext=>x.domain.endsWith(ext));const pr=estimatePrice(x.domain);const okP=activePrice==='all'||(activePrice==='under500'&&pr<500)||(activePrice==='500to1000'&&pr>=500&&pr<=1000)||(activePrice==='above1000'&&pr>1000);const okA=!av||x.likely_available;return okD&&okP&&okA});const sort=document.getElementById('sortResults')?.value||'relevance';if(sort!=='relevance'){filtered=filtered.sort((a,b)=>sort==='priceAsc'?estimatePrice(a.domain)-estimatePrice(b.domain):estimatePrice(b.domain)-estimatePrice(a.domain))}renderResults(filtered)}
 function copyDomain(d){navigator.clipboard.writeText(d)}
