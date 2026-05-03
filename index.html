@@ -424,11 +424,12 @@ footer{position:relative;z-index:2;border-top:1px solid var(--border);
 .rp-back{display:flex;align-items:center;gap:6px;background:#fff;border:1px solid #dde2ea;cursor:pointer;font-size:13px;font-weight:600;color:#111827;padding:9px 14px;border-radius:10px}
 .rp-title{font-size:14px;font-weight:700;color:#0f172a;flex:1;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .rp-count{font-size:12px;color:#475569;background:#fff;border:1px solid #dde2ea;padding:6px 12px;border-radius:999px}
-.rp-shell{max-width:1400px;margin:0 auto;padding:28px 24px 40px;display:grid;grid-template-columns:280px 1fr;gap:24px}
-.rp-filter{background:#fff;border:1px solid #e6e8ee;border-radius:16px;padding:18px;height:fit-content;position:sticky;top:86px}
-.rp-filter h3{font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:#64748b;margin-bottom:14px}
-.fsec{padding-top:14px;margin-top:14px;border-top:1px solid #eef1f5}
-.fopt{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;font-size:13px;color:#1f2937}
+.rp-shell{max-width:1440px;margin:0 auto;padding:32px 32px 46px;display:grid;grid-template-columns:300px 1fr;gap:28px}
+.rp-filter{background:#fff;border:1px solid #e6e8ee;border-radius:16px;padding:24px;height:fit-content;position:sticky;top:86px;box-shadow:0 8px 20px rgba(15,23,42,.04)}
+.rp-filter h3{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#334155;margin-bottom:18px}
+.fsec{padding-top:18px;margin-top:18px;border-top:1px solid #e8edf3}
+.fopt{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;font-size:13px;color:#1f2937;line-height:1.45}
+.fopt:last-child{margin-bottom:0}
 .fopt input{margin-right:8px}
 .rp-main{min-width:0}
 .rp-top{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:18px}
@@ -438,26 +439,31 @@ footer{position:relative;z-index:2;border-top:1px solid var(--border);
 .rp-toggle{display:flex;gap:6px;background:#fff;border:1px solid #dde2ea;border-radius:10px;padding:5px}
 .rp-toggle button{border:none;background:transparent;padding:6px 8px;border-radius:8px;cursor:pointer;color:#64748b}
 .rp-toggle button.active{background:#0f172a;color:#fff}
-.rp-res-label{font-size:13px;color:#64748b;margin-bottom:14px}
-.logo-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
-@media(min-width:1360px){.logo-grid{grid-template-columns:repeat(5,minmax(0,1fr))}}
-.lc{background:#fff;border:1px solid #e8ebf1;border-radius:14px;padding:14px;position:relative;display:flex;flex-direction:column;gap:12px;transition:transform .18s ease,box-shadow .18s ease}
-.lc:hover{transform:translateY(-2px) scale(1.01);box-shadow:0 14px 24px rgba(15,23,42,.08)}
-.lc-like{position:absolute;top:12px;right:12px;width:30px;height:30px;border-radius:999px;border:1px solid #e2e8f0;background:#fff;color:#64748b;cursor:pointer}
+.rp-res-label{font-size:13px;color:#64748b;margin-bottom:16px}
+.logo-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:24px}
+.lc{background:#fff;border:1px solid #e8ebf1;border-radius:14px;padding:18px;position:relative;display:flex;flex-direction:column;gap:12px;transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease;box-shadow:0 6px 18px rgba(15,23,42,.05);overflow:hidden}
+.lc:hover{transform:translateY(-4px);box-shadow:0 16px 30px rgba(15,23,42,.1);border-color:#dbe4ee}
+.lc-like{position:absolute;top:12px;right:12px;width:30px;height:30px;border-radius:999px;border:1px solid #e2e8f0;background:#fff;color:#64748b;cursor:pointer;transition:all .24s ease}
+.lc-like:hover{border-color:#cbd5e1;color:#334155;box-shadow:0 4px 12px rgba(15,23,42,.12)}
 .lc-like.liked{background:#0f172a;color:#fff;border-color:#0f172a}
-.lc-logo{width:40px;height:40px;border-radius:11px;background:linear-gradient(135deg,#1e293b,#334155);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px}
-.lc-name{font-size:18px;font-weight:700;color:#0f172a;line-height:1.2;word-break:break-word}
+.lc-logo{width:42px;height:42px;border-radius:12px;background:linear-gradient(135deg,#1e293b,#334155);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px}
+.lc-name{font-size:20px;font-weight:800;color:#0f172a;line-height:1.24;word-break:break-word;overflow-wrap:anywhere}
+.lc-name .tld{font-weight:600;color:#94a3b8}
 .lc-tags{display:flex;gap:6px;flex-wrap:wrap}
 .tld-tag{background:#f1f5f9;border:1px solid #e2e8f0;border-radius:999px;padding:3px 8px;font-size:11px;color:#475569}
-.lc-foot{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:auto}
+.lc-foot{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-top:auto}
 .lc-price{font-size:14px;color:#64748b}
-.lc-actions{display:flex;gap:8px}
-.lov-chk,.lov-buy{border-radius:9px;padding:8px 12px;font-size:12px;font-weight:600;text-decoration:none;border:1px solid transparent;cursor:pointer}
+.lc-actions{display:flex;gap:10px;flex-wrap:wrap}
+.lov-chk,.lov-buy{border-radius:10px;padding:9px 14px;font-size:12px;font-weight:700;text-decoration:none;border:1px solid transparent;cursor:pointer;min-width:88px;text-align:center;transition:all .22s ease}
 .lov-chk{background:#0f172a;color:#fff}
 .lov-buy{background:#fff;color:#0f172a;border-color:#cbd5e1}
+.lov-chk:hover{background:#111c30;box-shadow:0 8px 16px rgba(15,23,42,.18)}
+.lov-buy:hover{border-color:#94a3b8;box-shadow:0 8px 16px rgba(15,23,42,.1)}
 .rp-saved-wrap{display:none}
-@media(max-width:1100px){.rp-shell{grid-template-columns:1fr}.rp-filter{position:static}.logo-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
-@media(max-width:760px){.rp-shell{padding:18px 14px}.rp-top{flex-direction:column;align-items:flex-start}.logo-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.rp-found{font-size:20px}}
+@media(max-width:1180px){.rp-shell{grid-template-columns:1fr;padding:24px 20px 40px}.rp-filter{position:static}}
+@media(max-width:1024px){.logo-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}}
+@media(max-width:760px){.rp-shell{padding:18px 14px}.rp-top{flex-direction:column;align-items:flex-start}.logo-grid{grid-template-columns:1fr;gap:20px}.rp-found{font-size:20px}.lc{padding:16px}}
+@media(prefers-reduced-motion:reduce){.lc,.lc-like,.lov-chk,.lov-buy{transition:none}}
 .flow-modal{position:fixed;inset:0;background:rgba(12,12,12,.55);display:none;align-items:center;justify-content:center;z-index:700;padding:16px}.flow-modal.open{display:flex}.flow-panel{background:#fff;width:min(860px,100%);border-radius:18px;padding:22px}.industry-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}.industry-card{border:1px solid var(--border);padding:12px;border-radius:12px;background:#fff;cursor:pointer;font-weight:600}.industry-card:hover,.industry-card.active{border-color:var(--purple);background:#f4f0ff}
 .flow-page{display:none;position:fixed;inset:0;z-index:550;background:var(--bg);overflow:auto;padding:40px 16px}.flow-page.open{display:block}.flow-card{max-width:760px;margin:0 auto;background:#fff;border:1px solid var(--border);border-radius:16px;padding:20px}.flow-step{font-size:11px;color:var(--muted);text-transform:uppercase;margin-bottom:8px}.flow-section{padding:14px 0;border-top:1px solid var(--border)}.flow-section:first-of-type{border-top:none;padding-top:8px}.flow-section h3{font-size:14px;margin-bottom:10px;font-family:'Syne',sans-serif}.kw-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.kw-grid input,.flow-select{width:100%;padding:10px;border:1px solid var(--border);border-radius:10px;background:#fff;font-family:'Plus Jakarta Sans',sans-serif}.flow-options{display:grid;grid-template-columns:1fr 1fr;gap:12px}.flow-options label,.flow-label{display:block;font-size:12px;font-weight:700;margin-bottom:6px;color:var(--muted)}.filter-bar{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:14px}.filter-bar select{padding:9px 12px;border-radius:10px;border:1px solid var(--border);background:#fff}
 @media(max-width:640px){.kw-grid,.flow-options{grid-template-columns:1fr}}
@@ -891,7 +897,7 @@ function renderResults(doms){
     return `<article class="lc" title="${(x.reason||'').replace(/"/g,'&quot;')}">
       <button class="lc-like${iL?' liked':''}" data-domain="${x.domain}" onclick="toggleLike('${safe}',this)">♡</button>
       <div class="lc-logo">${logo}</div>
-      <div class="lc-name">${base}<span style="color:#94a3b8">${ext}</span></div>
+      <div class="lc-name">${base}<span class="tld">${ext}</span></div>
       <div class="lc-tags"><span class="tld-tag">${ext}</span><span class="tld-tag">${x.likely_available?'Available':'Check'}</span></div>
       <div class="lc-foot">
         <div class="lc-price">₹${estimatePrice(x.domain)}</div>
