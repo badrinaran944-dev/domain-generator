@@ -58,99 +58,52 @@ h1 em{font-style:normal;background:linear-gradient(135deg,var(--accent),var(--pu
 @media(max-width:640px){h1{font-size:36px;letter-spacing:-1.5px}.hero{padding:56px 16px 28px}.hero-sub{font-size:14px}}
 
 /* ===== MODERN AI SEARCH BOX ===== */
-.search-outer{max-width:640px;margin:0 auto 12px;position:relative;padding:0 12px}
-.search-box{
-  display:flex;
-  align-items:center;
-  background:linear-gradient(140deg,rgba(255,255,255,.78),rgba(255,255,255,.5));
-  border-radius:999px;
-  padding:7px 8px 7px 16px;
-  border:1px solid rgba(255,255,255,.7);
-  backdrop-filter:blur(16px) saturate(135%);
-  -webkit-backdrop-filter:blur(16px) saturate(135%);
-  box-shadow:0 14px 34px rgba(109,40,217,.12),0 3px 12px rgba(0,0,0,.06),inset 0 1px 0 rgba(255,255,255,.7);
-  transition:all .3s cubic-bezier(.4,0,.2,1);
-  position:relative;
-  overflow:hidden;
-}
-.search-box::before{
-  content:'';position:absolute;inset:-1px;border-radius:999px;
-  background:linear-gradient(135deg,rgba(109,40,217,.4),rgba(255,69,0,.28),rgba(6,182,212,.3));
-  z-index:-1;opacity:.55;transition:opacity .3s;
-}
-.search-box::after{
-  content:'';position:absolute;left:16%;top:-34px;width:160px;height:80px;border-radius:50%;
-  background:radial-gradient(circle,rgba(255,255,255,.62),rgba(255,255,255,0) 70%);
-  pointer-events:none;filter:blur(1px);
-}
-.search-box:focus-within{
-  transform:translateY(-1px);
-  box-shadow:0 18px 40px rgba(109,40,217,.19),0 8px 20px rgba(0,0,0,.08),inset 0 1px 0 rgba(255,255,255,.84);
-}
-.search-box:hover::before,.search-box:focus-within::before{opacity:1}
-.search-input-wrap{flex:1;display:flex;align-items:center;gap:10px;min-width:0}
-.search-ai-icon{
-  font-size:18px;flex-shrink:0;
-  background:linear-gradient(135deg,var(--purple),var(--accent));
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
-  animation:ai-pulse 3s ease-in-out infinite;
-}
-@keyframes ai-pulse{0%,100%{filter:brightness(1)}50%{filter:brightness(1.3)}}
+.search-outer{max-width:680px;margin:0 auto 12px;position:relative;padding:0 12px}
+.search-box{position:relative}
 .search-box input{
-  flex:1;border:none;outline:none;font-size:15px;
-  font-family:'Plus Jakarta Sans',sans-serif;color:var(--ink);background:transparent;min-width:0;
-  padding:11px 0;
+  width:100%;border:1px solid rgba(255,255,255,.65);outline:none;
+  font-size:16px;font-family:'Plus Jakarta Sans',sans-serif;color:var(--ink);
+  border-radius:44px;background:rgba(255,255,255,.38);
+  backdrop-filter:blur(14px) saturate(130%);
+  -webkit-backdrop-filter:blur(14px) saturate(130%);
+  padding:15px 66px 15px 22px;
+  box-shadow:0 14px 34px rgba(15,23,42,.09),inset 0 1px 0 rgba(255,255,255,.62),inset 0 -1px 6px rgba(255,255,255,.25);
+  transition:all .3s ease;
 }
-.search-box input::placeholder{color:#9f9ca6}
-
-/* Modern AI Generate Button */
+.search-box input::placeholder{color:#8b93a8}
+.search-box input:focus{
+  border-color:rgba(59,130,246,.45);
+  box-shadow:0 18px 40px rgba(37,99,235,.16),0 0 0 5px rgba(96,165,250,.18),inset 0 1px 0 rgba(255,255,255,.72);
+}
+.search-btn{
+  position:absolute;top:50%;right:10px;transform:translateY(-50%);
+  width:42px;height:42px;border:none;border-radius:999px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  color:#fff;font-size:16px;line-height:1;
+  background:linear-gradient(135deg,#2563eb 0%,#3b82f6 45%,#22d3ee 100%);
+  box-shadow:0 8px 20px rgba(37,99,235,.38),inset 0 1px 0 rgba(255,255,255,.45);
+  transition:transform .3s ease,box-shadow .3s ease,filter .3s ease;
+}
+.search-btn:hover{
+  transform:translateY(-50%) scale(1.08);
+  box-shadow:0 12px 26px rgba(37,99,235,.5),0 0 18px rgba(56,189,248,.5);
+  filter:saturate(1.08);
+}
+.search-btn:active{transform:translateY(-50%) scale(.96)}
+.search-btn:focus-visible{outline:2px solid rgba(59,130,246,.7);outline-offset:2px}
 .gen-btn{
   background:linear-gradient(135deg,#0c0c0c 0%,#1a1a2e 50%,#0c0c0c 100%);
   color:#fff;border:none;padding:10px 18px;border-radius:11px;
   font-size:12px;font-weight:700;cursor:pointer;
   font-family:'Plus Jakarta Sans',sans-serif;
-  white-space:nowrap;display:flex;align-items:center;gap:6px;
-  transition:all .25s cubic-bezier(.4,0,.2,1);flex-shrink:0;
-  position:relative;overflow:hidden;
-  box-shadow:0 2px 10px rgba(0,0,0,.22);
+  transition:all .25s cubic-bezier(.4,0,.2,1);
 }
-.gen-btn::before{
-  content:'';position:absolute;inset:0;
-  background:linear-gradient(135deg,var(--accent),var(--purple));
-  opacity:0;transition:opacity .25s;
-}
-.gen-btn:hover::before{opacity:1}
-.gen-btn:hover{transform:scale(1.02);box-shadow:0 4px 20px rgba(109,40,217,.35)}
-.gen-btn:active{transform:scale(.95)}
-.gen-btn:focus-visible{outline:2px solid var(--purple);outline-offset:2px}
-.gen-btn-text,.gen-btn-icon{position:relative;z-index:1}
-.gen-btn-icon{
-  width:20px;height:20px;border-radius:6px;
-  background:rgba(255,255,255,.15);
-  display:flex;align-items:center;justify-content:center;
-  font-size:11px;transition:transform .25s;
-}
-.gen-btn:hover .gen-btn-icon{transform:rotate(20deg) scale(1.1)}
-
-
-.gen-btn.compact{padding:8px 12px;font-size:11px;border-radius:10px;min-height:34px}
-.gen-btn.compact .gen-btn-icon{display:none}
-.gen-btn.compact{
-  min-height:36px;padding:0 13px;border-radius:999px;font-size:10px;letter-spacing:.02em;
-  background:linear-gradient(135deg,#6d28d9 0%,#8b5cf6 40%,#ff4500 100%);
-  box-shadow:0 6px 18px rgba(109,40,217,.35),inset 0 1px 0 rgba(255,255,255,.3);
-}
-.gen-btn.compact:hover{
-  transform:translateY(-1px) scale(1.02);
-  box-shadow:0 10px 22px rgba(109,40,217,.42),0 0 20px rgba(255,69,0,.3);
-}
-.gen-btn.compact:active{transform:scale(.97)}
+.gen-btn:hover{transform:translateY(-1px);box-shadow:0 8px 20px rgba(109,40,217,.2)}
+.gen-btn:active{transform:scale(.97)}
 @media(max-width:480px){
   .search-outer{padding:0 8px}
-  .search-box{padding:7px 7px 7px 13px}
-  .search-ai-icon{font-size:16px}
-  .search-box input{font-size:14px}
-  .gen-btn.compact{padding:0 11px;min-height:34px}
+  .search-box input{font-size:15px;padding:14px 60px 14px 18px}
+  .search-btn{width:38px;height:38px;right:9px}
 }
 
 .tld-row{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin:12px 0 18px;padding:0 16px}
@@ -531,13 +484,8 @@ footer{position:relative;z-index:2;border-top:1px solid var(--border);
   <p class="hero-sub">Describe your business in any language — Flappio AI generates unlimited creative domain names in seconds</p>
   <div class="search-outer">
     <div class="search-box">
-      <div class="search-input-wrap">
-        <span class="search-ai-icon">✦</span>
-        <input id="bi" type="text" placeholder="Generate Name">
-      </div>
-      <button id="searchBtn" type="button" class="gen-btn compact" onclick="startSearchFlow()">
-        <span class="gen-btn-text">Search Name</span>
-      </button>
+      <input id="bi" type="text" placeholder="Generate Name">
+      <button id="searchBtn" type="button" class="search-btn" onclick="startSearchFlow()" aria-label="Generate Name">✦</button>
     </div>
   </div>
 </div>
