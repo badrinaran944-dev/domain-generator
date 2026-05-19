@@ -34,12 +34,13 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 nav{display:flex;justify-content:space-between;align-items:center;padding:0 32px;height:56px;
   background:rgba(247,246,243,.9);backdrop-filter:blur(20px);
   border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
-.logo{font-family:'Plus Jakarta Sans',sans-serif;font-size:20px;font-weight:800;letter-spacing:.03em;color:var(--black);
-  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
-  display:flex;align-items:center;gap:7px}
-.logo-dot{width:7px;height:7px;border-radius:50%;background:var(--accent);
-  animation:pulse 2.2s ease-in-out infinite}
-@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.5);opacity:.6}}
+.logo{display:flex;align-items:center;gap:10px;color:var(--black);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+.logo-mark{width:28px;height:28px;border:2px solid #0c0c0c;border-radius:8px;display:grid;place-items:center;position:relative;overflow:hidden;background:#fff}
+.logo-mark::before,.logo-mark::after{content:'';position:absolute;background:#0c0c0c;border-radius:2px}
+.logo-mark::before{width:14px;height:2.5px;transform:rotate(45deg)}
+.logo-mark::after{width:2.5px;height:14px;transform:rotate(45deg)}
+.logo-word{display:flex;align-items:baseline;font-family:'Space Grotesk',sans-serif;font-size:21px;font-weight:700;letter-spacing:.01em;text-transform:none}
+.logo-word .accent{font-weight:500;letter-spacing:.08em;font-size:17px;margin-left:2px}
 .nav-pill{font-size:11px;font-weight:600;color:#fff;letter-spacing:.05em;
   background:linear-gradient(135deg,var(--accent),var(--purple));padding:4px 12px;border-radius:20px}
 @media(max-width:480px){nav{padding:0 16px}}
@@ -496,7 +497,7 @@ footer{position:relative;z-index:2;border-top:1px solid var(--border);
 <div class="fe fe5">⚡</div>
 
 <nav>
-  <div class="logo"><div class="logo-dot"></div>Nameavi<span style="color:var(--muted)">.ai</span></div>
+  <div class="logo" aria-label="Nameavi logo"><div class="logo-mark" aria-hidden="true"></div><div class="logo-word">Nameavi<span class="accent">AI</span></div></div>
   <div style="display:flex;align-items:center;gap:7px;flex-wrap:wrap">
     <a href="https://www.legaldocs.co.in/trademark-search" target="_blank" class="nav-pill" style="text-decoration:none;background:linear-gradient(135deg,#6d28d9,#4c1d95)">⚖️ Trademark</a>
     <a href="#" class="nav-pill" style="text-decoration:none;background:linear-gradient(135deg,#059669,#047857)">💻 ₹199 Website</a>
