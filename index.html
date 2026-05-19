@@ -34,13 +34,16 @@ body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(-
 nav{display:flex;justify-content:space-between;align-items:center;padding:0 32px;height:56px;
   background:rgba(247,246,243,.9);backdrop-filter:blur(20px);
   border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
-.logo{display:flex;align-items:center;gap:10px;color:var(--black);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
-.logo-mark{width:28px;height:28px;border:2px solid #0c0c0c;border-radius:8px;display:grid;place-items:center;position:relative;overflow:hidden;background:#fff}
-.logo-mark::before,.logo-mark::after{content:'';position:absolute;background:#0c0c0c;border-radius:2px}
-.logo-mark::before{width:14px;height:2.5px;transform:rotate(45deg)}
-.logo-mark::after{width:2.5px;height:14px;transform:rotate(45deg)}
-.logo-word{display:flex;align-items:baseline;font-family:'Space Grotesk',sans-serif;font-size:21px;font-weight:700;letter-spacing:.01em;text-transform:none}
-.logo-word .accent{font-weight:500;letter-spacing:.08em;font-size:17px;margin-left:2px}
+.logo{display:inline-flex;align-items:center;gap:0;background:#050505;color:#fff;border-radius:10px;padding:8px 14px 8px 16px;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}
+.logo-word{display:flex;align-items:flex-end;font-family:'Montserrat',sans-serif;font-size:22px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;line-height:1}
+.logo-word .name{display:inline-flex}
+.logo-word .name span,.logo-word .avi span{position:relative;display:inline-flex;align-items:flex-end;justify-content:center;min-width:.65em}
+.logo-word .avi{display:inline-flex;margin-left:.2em}
+.logo-word .a-cut::before{content:'';position:absolute;top:34%;left:19%;width:62%;height:2px;background:#050505;transform:skewX(-30deg)}
+.logo-word .v-notch::before{content:'';position:absolute;top:0;left:50%;transform:translateX(-50%);width:2px;height:42%;background:#050505}
+.logo-word .i-stem{padding-right:.22em}
+.logo-word .i-stem::after{content:'';position:absolute;top:13%;right:0;width:.16em;height:.16em;border-radius:50%;background:#fff}
+@media(max-width:640px){.logo{padding:7px 11px 7px 12px;border-radius:8px}.logo-word{font-size:18px;letter-spacing:.08em}}
 .nav-pill{font-size:11px;font-weight:600;color:#fff;letter-spacing:.05em;
   background:linear-gradient(135deg,var(--accent),var(--purple));padding:4px 12px;border-radius:20px}
 @media(max-width:480px){nav{padding:0 16px}}
@@ -497,7 +500,12 @@ footer{position:relative;z-index:2;border-top:1px solid var(--border);
 <div class="fe fe5">⚡</div>
 
 <nav>
-  <div class="logo" aria-label="Nameavi logo"><div class="logo-mark" aria-hidden="true"></div><div class="logo-word">Nameavi<span class="accent">AI</span></div></div>
+  <div class="logo" aria-label="Nameavi logo">
+    <div class="logo-word" role="img" aria-label="NAMEAVI">
+      <span class="name"><span>N</span><span class="a-cut">A</span><span>M</span><span>E</span></span>
+      <span class="avi"><span>A</span><span class="v-notch">V</span><span class="i-stem">I</span></span>
+    </div>
+  </div>
   <div style="display:flex;align-items:center;gap:7px;flex-wrap:wrap">
     <a href="https://www.legaldocs.co.in/trademark-search" target="_blank" class="nav-pill" style="text-decoration:none;background:linear-gradient(135deg,#6d28d9,#4c1d95)">⚖️ Trademark</a>
     <a href="#" class="nav-pill" style="text-decoration:none;background:linear-gradient(135deg,#059669,#047857)">💻 ₹199 Website</a>
