@@ -524,15 +524,17 @@ All 100 required.`;
   isLoadingMore=false;
 }
 
-// FIX 1: Infinite scroll using IntersectionObserver (more reliable)
+// FIX: Infinite scroll - scroll event on resultsPage container
 function setupInfiniteScroll(){
-  const sentinel=document.getElementById('scrollSentinel');
-  const observer=new IntersectionObserver((entries)=>{
-    if(entries[0].isIntersecting && !isLoadingMore && allDoms.length>0){
+  const rp=document.getElementById('resultsPage');
+  rp.addEventListener('scroll',function(){
+    if(isLoadingMore || allDoms.length===0) return;
+    const scrolled=rp.scrollTop+rp.clientHeight;
+    const total=rp.scrollHeight;
+    if(scrolled>=total-600){
       loadMoreNames();
     }
-  },{threshold:0.1});
-  observer.observe(sentinel);
+  });
 }
 
 async function go(){
