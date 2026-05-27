@@ -156,7 +156,6 @@ h1 em{font-style:normal;background:linear-gradient(135deg,var(--accent),var(--pu
 .ai-progress-bar{height:100%;width:0%;background:linear-gradient(90deg,var(--purple),var(--accent));border-radius:3px;animation:progress-fill 4s ease-in-out infinite;}
 @keyframes progress-fill{0%{width:0%}80%{width:88%}100%{width:92%}}
 
-/* Infinite scroll loader */
 .more-loader{display:none;text-align:center;padding:30px 20px;}
 .more-loader.show{display:block}
 .more-loader-inner{display:inline-flex;align-items:center;gap:10px;font-size:13px;font-weight:600;color:var(--muted);background:var(--white);border:1.5px solid var(--border);border-radius:30px;padding:10px 22px;}
@@ -202,10 +201,24 @@ footer{position:relative;z-index:2;border-top:1px solid var(--border);padding:20
 @media(max-width:520px){footer{padding:16px;justify-content:center;text-align:center}}
 @media(max-width:640px){.results,.how,.monkb-wrap{padding-left:14px;padding-right:14px}.stats{gap:16px;padding:0 12px}}
 
-#resultsPage{display:none;position:fixed;inset:0;z-index:500;overflow-y:auto;background:var(--bg)}
+/* ── RESULTS PAGE ── */
+#resultsPage{
+  display:none;
+  position:fixed;inset:0;z-index:500;
+  overflow-y:auto;    /* ← scroll happens HERE */
+  background:var(--bg);
+}
 #resultsPage.open{display:block;animation:rp-in .35s cubic-bezier(.22,1,.36,1)}
 @keyframes rp-in{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
-.rp-nav{display:flex;align-items:center;justify-content:space-between;padding:0 24px;height:56px;background:rgba(247,246,243,.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:10;gap:12px}
+
+/* sticky nav inside the scrollable results page */
+.rp-nav{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 24px;height:56px;
+  background:rgba(247,246,243,.95);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--border);
+  position:sticky;top:0;z-index:10;gap:12px;
+}
 .rp-back{display:flex;align-items:center;gap:7px;background:var(--chip);border:1.5px solid var(--border);cursor:pointer;font-size:13px;font-weight:700;color:var(--ink);font-family:'Plus Jakarta Sans',sans-serif;padding:8px 16px;border-radius:10px;transition:all .15s;flex-shrink:0}
 .rp-back:hover{background:var(--black);color:#fff;border-color:var(--black)}
 .rp-title{font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:var(--black);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;flex:1;text-align:center}
@@ -236,19 +249,16 @@ footer{position:relative;z-index:2;border-top:1px solid var(--border);padding:20
 .lc{position:relative;border-radius:10px;overflow:hidden;aspect-ratio:1/1;cursor:pointer;animation:cardIn .4s ease both;transition:transform .22s cubic-bezier(.34,1.3,.64,1), box-shadow .22s;}
 .lc:hover{transform:translateY(-5px) scale(1.03);box-shadow:0 16px 40px rgba(0,0,0,.22);z-index:2;}
 @keyframes cardIn{from{opacity:0;transform:translateY(14px) scale(.96)}to{opacity:1;transform:none}}
-/* CHANGE 1: Name only (no extension) — larger font since shorter text */
 .lc-name{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:16px 12px;text-align:center;line-height:1.15;word-break:break-word;font-size:clamp(14px,2.6vw,22px);font-weight:800;letter-spacing:-.2px;z-index:1;}
 .lc-top-badge{position:absolute;top:9px;left:9px;z-index:3;font-size:7px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;background:rgba(0,0,0,.35);color:rgba(255,255,255,.95);border:1px solid rgba(255,255,255,.3);border-radius:5px;padding:2px 7px;backdrop-filter:blur(4px);}
 .lc-avail{position:absolute;top:10px;right:10px;z-index:3;width:9px;height:9px;border-radius:50%;}
 .lc-avail.av{background:#4ade80;box-shadow:0 0 7px rgba(74,222,128,.9)}
 .lc-avail.un{background:#f87171;box-shadow:0 0 5px rgba(248,113,113,.6)}
-.lc-like{position:absolute;bottom:10px;right:10px;z-index:3;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.18);border:1.5px solid rgba(255,255,255,.35);display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer;transition:all .18s cubic-bezier(.34,1.5,.64,1);color:rgba(255,255,255,.85);backdrop-filter:blur(6px);}
+.lc-like{position:absolute;bottom:10px;right:10px;z-index:6!important;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.18);border:1.5px solid rgba(255,255,255,.35);display:flex;align-items:center;justify-content:center;font-size:14px;cursor:pointer;transition:all .18s cubic-bezier(.34,1.5,.64,1);color:rgba(255,255,255,.85);backdrop-filter:blur(6px);}
 .lc-like:hover{background:rgba(255,255,255,.35);transform:scale(1.2)}
 .lc-like.liked{background:var(--accent);border-color:var(--accent);color:#fff;box-shadow:0 3px 14px rgba(255,69,0,.6);}
 .lc-overlay{position:absolute;inset:0;z-index:4;background:rgba(0,0,0,.58);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;opacity:0;transition:opacity .18s;border-radius:10px;pointer-events:none;}
 .lc:hover .lc-overlay{opacity:1;pointer-events:all;}
-/* FIX 2: like button always on top, overlay never covers it */
-.lc-like{z-index:6!important;}
 .lov-buy,.lov-chk{display:block;width:120px;font-size:11px;font-weight:700;padding:8px 0;border-radius:8px;text-decoration:none;text-align:center;font-family:'Plus Jakarta Sans',sans-serif;cursor:pointer;border:none;transition:opacity .12s,transform .12s;}
 .lov-buy{background:#fff;color:#111;}
 .lov-buy:hover{opacity:.88;transform:scale(1.04)}
@@ -276,6 +286,8 @@ footer{position:relative;z-index:2;border-top:1px solid var(--border);padding:20
 </style>
 </head>
 <body>
+
+<!-- HOME PAGE -->
 <div id="homePage">
 <div class="mesh"></div>
 <div class="fe fe1">🌐</div>
@@ -303,7 +315,7 @@ footer{position:relative;z-index:2;border-top:1px solid var(--border);padding:20
 <div class="hero">
   <div class="hero-tag"><span>✦</span> Nameavi AI · India's Favourite</div>
   <h1>Find your<br><em>perfect domain</em><br>instantly</h1>
-  <p class="hero-sub">Describe your business in any language — Orbit07 AI generates unlimited creative domain names in seconds</p>
+  <p class="hero-sub">Describe your business in any language — Nameavi AI generates unlimited creative domain names in seconds</p>
   <div class="search-outer">
     <div class="search-box">
       <div class="search-input-wrap">
@@ -378,41 +390,72 @@ footer{position:relative;z-index:2;border-top:1px solid var(--border);padding:20
     <a class="foot-link" href="#">Terms</a>
   </div>
 </footer>
+</div><!-- /homePage -->
 
+<!-- RESULTS PAGE -->
+<div id="resultsPage">
+  <div class="rp-nav">
+    <button class="rp-back" onclick="goHome()">← Back</button>
+    <div class="rp-title" id="rpTitle">Results</div>
+    <div class="rp-count" id="rpCount">Loading...</div>
+  </div>
+  <div class="rp-saved-wrap">
+    <div class="rp-saved-box" id="rpSavedBox">
+      <div class="rp-saved-hd">
+        <div class="rp-saved-hd-left">❤️ Saved Names <span class="saved-cnt" id="savedCnt">0</span></div>
+        <div class="rp-saved-btns">
+          <button class="rp-saved-copy" onclick="copyAllSaved()">📋 Copy All</button>
+          <button class="rp-saved-clear" onclick="clearAllLiked()">Sab hatao</button>
+        </div>
+      </div>
+      <div class="rp-saved-list" id="rpSavedList"></div>
+    </div>
+  </div>
+  <div class="rp-grid-wrap">
+    <div class="rp-res-label" id="rpResLabel"></div>
+    <div class="logo-grid" id="rpGrid"></div>
+    <div class="more-loader" id="moreLoader">
+      <div class="more-loader-inner">
+        <div class="more-dot"></div>
+        <div class="more-dot"></div>
+        <div class="more-dot"></div>
+        <span>Aur 100 naam generate ho rahe hain...</span>
+      </div>
+    </div>
+  </div>
 </div>
 
 <div class="copy-toast" id="copyToast">✓ Copied!</div>
 
 <script>
 const GROQ_KEY='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';
-let tl='mix';
 let liked=JSON.parse(localStorage.getItem('o7_liked')||'[]');
 const CS=15;
 
-// CHANGE 2: Infinite scroll variables
 let allDoms=[];
-let shownCount=0;
-const PAGE_SIZE=100;
 let isLoadingMore=false;
 let currentBiz='';
 
+/* ─── Navigation ─── */
 function openResults(){
   document.getElementById('homePage').style.display='none';
   const rp=document.getElementById('resultsPage');
-  rp.classList.add('open');rp.scrollTop=0;
+  rp.classList.add('open');
+  rp.scrollTop=0;           // reset scroll position every time
 }
 function goHome(){
   document.getElementById('homePage').style.display='block';
   document.getElementById('resultsPage').classList.remove('open');
 }
 
+/* ─── Toast ─── */
 function showToast(msg){
   const t=document.getElementById('copyToast');
   t.textContent=msg;t.classList.add('show');
   setTimeout(()=>t.classList.remove('show'),2000);
 }
 
-// CHANGE 3: Save/Like functions
+/* ─── Saved / Like ─── */
 function saveLiked(){localStorage.setItem('o7_liked',JSON.stringify(liked));renderSaved()}
 function renderSaved(){
   const box=document.getElementById('rpSavedBox');
@@ -441,12 +484,13 @@ function toggleLike(domain,btn){
   saveLiked();
 }
 
+/* ─── Loader HTML ─── */
 const loadingWords=[
   ['✦ Analyzing','🔍 Industry','💡 Brainstorming','🌐 Domains'],
   ['🚀 Generating','✨ Creative','🎯 Brandable','💎 Names'],
   ['⚡ AI Working','🧠 Processing','🌟 Crafting','🎨 Ideas'],
 ];
-function showLoader(biz){
+function showLoader(){
   const wordSet=loadingWords[Math.floor(Math.random()*loadingWords.length)];
   const wordsHTML=wordSet.map((w,i)=>`<div class="ai-word" style="animation-delay:${i*0.15}s">${w}</div>`).join('');
   return`<div class="ai-loader">
@@ -460,24 +504,23 @@ function showLoader(biz){
   </div>`;
 }
 
-// CHANGE 1: Strip extension — show only name part before the dot
+/* ─── Strip extension — show only name part ─── */
 function stripExt(domain){
   return domain.replace(/\.[^.]+$/, '').replace(/\.[^.]+$/, '');
 }
 
-// Render a batch of cards
-function renderCards(items, startIndex){
+/* ─── Render cards ─── */
+function renderCards(items,startIndex){
   return items.map((x,i)=>{
     const idx=startIndex+i;
     const iL=liked.includes(x.domain);
     const safe=x.domain.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
-    // CHANGE 1: Show only name (no extension)
     const nameOnly=stripExt(x.domain);
     return`<div class="lc cs-${idx%CS}" title="${(x.reason||'').replace(/"/g,'&quot;')}" style="animation-delay:${Math.min(i*.025,1.2)}s">
       ${x.top?'<div class="lc-top-badge">✦ TOP</div>':''}
       <div class="lc-avail ${x.likely_available?'av':'un'}" title="${x.likely_available?'Likely available':'Possibly taken'}"></div>
       <div class="lc-name">${nameOnly}</div>
-      <button class="lc-like${iL?' liked':''}" data-domain="${x.domain}" onclick="event.stopPropagation();event.preventDefault();toggleLike('${safe}',this)" onmouseenter="event.stopPropagation()">${iL?'♥':'♡'}</button>
+      <button class="lc-like${iL?' liked':''}" data-domain="${x.domain}" onclick="event.stopPropagation();event.preventDefault();toggleLike('${safe}',this)">${iL?'♥':'♡'}</button>
       <div class="lc-overlay">
         <a class="lov-buy" href="https://www.namecheap.com/domains/registration/results/?domain=${encodeURIComponent(x.domain)}" target="_blank">🛒 Buy Now</a>
         <a class="lov-chk" href="https://www.godaddy.com/domainsearch/find?checkAvail=1&domainToCheck=${encodeURIComponent(x.domain)}" target="_blank">🔍 Check</a>
@@ -486,17 +529,18 @@ function renderCards(items, startIndex){
   }).join('');
 }
 
-// CHANGE 2: Load more names when scroll near bottom
+/* ─── Load more (infinite scroll) ─── */
 async function loadMoreNames(){
   if(isLoadingMore)return;
   isLoadingMore=true;
   const ml=document.getElementById('moreLoader');
   ml.classList.add('show');
 
+  const alreadyShown=allDoms.slice(0,20).map(d=>d.domain).join(',');
   const prompt=`You are Nameavi, world-class domain branding AI. Generate exactly 100 unique creative brandable domain names for: "${currentBiz}".
 IMPORTANT: Include names that contain the main keyword/s from the business description (keyword matching). Mix keyword-based names with creative portmanteau/brandable names.
 TLD: mix of .com .in .co.in .ai .tv.
-Rules: short memorable professional, mix compound/portmanteau/suffix(-ify-ly-hub-go-now-hq)/prefix(get-my-try-), no duplicates, include keyword-match names. Do NOT repeat these already shown names: ${allDoms.slice(0,10).map(d=>d.domain).join(',')}.
+Rules: short memorable professional, mix compound/portmanteau/suffix(-ify-ly-hub-go-now-hq)/prefix(get-my-try-), no duplicates, include keyword-match names. Do NOT repeat these already shown names: ${alreadyShown}.
 First 8: top:true, rest top:false. likely_available:true if made-up word, false if common phrase.
 Respond ONLY raw JSON array no markdown no backticks:
 [{"domain":"x.com","reason":"why","top":true,"likely_available":true}]
@@ -514,40 +558,36 @@ All 100 required.`;
     const grid=document.getElementById('rpGrid');
     const startIdx=allDoms.length;
     allDoms=[...allDoms,...newDoms];
-    shownCount=allDoms.length;
-    grid.insertAdjacentHTML('beforeend', renderCards(newDoms, startIdx));
+    grid.insertAdjacentHTML('beforeend',renderCards(newDoms,startIdx));
     document.getElementById('rpCount').textContent=allDoms.length+' names';
     renderSaved();
-  }catch(e){console.error(e);}
+  }catch(e){console.error('loadMore error:',e);}
 
   ml.classList.remove('show');
   isLoadingMore=false;
 }
 
-// FIX: Infinite scroll - scroll event on resultsPage container
-function setupInfiniteScroll(){
-  const rp=document.getElementById('resultsPage');
-  rp.addEventListener('scroll',function(){
-    if(isLoadingMore || allDoms.length===0) return;
-    const scrolled=rp.scrollTop+rp.clientHeight;
-    const total=rp.scrollHeight;
-    if(scrolled>=total-600){
-      loadMoreNames();
-    }
-  });
-}
+/* ─── Infinite scroll — attached ONCE on the resultsPage element ─── */
+document.getElementById('resultsPage').addEventListener('scroll', function(){
+  if(isLoadingMore || allDoms.length===0) return;
+  const el=this;
+  // trigger when 600px from bottom
+  if(el.scrollTop + el.clientHeight >= el.scrollHeight - 600){
+    loadMoreNames();
+  }
+});
 
+/* ─── Main generate ─── */
 async function go(){
   const biz=document.getElementById('bi').value.trim();
   if(!biz)return;
   currentBiz=biz;
   allDoms=[];
-  shownCount=0;
 
   document.getElementById('rpTitle').textContent='"'+biz+'"';
   document.getElementById('rpCount').textContent='Loading...';
   document.getElementById('rpResLabel').textContent='';
-  document.getElementById('rpGrid').innerHTML=showLoader(biz);
+  document.getElementById('rpGrid').innerHTML=showLoader();
   document.getElementById('moreLoader').classList.remove('show');
   openResults();
   renderSaved();
@@ -571,7 +611,6 @@ All 100 required.`;
     const raw=d.choices[0].message.content.replace(/```json|```/g,'').trim();
     const doms=JSON.parse(raw);
     allDoms=doms;
-    shownCount=doms.length;
     document.getElementById('rpCount').textContent=doms.length+' names';
     document.getElementById('rpResLabel').textContent='✦ '+doms.length+' brand names for "'+biz+'"';
     document.getElementById('rpGrid').innerHTML=renderCards(doms,0);
@@ -583,44 +622,6 @@ All 100 required.`;
 }
 
 document.getElementById('bi').addEventListener('keydown',e=>{if(e.key==='Enter')go()});
-setupInfiniteScroll();
 </script>
-
-<!-- RESULTS PAGE -->
-<div id="resultsPage">
-  <div class="rp-nav">
-    <button class="rp-back" onclick="goHome()">← Back</button>
-    <div class="rp-title" id="rpTitle">Results</div>
-    <div class="rp-count" id="rpCount">Loading...</div>
-  </div>
-  <div class="rp-saved-wrap">
-    <div class="rp-saved-box" id="rpSavedBox">
-      <div class="rp-saved-hd">
-        <div class="rp-saved-hd-left">❤️ Saved Names <span class="saved-cnt" id="savedCnt">0</span></div>
-        <div class="rp-saved-btns">
-          <button class="rp-saved-copy" onclick="copyAllSaved()">📋 Copy All</button>
-          <button class="rp-saved-clear" onclick="clearAllLiked()">Sab hatao</button>
-        </div>
-      </div>
-      <div class="rp-saved-list" id="rpSavedList"></div>
-    </div>
-  </div>
-  <div class="rp-grid-wrap">
-    <div class="rp-res-label" id="rpResLabel"></div>
-    <div class="logo-grid" id="rpGrid"></div>
-    <!-- CHANGE 2: Infinite scroll loader -->
-    <div class="more-loader" id="moreLoader">
-      <div class="more-loader-inner">
-        <div class="more-dot"></div>
-        <div class="more-dot"></div>
-        <div class="more-dot"></div>
-        <span>Aur 100 naam generate ho rahe hain...</span>
-      </div>
-    </div>
-    <!-- Sentinel for IntersectionObserver -->
-    <div id="scrollSentinel" style="height:10px;width:100%;"></div>
-  </div>
-</div>
-
 </body>
 </html>
