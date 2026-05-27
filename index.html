@@ -313,14 +313,14 @@ footer{position:relative;z-index:2;border-top:1px solid var(--border);padding:20
 </nav>
 
 <div class="hero">
-  <div class="hero-tag"><span>✦</span> Nameavi AI · India's Favourite</div>
+  <div class="hero-tag"><span>✦</span> Nameavi AI · AI-Powered</div>
   <h1>Find your<br><em>perfect domain</em><br>instantly</h1>
-  <p class="hero-sub">Describe your business in any language — Nameavi AI generates unlimited creative domain names in seconds</p>
+  <p class="hero-sub">Describe your business and let Nameavi AI generate unlimited creative, brandable domain names in seconds</p>
   <div class="search-outer">
     <div class="search-box">
       <div class="search-input-wrap">
         <span class="search-ai-icon">✦</span>
-        <input id="bi" type="text" placeholder="e.g. Mumbai restaurant, fashion boutique, yoga studio...">
+        <input id="bi" type="text" placeholder="e.g. coffee shop, fashion boutique, yoga studio...">
       </div>
       <button class="gen-btn" onclick="go()" title="Generate Names">
         <i class="gen-btn-icon">✦</i>
@@ -343,7 +343,7 @@ footer{position:relative;z-index:2;border-top:1px solid var(--border);padding:20
       <div class="how-icon">✍️</div>
       <div class="how-num">01</div>
       <div class="how-h">Describe your business</div>
-      <div class="how-p">Type in English, Hindi, or Hinglish. More detail = better names.</div>
+      <div class="how-p">Describe your idea or business. More detail = better names.</div>
     </div>
     <div class="how-card">
       <div class="how-icon">✨</div>
@@ -405,7 +405,7 @@ footer{position:relative;z-index:2;border-top:1px solid var(--border);padding:20
         <div class="rp-saved-hd-left">❤️ Saved Names <span class="saved-cnt" id="savedCnt">0</span></div>
         <div class="rp-saved-btns">
           <button class="rp-saved-copy" onclick="copyAllSaved()">📋 Copy All</button>
-          <button class="rp-saved-clear" onclick="clearAllLiked()">Sab hatao</button>
+          <button class="rp-saved-clear" onclick="clearAllLiked()">Clear All</button>
         </div>
       </div>
       <div class="rp-saved-list" id="rpSavedList"></div>
@@ -419,7 +419,7 @@ footer{position:relative;z-index:2;border-top:1px solid var(--border);padding:20
         <div class="more-dot"></div>
         <div class="more-dot"></div>
         <div class="more-dot"></div>
-        <span>Aur 100 naam generate ho rahe hain...</span>
+        <span>Generating 100 more names...</span>
       </div>
     </div>
   </div>
@@ -496,8 +496,8 @@ function showLoader(){
   return`<div class="ai-loader">
     <div class="ai-orb"><div class="ai-orb-ring"></div><div class="ai-orb-ring2"></div><div class="ai-orb-core">✦</div></div>
     <div class="ai-loader-text">
-      <div class="ai-loader-title">Nameavi AI kaam par hai...</div>
-      <div class="ai-loader-sub">Unlimited brand names generate ho rahe hain</div>
+      <div class="ai-loader-title">Nameavi AI is on it...</div>
+      <div class="ai-loader-sub">Generating unlimited brand names for you</div>
       <div class="ai-words">${wordsHTML}</div>
     </div>
     <div class="ai-progress"><div class="ai-progress-bar"></div></div>
@@ -616,7 +616,7 @@ All 100 required.`;
     document.getElementById('rpGrid').innerHTML=renderCards(doms,0);
     renderSaved();
   }catch(e){
-    document.getElementById('rpGrid').innerHTML='<div style="text-align:center;padding:60px 20px"><div style="font-size:40px;margin-bottom:12px">😕</div><div style="font-size:14px;color:#ef4444;font-weight:600">Kuch gadbad ho gayi. Dobara try karo.</div></div>';
+    document.getElementById('rpGrid').innerHTML='<div style="text-align:center;padding:60px 20px"><div style="font-size:40px;margin-bottom:12px">😕</div><div style="font-size:14px;color:#ef4444;font-weight:600">Something went wrong. Please try again.</div></div>';
     console.error(e);
   }
 }
