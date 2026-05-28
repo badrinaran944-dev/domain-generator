@@ -105,24 +105,20 @@ h1 em{font-style:normal;background:linear-gradient(135deg,var(--accent),var(--pu
 .search-box input{flex:1;border:none;outline:none;font-size:14px;font-family:'Plus Jakarta Sans',sans-serif;color:var(--ink);background:transparent;min-width:0;padding:9px 0;}
 .search-box input::placeholder{color:#c0bdb8}
 
-/* Generate button — compact pill */
+/* Generate button — pill inside search */
 .gen-btn{
   background:#0c0c0c;color:#fff;border:none;
-  padding:0 18px;border-radius:10px;
-  font-size:12px;font-weight:700;
+  padding:0 20px;border-radius:10px;
+  font-size:13px;font-weight:700;
   font-family:'Plus Jakarta Sans',sans-serif;
-  cursor:pointer;letter-spacing:.02em;
+  cursor:pointer;letter-spacing:.01em;
   display:flex;align-items:center;gap:6px;
-  white-space:nowrap;
-  transition:transform .15s cubic-bezier(.34,1.8,.64,1),box-shadow .15s,background .2s;
-  flex-shrink:0;position:relative;overflow:hidden;
-  box-shadow:0 2px 10px rgba(0,0,0,.22);
-  height:38px;
+  white-space:nowrap;flex-shrink:0;
+  height:40px;
+  transition:opacity .15s;
 }
-.gen-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--accent),var(--purple));opacity:0;transition:opacity .2s;}
-.gen-btn:hover::before{opacity:1}
-.gen-btn:hover{transform:scale(1.05);box-shadow:0 4px 18px rgba(109,40,217,.4)}
-.gen-btn:active{transform:scale(.94);transition:transform .08s}
+.gen-btn:hover{opacity:.85}
+.gen-btn:active{opacity:.7}
 .gen-btn span{position:relative;z-index:1}
 
 /* Trademark link */
@@ -220,23 +216,7 @@ footer{position:relative;z-index:2;border-top:1px solid var(--border);padding:20
 .size-chip.active{background:#0c0c0c;color:#fff;border-color:#0c0c0c}
 .size-chip.active span{color:rgba(255,255,255,.55)}
 
-/* Generate btn full */
-.fp-gen-btn{
-  width:100%;padding:16px;border-radius:14px;
-  background:#0c0c0c;color:#fff;border:none;
-  font-family:'Syne',sans-serif;font-size:17px;font-weight:800;letter-spacing:-.3px;
-  cursor:pointer;margin-top:6px;
-  display:flex;align-items:center;justify-content:center;gap:10px;
-  position:relative;overflow:hidden;
-  transition:transform .2s cubic-bezier(.34,1.5,.64,1),box-shadow .2s;
-  box-shadow:0 4px 20px rgba(0,0,0,.2);
-}
-.fp-gen-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--purple),var(--accent));opacity:0;transition:opacity .2s}
-.fp-gen-btn:hover::before{opacity:1}
-.fp-gen-btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(109,40,217,.4)}
-.fp-gen-btn:active{transform:scale(.97)}
-.fp-gen-btn span{position:relative;z-index:1}
-.fp-gen-note{text-align:center;font-size:11px;color:var(--muted);margin-top:10px}
+
 
 /* ===== LOADER ===== */
 .ai-loader{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:80px 20px;gap:28px;}
@@ -358,20 +338,11 @@ footer{position:relative;z-index:2;border-top:1px solid var(--border);padding:20
   <div class="hero-tag"><span>✦</span> Nameavi AI · India's Favourite</div>
   <h1>Find your<br><em>perfect domain</em><br>instantly</h1>
   <p class="hero-sub">Describe your business in any language — Nameavi AI generates 100 creative domain names in seconds</p>
-  <div class="search-outer">
-    <div class="search-box">
-      <div class="search-input-wrap">
-        <span class="search-ai-icon">✦</span>
-        <input id="bi" type="text" placeholder="e.g. Mumbai restaurant, yoga studio...">
-      </div>
-      <button class="gen-btn" onclick="quickGo()" title="Generate Names">
-        <span>✦ Generate Names</span>
-      </button>
-    </div>
+  <div style="text-align:center;margin-top:4px">
+    <button onclick="openForm()" style="display:inline-flex;align-items:center;gap:8px;background:#0c0c0c;color:#fff;border:none;border-radius:12px;padding:14px 32px;font-size:15px;font-weight:700;font-family:'Plus Jakarta Sans',sans-serif;cursor:pointer;box-shadow:0 4px 18px rgba(0,0,0,.2);transition:opacity .15s" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">✦ Generate Names</button>
   </div>
-  <div style="text-align:center;margin-top:14px;display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap">
+  <div style="text-align:center;margin-top:14px">
     <a href="https://www.legaldocs.co.in/trademark-search" target="_blank" class="tm-check-btn">⚖️ Check Trademark</a>
-    <button onclick="openForm()" style="display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;color:var(--muted);background:var(--white);border:1.5px solid var(--border);padding:7px 18px;border-radius:30px;cursor:pointer;font-family:'Plus Jakarta Sans',sans-serif;transition:all .18s" onmouseover="this.style.borderColor='#aaa'" onmouseout="this.style.borderColor='var(--border)'">🎯 Advanced Options</button>
   </div>
 </div>
 
@@ -498,10 +469,10 @@ footer{position:relative;z-index:2;border-top:1px solid var(--border);padding:20
       </div>
     </div>
 
-    <button class="fp-gen-btn" onclick="formGo()">
-      <span>✦ Generate 100 Names</span>
-    </button>
-    <div class="fp-gen-note">Koi bhi ek field fill karo — naam milenge ✓</div>
+    <div style="text-align:center;margin-top:8px">
+      <button onclick="formGo()" style="display:inline-flex;align-items:center;gap:7px;background:#0c0c0c;color:#fff;border:none;border-radius:10px;padding:11px 28px;font-size:13px;font-weight:700;font-family:'Plus Jakarta Sans',sans-serif;cursor:pointer;transition:background .18s;box-shadow:0 2px 10px rgba(0,0,0,.2)" onmouseover="this.style.background='#6d28d9'" onmouseout="this.style.background='#0c0c0c'">✦ Generate Names</button>
+    </div>
+    <div style="text-align:center;font-size:11px;color:var(--muted);margin-top:10px">Koi bhi ek field fill karo — naam milenge ✓</div>
   </div>
 </div>
 
@@ -550,8 +521,13 @@ function goHome(){
   document.getElementById('formPage').classList.remove('open');
 }
 function openForm(){
+  const homeText=document.getElementById('bi').value.trim();
+  if(homeText){
+    document.getElementById('fp-desc').value=homeText;
+  }
   document.getElementById('homePage').style.display='none';
   document.getElementById('formPage').classList.add('open');
+  document.getElementById('formPage').scrollTop=0;
 }
 function closeForm(){
   document.getElementById('homePage').style.display='block';
@@ -705,7 +681,7 @@ All 100 required.`;
   }
 }
 
-document.getElementById('bi').addEventListener('keydown',e=>{if(e.key==='Enter')quickGo()});
+
 </script>
 </body>
 </html>
