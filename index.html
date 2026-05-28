@@ -521,10 +521,6 @@ function goHome(){
   document.getElementById('formPage').classList.remove('open');
 }
 function openForm(){
-  const homeText=document.getElementById('bi').value.trim();
-  if(homeText){
-    document.getElementById('fp-desc').value=homeText;
-  }
   document.getElementById('homePage').style.display='none';
   document.getElementById('formPage').classList.add('open');
   document.getElementById('formPage').scrollTop=0;
