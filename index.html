@@ -706,7 +706,7 @@ Respond ONLY raw JSON array, no markdown, no backticks, one entry per TLD in the
       <div class="ds-result-row">
         <div class="ds-result-domain">${nameOnly(x.domain)}</div>
         <div class="ds-result-status">
-          <span class="ds-status-pill ${x.likely_available?'av':'un'}"><span class="ds-status-dot" style="${isDotCom(x.domain)&&x.likely_available?'background:#1a7a4c':''}"></span>${x.likely_available?'Likely Available':'Possibly Taken'}</span>
+          <span class="ds-status-pill ${x.likely_available?'av':'un'}">${(isDotCom(x.domain)&&x.likely_available)?'<span class="ds-status-dot"></span>':''}${x.likely_available?'Likely Available':'Possibly Taken'}</span>
           <a class="ds-result-buy" href="https://www.namecheap.com/domains/registration/results/?domain=${encodeURIComponent(x.domain)}" target="_blank">Buy Now</a>
         </div>
       </div>`).join('')}</div>
@@ -754,6 +754,7 @@ async function generateNames(prompt, size, label){
   renderSaved();
 
   const batch=await fetchBatch(prompt,size,0);
+  // first batch now uses 2 parallel 50-name calls under the hood for speed
   if(batch===null){
     document.getElementById('rpGrid').innerHTML='<div style="text-align:center;padding:60px 20px;grid-column:1/-1"><div style="font-family:\'Space Grotesk\',sans-serif;font-size:16px;color:#c23b2e;font-weight:600">Something went wrong. Please try again.</div></div>';
     return;
@@ -766,33 +767,42 @@ async function generateNames(prompt, size, label){
   attachInfiniteScroll();
 }
 
-/* ===== FETCH ONE BATCH FROM GROQ ===== */
-async function fetchBatch(prompt,size,existingCount){
+/* ===== FETCH ONE BATCH FROM GROQ (split into 2 parallel calls of 50 for speed) ===== */
+async function fetchHalfBatch(prompt,size,count,recentAvoid){
   const sizeRule = size==='Short'?'Prefer short domains (4-6 characters without TLD).':
                    size==='Medium'?'Prefer medium domains (7-10 characters without TLD).':'';
 
-  const avoidRule = existingCount>0 ? `Do not repeat any of these already-used names: ${allDomains.map(d=>nameOnly(d.domain)).slice(0,150).join(', ')}.` : '';
+  const avoidRule = recentAvoid && recentAvoid.length ? `Avoid these recent names: ${recentAvoid.join(', ')}. If you run out of fresh keyword ideas, mix in 1-2 extra words/syllables to create new variations instead of repeating.` : '';
 
-  const fullPrompt=`You are Nameavi, world-class domain branding AI. Generate exactly 100 unique creative brandable domain names for: "${prompt}".
-IMPORTANT: Include names that contain the main keyword/s from the business description (keyword matching). Mix keyword-based names with creative portmanteau/brandable names.
+  const fullPrompt=`You are Nameavi, a fast domain branding AI. Generate exactly ${count} unique creative brandable domain names for: "${prompt}".
+Include names that contain the main keyword(s) from the business description, mixed with short portmanteau/brandable names.
 ${sizeRule}
 ${avoidRule}
 TLD: mix of .com .in .co.in .ai .tv
-Rules: short memorable professional, mix compound/portmanteau/suffix(-ify-ly-hub-go-now-hq)/prefix(get-my-try-), no duplicates, include keyword-match names.
-First 8: top:true, rest top:false. likely_available:true if made-up word, false if common phrase.
-Respond ONLY raw JSON array no markdown no backticks:
+Rules: short, memorable, no duplicates. If a keyword-only name is unavailable as an idea, blend it with another short word instead.
+First 4: top:true, rest top:false. likely_available:true if made-up word, false if common phrase.
+Respond ONLY raw JSON array, no markdown, no backticks, no extra text:
 [{"domain":"x.com","reason":"why","top":true,"likely_available":true}]
-All 100 required.`;
+Exactly ${count} entries required.`;
 
+  const r=await fetch('https://api.groq.com/openai/v1/chat/completions',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','Authorization':'Bearer '+GROQ_KEY},
+    body:JSON.stringify({model:'llama-3.3-70b-versatile',max_tokens:4000,temperature:0.9,messages:[{role:'user',content:fullPrompt}]})
+  });
+  const d=await r.json();
+  const raw=d.choices[0].message.content.replace(/```json|```/g,'').trim();
+  return JSON.parse(raw);
+}
+
+async function fetchBatch(prompt,size,existingCount){
   try{
-    const r=await fetch('https://api.groq.com/openai/v1/chat/completions',{
-      method:'POST',
-      headers:{'Content-Type':'application/json','Authorization':'Bearer '+GROQ_KEY},
-      body:JSON.stringify({model:'llama-3.3-70b-versatile',max_tokens:8000,temperature:0.93,messages:[{role:'user',content:fullPrompt}]})
-    });
-    const d=await r.json();
-    const raw=d.choices[0].message.content.replace(/```json|```/g,'').trim();
-    return JSON.parse(raw);
+    const recentAvoid=allDomains.map(d=>nameOnly(d.domain)).slice(-60);
+    const [a,b]=await Promise.all([
+      fetchHalfBatch(prompt,size,50,recentAvoid),
+      fetchHalfBatch(prompt,size,50,recentAvoid)
+    ]);
+    return a.concat(b);
   }catch(e){
     console.error(e);
     return null;
@@ -803,10 +813,14 @@ All 100 required.`;
 function renderCard(x,i){
   const iL=liked.includes(x.domain);
   const safe=x.domain.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
-  const dotComAvail = isDotCom(x.domain) && x.likely_available;
+  const dotCom = isDotCom(x.domain);
+  const dotComAvail = dotCom && x.likely_available;
+  const availDotHTML = dotComAvail
+    ? `<div class="lc-avail av" title="Likely available (.com)"></div>`
+    : '';
   return`<div class="lc cs-${i%CS}" onclick="activateCard(this)" title="${(x.reason||'').replace(/"/g,'&quot;')}" style="animation-delay:${Math.min((i%100)*.02,1)}s">
     ${x.top?'<div class="lc-top-badge">Top</div>':''}
-    <div class="lc-avail ${dotComAvail?'av':(x.likely_available?'av':'un')}" title="${x.likely_available?'Likely available':'Possibly taken'}"></div>
+    ${availDotHTML}
     <div class="lc-name">${nameOnly(x.domain)}</div>
     <button class="lc-like${iL?' liked':''}" data-domain="${x.domain}" onclick="event.stopPropagation();toggleLike('${safe}',this)">${iL?'♥':'♡'}</button>
     <div class="lc-overlay">
