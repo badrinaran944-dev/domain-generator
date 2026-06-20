@@ -56,8 +56,12 @@ h1 em{font-style:normal;color:var(--accent)}
 @media(max-width:640px){h1{font-size:38px}.hero{padding:64px 20px 40px}.hero-sub{font-size:15px}}
 
 .cta-row{display:flex;flex-direction:column;align-items:center;gap:16px}
+.cta-btn-group{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
 .cta-main{display:inline-flex;align-items:center;gap:10px;background:var(--ink);color:var(--bg);border:none;border-radius:2px;padding:16px 36px;font-size:14px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;font-family:'Inter',sans-serif;cursor:pointer;transition:background .15s}
 .cta-main:hover{background:var(--accent)}
+.cta-secondary{display:inline-flex;align-items:center;gap:10px;background:transparent;color:var(--ink);border:1px solid var(--ink);border-radius:2px;padding:16px 32px;font-size:14px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;font-family:'Inter',sans-serif;cursor:pointer;transition:all .15s}
+.cta-secondary:hover{background:var(--ink);color:var(--bg)}
+@media(max-width:480px){.cta-btn-group{flex-direction:column;width:100%}.cta-main,.cta-secondary{width:100%;justify-content:center}}
 .tm-check-btn{
   display:inline-flex;align-items:center;gap:6px;
   font-size:12px;font-weight:500;color:var(--muted);
@@ -84,6 +88,27 @@ h1 em{font-style:normal;color:var(--accent)}
 .how-h{font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:600;color:var(--ink);margin-bottom:8px;letter-spacing:-.01em}
 .how-p{font-size:13px;color:var(--muted);line-height:1.65}
 @media(max-width:640px){.how-grid{grid-template-columns:1fr;gap:0}.how-card:not(:first-child){border-left:none}.how-card{margin-bottom:24px}}
+
+/* ===== BRAND CLUSTER ===== */
+.brand-wrap{max-width:1080px;margin:0 auto 90px;padding:0 24px}
+.brand-section{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;border-top:1px solid var(--ink);padding-top:36px}
+.brand-copy-eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;color:var(--accent);letter-spacing:.08em;text-transform:uppercase;margin-bottom:18px;display:flex;align-items:center;gap:8px}
+.brand-copy-eyebrow .dot{width:6px;height:6px;background:var(--accent);border-radius:50%}
+.brand-copy h2{font-family:'Space Grotesk',sans-serif;font-size:36px;font-weight:700;letter-spacing:-.02em;line-height:1.12;color:var(--ink);margin-bottom:20px}
+.brand-copy-p{font-size:14px;color:var(--muted);line-height:1.7;max-width:380px}
+.brand-copy-p+.brand-copy-p{margin-top:10px}
+.brand-orbit{position:relative;aspect-ratio:1/1;max-width:460px;margin:0 auto;width:100%}
+.bo-node{position:absolute;background:var(--paper);border:1px solid var(--line);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-weight:700;color:var(--ink);text-align:center;padding:6px}
+.bo-center{width:42%;height:42%;top:29%;left:29%;background:var(--ink);border-color:var(--ink);font-size:clamp(13px,2.6vw,17px);color:var(--bg);z-index:2}
+.bo-n1{width:23%;height:23%;top:0;left:38.5%;font-size:clamp(10px,1.8vw,13px)}
+.bo-n2{width:21%;height:21%;top:14%;left:8%;font-size:clamp(10px,1.6vw,12px)}
+.bo-n3{width:21%;height:21%;top:14%;left:70%;font-size:clamp(10px,1.6vw,12px)}
+.bo-n4{width:20%;height:20%;top:42%;left:0;font-size:clamp(10px,1.6vw,12px)}
+.bo-n5{width:20%;height:20%;top:42%;left:80%;font-size:clamp(10px,1.6vw,12px)}
+.bo-n6{width:21%;height:21%;top:70%;left:9%;font-size:clamp(10px,1.6vw,12px)}
+.bo-n7{width:23%;height:23%;top:74%;left:38%;font-size:clamp(9px,1.5vw,11px)}
+.bo-n8{width:20%;height:20%;top:70%;left:71%;font-size:clamp(10px,1.6vw,12px)}
+@media(max-width:760px){.brand-section{grid-template-columns:1fr;gap:36px}.brand-copy h2{font-size:28px}.brand-orbit{max-width:340px}}
 
 /* ===== MONKB ===== */
 .monkb-wrap{max-width:920px;margin:0 auto 90px;padding:0 24px}
@@ -167,6 +192,41 @@ footer{border-top:1px solid var(--line);padding:24px 40px;display:flex;justify-c
 .ai-progress{width:200px;height:2px;background:var(--line);overflow:hidden;margin-top:4px}
 .ai-progress-bar{height:100%;width:0%;background:var(--accent);animation:progress-fill 4s ease-in-out infinite}
 @keyframes progress-fill{0%{width:0%}80%{width:88%}100%{width:92%}}
+
+/* ===== DOMAIN SEARCH PAGE ===== */
+#domainSearchPage{display:none;position:fixed;inset:0;z-index:450;overflow-y:auto;background:var(--bg)}
+#domainSearchPage.open{display:block;animation:rp-in .3s ease}
+.ds-wrap{max-width:600px;margin:0 auto;padding:48px 24px 90px}
+.ds-header{margin-bottom:36px}
+.ds-tag{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:500;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;display:flex;align-items:center;gap:8px;margin-bottom:16px}
+.ds-tag .dot{width:6px;height:6px;background:var(--accent);border-radius:50%}
+.ds-title{font-family:'Space Grotesk',sans-serif;font-size:36px;font-weight:700;letter-spacing:-.03em;color:var(--ink);line-height:1.08;margin-bottom:12px}
+.ds-title em{font-style:normal;color:var(--accent)}
+.ds-sub{font-size:13px;color:var(--muted);line-height:1.6}
+.ds-searchcard{background:var(--paper);border:1px solid var(--line);border-radius:2px;padding:6px;display:flex;gap:8px;margin-bottom:24px;transition:border-color .15s}
+.ds-searchcard:focus-within{border-color:var(--ink)}
+.ds-input{flex:1;border:none;outline:none;font-size:16px;font-family:'Space Grotesk',sans-serif;font-weight:600;color:var(--ink);background:transparent;padding:14px 14px}
+.ds-input::placeholder{color:#b8b4a8;font-weight:400}
+.ds-check-btn{background:var(--ink);color:var(--bg);border:none;border-radius:2px;padding:0 26px;font-size:13px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;font-family:'Inter',sans-serif;cursor:pointer;transition:background .15s;white-space:nowrap}
+.ds-check-btn:hover{background:var(--accent)}
+.ds-tld-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px}
+.ds-tld-chip{padding:7px 14px;border-radius:2px;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:500;background:transparent;border:1px solid var(--line);color:var(--ink);cursor:pointer;transition:all .15s;user-select:none}
+.ds-tld-chip:hover{border-color:var(--ink)}
+.ds-tld-chip.active{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.ds-results{display:flex;flex-direction:column;gap:1px;border:1px solid var(--line)}
+.ds-result-row{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;background:var(--paper);gap:14px}
+.ds-result-domain{font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;color:var(--ink);letter-spacing:-.01em}
+.ds-result-status{display:flex;align-items:center;gap:14px;flex-shrink:0}
+.ds-status-pill{display:flex;align-items:center;gap:7px;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+.ds-status-dot{width:7px;height:7px;border-radius:50%}
+.ds-status-pill.av .ds-status-dot{background:#1a7a4c}
+.ds-status-pill.av{color:#1a7a4c}
+.ds-status-pill.un .ds-status-dot{background:#c23b2e}
+.ds-status-pill.un{color:#c23b2e}
+.ds-result-buy{background:var(--accent);color:#fff;border:none;border-radius:2px;padding:9px 18px;font-size:11px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;text-decoration:none;font-family:'Inter',sans-serif;transition:opacity .15s;flex-shrink:0}
+.ds-result-buy:hover{opacity:.85}
+.ds-empty{text-align:center;padding:50px 20px;color:var(--muted);font-size:13px;border:1px dashed var(--line)}
+@media(max-width:480px){.ds-result-row{flex-wrap:wrap}.ds-searchcard{flex-direction:column}.ds-check-btn{padding:14px 0}}
 
 /* ===== RESULTS PAGE ===== */
 #resultsPage{display:none;position:fixed;inset:0;z-index:500;overflow-y:auto;background:var(--bg)}
@@ -258,10 +318,13 @@ footer{border-top:1px solid var(--line);padding:24px 40px;display:flex;justify-c
 
 <div class="hero">
   <div class="hero-tag"><span class="dot"></span> Nameavi AI · India's Favourite</div>
-  <h1>Find your<br>perfect <em>domain</em><br>instantly</h1>
+  <h1>Find <em>Brand</em><br>Name</h1>
   <p class="hero-sub">Describe your business in any language — Nameavi AI generates 100 creative domain names in seconds</p>
   <div class="cta-row">
-    <button onclick="openForm()" class="cta-main">Generate Names</button>
+    <div class="cta-btn-group">
+      <button onclick="openForm()" class="cta-main">Find Brand Name</button>
+      <button onclick="openDomainSearch()" class="cta-secondary">Domain Search</button>
+    </div>
     <a href="https://www.legaldocs.co.in/trademark-search" target="_blank" class="tm-check-btn">Check Trademark →</a>
   </div>
 </div>
@@ -288,6 +351,28 @@ footer{border-top:1px solid var(--line);padding:24px 40px;display:flex;justify-c
       <div class="how-num">03 — LAUNCH</div>
       <div class="how-h">Save, buy & launch</div>
       <div class="how-p">Heart favourites, check availability, buy instantly.</div>
+    </div>
+  </div>
+</div>
+
+<div class="brand-wrap">
+  <div class="brand-section">
+    <div class="brand-copy">
+      <div class="brand-copy-eyebrow"><span class="dot"></span>Why a name matters</div>
+      <h2>Build a brand<br>people remember</h2>
+      <p class="brand-copy-p">Traditional names are crowded and expensive.</p>
+      <p class="brand-copy-p">A branded name gives your startup a unique identity that feels modern, memorable, and professional — just like the names you already recognise.</p>
+    </div>
+    <div class="brand-orbit">
+      <div class="bo-node bo-center">Nike</div>
+      <div class="bo-node bo-n1">Spotify</div>
+      <div class="bo-node bo-n2">Dropbox</div>
+      <div class="bo-node bo-n3">Slack</div>
+      <div class="bo-node bo-n4">Stripe</div>
+      <div class="bo-node bo-n5">Uber</div>
+      <div class="bo-node bo-n6">Notion</div>
+      <div class="bo-node bo-n7">Zoho</div>
+      <div class="bo-node bo-n8">Airbnb</div>
     </div>
   </div>
 </div>
@@ -393,6 +478,35 @@ footer{border-top:1px solid var(--line);padding:24px 40px;display:flex;justify-c
   </div>
 </div>
 
+<!-- DOMAIN SEARCH PAGE -->
+<div id="domainSearchPage">
+  <div class="ds-wrap">
+    <button class="fp-back" onclick="closeDomainSearch()">← Back</button>
+    <div class="ds-header">
+      <div class="ds-tag"><span class="dot"></span>Domain Search</div>
+      <div class="ds-title">Check if a <em>domain</em><br>is available</div>
+      <div class="ds-sub">Type any domain name and check its availability across TLDs</div>
+    </div>
+
+    <div class="ds-searchcard">
+      <input id="ds-input" class="ds-input" type="text" placeholder="e.g. spiceroute" onkeydown="if(event.key==='Enter')dsCheck()">
+      <button class="ds-check-btn" onclick="dsCheck()">Check Availability</button>
+    </div>
+
+    <div class="ds-tld-row" id="dsTldRow">
+      <div class="ds-tld-chip active" onclick="dsToggleTld(this)">.com</div>
+      <div class="ds-tld-chip active" onclick="dsToggleTld(this)">.in</div>
+      <div class="ds-tld-chip active" onclick="dsToggleTld(this)">.co.in</div>
+      <div class="ds-tld-chip active" onclick="dsToggleTld(this)">.ai</div>
+      <div class="ds-tld-chip active" onclick="dsToggleTld(this)">.tv</div>
+    </div>
+
+    <div id="dsResults">
+      <div class="ds-empty">Enter a domain name above to check availability</div>
+    </div>
+  </div>
+</div>
+
 <!-- RESULTS PAGE -->
 <div id="resultsPage">
   <div class="rp-nav">
@@ -436,6 +550,7 @@ function goHome(){
   document.getElementById('homePage').style.display='block';
   document.getElementById('resultsPage').classList.remove('open');
   document.getElementById('formPage').classList.remove('open');
+  document.getElementById('domainSearchPage').classList.remove('open');
 }
 function openForm(){
   document.getElementById('homePage').style.display='none';
@@ -445,6 +560,18 @@ function openForm(){
 function closeForm(){
   document.getElementById('homePage').style.display='block';
   document.getElementById('formPage').classList.remove('open');
+}
+function openDomainSearch(){
+  document.getElementById('homePage').style.display='none';
+  document.getElementById('domainSearchPage').classList.add('open');
+  document.getElementById('domainSearchPage').scrollTop=0;
+}
+function closeDomainSearch(){
+  document.getElementById('homePage').style.display='block';
+  document.getElementById('domainSearchPage').classList.remove('open');
+}
+function dsToggleTld(el){
+  el.classList.toggle('active');
 }
 
 /* ===== CHIPS ===== */
@@ -516,6 +643,45 @@ function quickGo(){
   const biz=document.getElementById('bi').value.trim();
   if(!biz)return;
   generateNames(biz,'',biz);
+}
+
+/* ===== DOMAIN SEARCH ===== */
+async function dsCheck(){
+  const raw=document.getElementById('ds-input').value.trim().toLowerCase();
+  if(!raw){showToast('Domain naam likho pehle!');return}
+  const base=raw.replace(/\s+/g,'').replace(/\.(com|in|co\.in|ai|tv|org|net|io)$/,'');
+  const tlds=[...document.querySelectorAll('.ds-tld-chip.active')].map(c=>c.textContent.trim());
+  if(!tlds.length){showToast('Kam se kam ek TLD chuno');return}
+
+  const resBox=document.getElementById('dsResults');
+  resBox.innerHTML='<div class="ai-loader" style="padding:50px 20px"><div class="ai-orb"></div><div class="ai-loader-text"><div class="ai-loader-title">Checking...</div><div class="ai-loader-sub">'+tlds.length+' domains check ho rahe hain</div></div></div>';
+
+  const fullPrompt=`For the base domain name "${base}", and these TLD options: ${tlds.join(', ')}, give your best estimate of whether each full domain (e.g. "${base}${tlds[0]}") is likely already registered or likely available, based on how common/generic the word is and typical domain landscape patterns. This is an estimate only, not a live registry lookup.
+Respond ONLY raw JSON array, no markdown, no backticks, one entry per TLD in the same order given:
+[{"tld":".com","domain":"${base}.com","likely_available":true,"note":"short reason"}]`;
+
+  try{
+    const r=await fetch('https://api.groq.com/openai/v1/chat/completions',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Authorization':'Bearer '+GROQ_KEY},
+      body:JSON.stringify({model:'llama-3.3-70b-versatile',max_tokens:1000,temperature:0.4,messages:[{role:'user',content:fullPrompt}]})
+    });
+    const d=await r.json();
+    const rawTxt=d.choices[0].message.content.replace(/```json|```/g,'').trim();
+    const results=JSON.parse(rawTxt);
+    resBox.innerHTML=`<div class="ds-results">${results.map(x=>`
+      <div class="ds-result-row">
+        <div class="ds-result-domain">${x.domain}</div>
+        <div class="ds-result-status">
+          <span class="ds-status-pill ${x.likely_available?'av':'un'}"><span class="ds-status-dot"></span>${x.likely_available?'Likely Available':'Possibly Taken'}</span>
+          <a class="ds-result-buy" href="https://www.namecheap.com/domains/registration/results/?domain=${encodeURIComponent(x.domain)}" target="_blank">Buy Now</a>
+        </div>
+      </div>`).join('')}</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);margin-top:14px;text-align:center">Estimate only — confirm on registrar before buying</div>`;
+  }catch(e){
+    resBox.innerHTML='<div class="ds-empty" style="color:#c23b2e">Kuch gadbad ho gayi. Dobara try karo.</div>';
+    console.error(e);
+  }
 }
 
 /* ===== FORM GENERATE ===== */
