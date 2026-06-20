@@ -64,11 +64,11 @@ h1 em{font-style:normal;color:var(--accent)}
 @media(max-width:480px){.cta-btn-group{flex-direction:column;width:100%}.cta-main,.cta-secondary{width:100%;justify-content:center}}
 .tm-check-btn{
   display:inline-flex;align-items:center;gap:6px;
-  font-size:12px;font-weight:500;color:var(--muted);
-  text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:3px;
+  font-size:12px;font-weight:700;color:var(--ink);
+  text-decoration:underline;text-decoration-color:var(--ink);text-underline-offset:3px;
   font-family:'Inter',sans-serif;transition:color .15s;
 }
-.tm-check-btn:hover{color:var(--ink)}
+.tm-check-btn:hover{color:var(--accent);text-decoration-color:var(--accent)}
 
 /* ===== STATS ===== */
 .stats{display:flex;justify-content:center;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
@@ -269,11 +269,11 @@ footer{border-top:1px solid var(--line);padding:24px 40px;display:flex;justify-c
 .lc-avail{position:absolute;top:11px;right:11px;z-index:3;width:7px;height:7px;border-radius:50%}
 .lc-avail.av{background:#1a7a4c}
 .lc-avail.un{background:#c23b2e}
-.lc-like{position:absolute;bottom:10px;right:10px;z-index:3;width:28px;height:28px;border-radius:50%;background:transparent;border:1px solid currentColor;display:flex;align-items:center;justify-content:center;font-size:13px;cursor:pointer;transition:all .15s;color:inherit;opacity:.55}
+.lc-like{position:absolute;bottom:10px;right:10px;z-index:5;width:28px;height:28px;border-radius:50%;background:transparent;border:1px solid currentColor;display:flex;align-items:center;justify-content:center;font-size:13px;cursor:pointer;transition:all .15s;color:inherit;opacity:.55}
 .lc-like:hover{opacity:1}
 .lc-like.liked{background:var(--accent);border-color:var(--accent);color:#fff;opacity:1}
-.lc-overlay{position:absolute;inset:0;z-index:4;background:rgba(17,17,17,.92);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;opacity:0;transition:opacity .15s}
-.lc:hover .lc-overlay{opacity:1}
+.lc-overlay{position:absolute;inset:0;z-index:4;background:rgba(17,17,17,.92);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;opacity:0;pointer-events:none;transition:opacity .15s}
+.lc.active .lc-overlay{opacity:1;pointer-events:auto}
 .lov-buy,.lov-chk{display:block;width:118px;font-size:11px;font-weight:600;letter-spacing:.02em;text-transform:uppercase;padding:9px 0;border-radius:2px;text-decoration:none;text-align:center;font-family:'Inter',sans-serif;cursor:pointer;transition:opacity .12s}
 .lov-buy{background:var(--accent);color:#fff}
 .lov-buy:hover{opacity:.85}
@@ -299,6 +299,11 @@ footer{border-top:1px solid var(--line);padding:24px 40px;display:flex;justify-c
 
 .copy-toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--ink);color:var(--bg);font-size:12px;font-weight:600;padding:11px 22px;border-radius:2px;z-index:9999;opacity:0;transition:all .25s ease;pointer-events:none;font-family:'Inter',sans-serif}
 .copy-toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+.rp-loadmore{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:36px 20px;gap:14px;grid-column:1/-1}
+.rp-loadmore .ai-orb{width:30px;height:30px}
+.rp-loadmore-text{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.rp-done-text{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;text-align:center;padding:30px 20px;grid-column:1/-1}
 
 @media(prefers-reduced-motion:reduce){*{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}}
 </style>
@@ -340,12 +345,12 @@ footer{border-top:1px solid var(--line);padding:24px 40px;display:flex;justify-c
     <div class="how-card">
       <div class="how-num">01 — DESCRIBE</div>
       <div class="how-h">Describe your business</div>
-      <div class="how-p">Type in English, Hindi, or Hinglish. More detail = better names.</div>
+      <div class="how-p">Type your business idea — more detail means better names.</div>
     </div>
     <div class="how-card">
       <div class="how-num">02 — GENERATE</div>
       <div class="how-h">Nameavi generates names</div>
-      <div class="how-p">Nameavi AI instantly generates 100 creative, brandable domain names.</div>
+      <div class="how-p">Nameavi AI instantly generates creative, brandable domain names.</div>
     </div>
     <div class="how-card">
       <div class="how-num">03 — LAUNCH</div>
@@ -415,7 +420,7 @@ footer{border-top:1px solid var(--line);padding:24px 40px;display:flex;justify-c
     <div class="fp-header">
       <div class="fp-tag"><span class="dot"></span>Smart Generator</div>
       <div class="fp-title">Tell us about your<br><em>brand</em></div>
-      <div class="fp-sub">Jitna batao utne achhe naam — sirf ek field bhi kaafi hai</div>
+      <div class="fp-sub">The more you tell us, the better the names — even one field is enough</div>
     </div>
 
     <!-- Business Name Ideas -->
@@ -433,7 +438,7 @@ footer{border-top:1px solid var(--line);padding:24px 40px;display:flex;justify-c
         Business Description
         <span class="fp-label-badge">Optional</span>
       </div>
-      <textarea id="fp-desc" class="fp-input" rows="2" placeholder="e.g. Mumbai ka online restaurant jo ghar par khana deliver karta hai"></textarea>
+      <textarea id="fp-desc" class="fp-input" rows="2" placeholder="e.g. An online restaurant in Mumbai that delivers home-style food"></textarea>
     </div>
 
     <!-- Industry -->
@@ -473,7 +478,7 @@ footer{border-top:1px solid var(--line);padding:24px 40px;display:flex;justify-c
 
     <div class="fp-submit-row">
       <button onclick="formGo()" class="fp-submit">Generate Names</button>
-      <div class="fp-hint">Koi bhi ek field fill karo — naam milenge</div>
+      <div class="fp-hint">Fill in at least one field to get names</div>
     </div>
   </div>
 </div>
@@ -520,7 +525,7 @@ footer{border-top:1px solid var(--line);padding:24px 40px;display:flex;justify-c
         <div class="rp-saved-hd-left">Saved Domains <span class="saved-cnt" id="savedCnt">0</span></div>
         <div class="rp-saved-btns">
           <button class="rp-saved-copy" onclick="copyAllSaved()">Copy All</button>
-          <button class="rp-saved-clear" onclick="clearAllLiked()">Sab hatao</button>
+          <button class="rp-saved-clear" onclick="clearAllLiked()">Clear All</button>
         </div>
       </div>
       <div class="rp-saved-list" id="rpSavedList"></div>
@@ -538,6 +543,15 @@ footer{border-top:1px solid var(--line);padding:24px 40px;display:flex;justify-c
 const GROQ_KEY='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';
 let liked=JSON.parse(localStorage.getItem('o7_liked')||'[]');
 const CS=15;
+const BATCH_SIZE=100;
+const MAX_NAMES=500;
+
+let currentPrompt='';
+let currentSize='';
+let allDomains=[];
+let isLoadingMore=false;
+let reachedMax=false;
+let scrollHandlerAttached=false;
 
 /* ===== PAGE NAV ===== */
 function openResults(){
@@ -618,6 +632,25 @@ function toggleLike(domain,btn){
   saveLiked();
 }
 
+/* ===== CARD CLICK (show buy/check overlay) ===== */
+function activateCard(card){
+  document.querySelectorAll('.lc.active').forEach(c=>{if(c!==card)c.classList.remove('active')});
+  card.classList.toggle('active');
+}
+document.addEventListener('click',function(e){
+  if(!e.target.closest('.lc')){
+    document.querySelectorAll('.lc.active').forEach(c=>c.classList.remove('active'));
+  }
+});
+
+/* ===== Helper: strip TLD for display ===== */
+function nameOnly(domain){
+  return domain.replace(/\.(com|in|co\.in|ai|tv|org|net|io)$/i,'');
+}
+function isDotCom(domain){
+  return /\.com$/i.test(domain);
+}
+
 /* ===== LOADER ===== */
 const loadingWords=[
   ['Analyzing','Industry','Brainstorming','Domains'],
@@ -630,8 +663,8 @@ function showLoader(){
   return`<div class="ai-loader">
     <div class="ai-orb"></div>
     <div class="ai-loader-text">
-      <div class="ai-loader-title">Nameavi AI kaam par hai...</div>
-      <div class="ai-loader-sub">100 brand names generate ho rahe hain</div>
+      <div class="ai-loader-title">Nameavi AI is working...</div>
+      <div class="ai-loader-sub">Generating brand names for you</div>
       <div class="ai-words">${wordsHTML}</div>
     </div>
     <div class="ai-progress"><div class="ai-progress-bar"></div></div>
@@ -648,13 +681,13 @@ function quickGo(){
 /* ===== DOMAIN SEARCH ===== */
 async function dsCheck(){
   const raw=document.getElementById('ds-input').value.trim().toLowerCase();
-  if(!raw){showToast('Domain naam likho pehle!');return}
+  if(!raw){showToast('Please enter a domain name first!');return}
   const base=raw.replace(/\s+/g,'').replace(/\.(com|in|co\.in|ai|tv|org|net|io)$/,'');
   const tlds=[...document.querySelectorAll('.ds-tld-chip.active')].map(c=>c.textContent.trim());
-  if(!tlds.length){showToast('Kam se kam ek TLD chuno');return}
+  if(!tlds.length){showToast('Please select at least one TLD');return}
 
   const resBox=document.getElementById('dsResults');
-  resBox.innerHTML='<div class="ai-loader" style="padding:50px 20px"><div class="ai-orb"></div><div class="ai-loader-text"><div class="ai-loader-title">Checking...</div><div class="ai-loader-sub">'+tlds.length+' domains check ho rahe hain</div></div></div>';
+  resBox.innerHTML='<div class="ai-loader" style="padding:50px 20px"><div class="ai-orb"></div><div class="ai-loader-text"><div class="ai-loader-title">Checking...</div><div class="ai-loader-sub">Checking '+tlds.length+' domains</div></div></div>';
 
   const fullPrompt=`For the base domain name "${base}", and these TLD options: ${tlds.join(', ')}, give your best estimate of whether each full domain (e.g. "${base}${tlds[0]}") is likely already registered or likely available, based on how common/generic the word is and typical domain landscape patterns. This is an estimate only, not a live registry lookup.
 Respond ONLY raw JSON array, no markdown, no backticks, one entry per TLD in the same order given:
@@ -671,15 +704,15 @@ Respond ONLY raw JSON array, no markdown, no backticks, one entry per TLD in the
     const results=JSON.parse(rawTxt);
     resBox.innerHTML=`<div class="ds-results">${results.map(x=>`
       <div class="ds-result-row">
-        <div class="ds-result-domain">${x.domain}</div>
+        <div class="ds-result-domain">${nameOnly(x.domain)}</div>
         <div class="ds-result-status">
-          <span class="ds-status-pill ${x.likely_available?'av':'un'}"><span class="ds-status-dot"></span>${x.likely_available?'Likely Available':'Possibly Taken'}</span>
+          <span class="ds-status-pill ${x.likely_available?'av':'un'}"><span class="ds-status-dot" style="${isDotCom(x.domain)&&x.likely_available?'background:#1a7a4c':''}"></span>${x.likely_available?'Likely Available':'Possibly Taken'}</span>
           <a class="ds-result-buy" href="https://www.namecheap.com/domains/registration/results/?domain=${encodeURIComponent(x.domain)}" target="_blank">Buy Now</a>
         </div>
       </div>`).join('')}</div>
       <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);margin-top:14px;text-align:center">Estimate only — confirm on registrar before buying</div>`;
   }catch(e){
-    resBox.innerHTML='<div class="ds-empty" style="color:#c23b2e">Kuch gadbad ho gayi. Dobara try karo.</div>';
+    resBox.innerHTML='<div class="ds-empty" style="color:#c23b2e">Something went wrong. Please try again.</div>';
     console.error(e);
   }
 }
@@ -693,7 +726,7 @@ function formGo(){
 
   // At least one field required
   if(!names && !desc && !ind){
-    showToast('Kuch toh likho!'); return;
+    showToast('Please fill in at least one field!'); return;
   }
 
   let prompt='';
@@ -706,8 +739,13 @@ function formGo(){
   generateNames(prompt, size, label);
 }
 
-/* ===== CORE GENERATE ===== */
+/* ===== CORE GENERATE (first batch) ===== */
 async function generateNames(prompt, size, label){
+  currentPrompt=prompt;
+  currentSize=size;
+  allDomains=[];
+  reachedMax=false;
+
   document.getElementById('rpTitle').textContent='"'+label.substring(0,40)+'"';
   document.getElementById('rpCount').textContent='Loading...';
   document.getElementById('rpResLabel').textContent='';
@@ -715,12 +753,30 @@ async function generateNames(prompt, size, label){
   openResults();
   renderSaved();
 
+  const batch=await fetchBatch(prompt,size,0);
+  if(batch===null){
+    document.getElementById('rpGrid').innerHTML='<div style="text-align:center;padding:60px 20px;grid-column:1/-1"><div style="font-family:\'Space Grotesk\',sans-serif;font-size:16px;color:#c23b2e;font-weight:600">Something went wrong. Please try again.</div></div>';
+    return;
+  }
+  allDomains=batch;
+  document.getElementById('rpCount').textContent=allDomains.length+' names';
+  document.getElementById('rpResLabel').textContent=allDomains.length+' brand names generated';
+  document.getElementById('rpGrid').innerHTML=allDomains.map((x,i)=>renderCard(x,i)).join('')+renderLoadMoreSlot();
+  renderSaved();
+  attachInfiniteScroll();
+}
+
+/* ===== FETCH ONE BATCH FROM GROQ ===== */
+async function fetchBatch(prompt,size,existingCount){
   const sizeRule = size==='Short'?'Prefer short domains (4-6 characters without TLD).':
                    size==='Medium'?'Prefer medium domains (7-10 characters without TLD).':'';
+
+  const avoidRule = existingCount>0 ? `Do not repeat any of these already-used names: ${allDomains.map(d=>nameOnly(d.domain)).slice(0,150).join(', ')}.` : '';
 
   const fullPrompt=`You are Nameavi, world-class domain branding AI. Generate exactly 100 unique creative brandable domain names for: "${prompt}".
 IMPORTANT: Include names that contain the main keyword/s from the business description (keyword matching). Mix keyword-based names with creative portmanteau/brandable names.
 ${sizeRule}
+${avoidRule}
 TLD: mix of .com .in .co.in .ai .tv
 Rules: short memorable professional, mix compound/portmanteau/suffix(-ify-ly-hub-go-now-hq)/prefix(get-my-try-), no duplicates, include keyword-match names.
 First 8: top:true, rest top:false. likely_available:true if made-up word, false if common phrase.
@@ -736,28 +792,90 @@ All 100 required.`;
     });
     const d=await r.json();
     const raw=d.choices[0].message.content.replace(/```json|```/g,'').trim();
-    const doms=JSON.parse(raw);
-    document.getElementById('rpCount').textContent=doms.length+' names';
-    document.getElementById('rpResLabel').textContent=doms.length+' brand names generated';
-    document.getElementById('rpGrid').innerHTML=doms.map((x,i)=>{
-      const iL=liked.includes(x.domain);
-      const safe=x.domain.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
-      return`<div class="lc cs-${i%CS}" title="${(x.reason||'').replace(/"/g,'&quot;')}" style="animation-delay:${Math.min(i*.02,1)}s">
-        ${x.top?'<div class="lc-top-badge">Top</div>':''}
-        <div class="lc-avail ${x.likely_available?'av':'un'}" title="${x.likely_available?'Likely available':'Possibly taken'}"></div>
-        <div class="lc-name">${x.domain}</div>
-        <button class="lc-like${iL?' liked':''}" data-domain="${x.domain}" onclick="event.stopPropagation();toggleLike('${safe}',this)">${iL?'♥':'♡'}</button>
-        <div class="lc-overlay">
-          <a class="lov-buy" href="https://www.namecheap.com/domains/registration/results/?domain=${encodeURIComponent(x.domain)}" target="_blank">Buy Now</a>
-          <a class="lov-chk" href="https://www.godaddy.com/domainsearch/find?checkAvail=1&domainToCheck=${encodeURIComponent(x.domain)}" target="_blank">Check</a>
-        </div>
-      </div>`;
-    }).join('');
-    renderSaved();
+    return JSON.parse(raw);
   }catch(e){
-    document.getElementById('rpGrid').innerHTML='<div style="text-align:center;padding:60px 20px;grid-column:1/-1"><div style="font-family:\'Space Grotesk\',sans-serif;font-size:16px;color:#c23b2e;font-weight:600">Kuch gadbad ho gayi. Dobara try karo.</div></div>';
     console.error(e);
+    return null;
   }
+}
+
+/* ===== RENDER ONE CARD ===== */
+function renderCard(x,i){
+  const iL=liked.includes(x.domain);
+  const safe=x.domain.replace(/\\/g,'\\\\').replace(/'/g,"\\'");
+  const dotComAvail = isDotCom(x.domain) && x.likely_available;
+  return`<div class="lc cs-${i%CS}" onclick="activateCard(this)" title="${(x.reason||'').replace(/"/g,'&quot;')}" style="animation-delay:${Math.min((i%100)*.02,1)}s">
+    ${x.top?'<div class="lc-top-badge">Top</div>':''}
+    <div class="lc-avail ${dotComAvail?'av':(x.likely_available?'av':'un')}" title="${x.likely_available?'Likely available':'Possibly taken'}"></div>
+    <div class="lc-name">${nameOnly(x.domain)}</div>
+    <button class="lc-like${iL?' liked':''}" data-domain="${x.domain}" onclick="event.stopPropagation();toggleLike('${safe}',this)">${iL?'♥':'♡'}</button>
+    <div class="lc-overlay">
+      <a class="lov-buy" href="https://www.namecheap.com/domains/registration/results/?domain=${encodeURIComponent(x.domain)}" target="_blank">Buy Now</a>
+      <a class="lov-chk" href="https://www.godaddy.com/domainsearch/find?checkAvail=1&domainToCheck=${encodeURIComponent(x.domain)}" target="_blank">Check</a>
+    </div>
+  </div>`;
+}
+
+function renderLoadMoreSlot(){
+  if(allDomains.length>=MAX_NAMES){
+    return '<div class="rp-done-text" id="rpLoadMoreSlot">All 500 names loaded</div>';
+  }
+  return '<div id="rpLoadMoreSlot"></div>';
+}
+
+/* ===== INFINITE SCROLL ===== */
+function attachInfiniteScroll(){
+  if(scrollHandlerAttached)return;
+  scrollHandlerAttached=true;
+  const rp=document.getElementById('resultsPage');
+  rp.addEventListener('scroll',function(){
+    if(isLoadingMore||reachedMax)return;
+    if(allDomains.length>=MAX_NAMES){reachedMax=true;return}
+    const nearBottom = rp.scrollTop + rp.clientHeight >= rp.scrollHeight - 200;
+    if(nearBottom){
+      loadMoreNames();
+    }
+  });
+}
+
+async function loadMoreNames(){
+  if(isLoadingMore||reachedMax)return;
+  if(allDomains.length>=MAX_NAMES){reachedMax=true;return}
+  isLoadingMore=true;
+
+  const slot=document.getElementById('rpLoadMoreSlot');
+  if(slot){
+    slot.outerHTML='<div class="rp-loadmore" id="rpLoadMoreSlot"><div class="ai-orb"></div><div class="rp-loadmore-text">Loading more names...</div></div>';
+  }
+
+  const batch=await fetchBatch(currentPrompt,currentSize,allDomains.length);
+  isLoadingMore=false;
+
+  if(!batch){
+    const s2=document.getElementById('rpLoadMoreSlot');
+    if(s2)s2.outerHTML='<div class="rp-done-text" id="rpLoadMoreSlot">Could not load more — scroll to retry</div>';
+    return;
+  }
+
+  let newOnes=batch.filter(b=>!allDomains.some(a=>nameOnly(a.domain).toLowerCase()===nameOnly(b.domain).toLowerCase()));
+  let remaining = MAX_NAMES - allDomains.length;
+  if(newOnes.length>remaining) newOnes=newOnes.slice(0,remaining);
+
+  const startIdx=allDomains.length;
+  allDomains=allDomains.concat(newOnes);
+
+  const newCardsHTML=newOnes.map((x,j)=>renderCard(x,startIdx+j)).join('');
+  const s3=document.getElementById('rpLoadMoreSlot');
+  if(s3){
+    s3.insertAdjacentHTML('beforebegin',newCardsHTML);
+    s3.outerHTML=renderLoadMoreSlot();
+  }
+
+  document.getElementById('rpCount').textContent=allDomains.length+' names';
+  document.getElementById('rpResLabel').textContent=allDomains.length+' brand names generated';
+
+  if(allDomains.length>=MAX_NAMES){reachedMax=true;}
+  renderSaved();
 }
 </script>
 </body>
