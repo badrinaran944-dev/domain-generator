@@ -500,10 +500,21 @@ footer{border-top:1px solid var(--line);padding:24px 40px;display:flex;justify-c
 
     <div class="ds-tld-row" id="dsTldRow">
       <div class="ds-tld-chip active" onclick="dsToggleTld(this)">.com</div>
-      <div class="ds-tld-chip active" onclick="dsToggleTld(this)">.in</div>
-      <div class="ds-tld-chip active" onclick="dsToggleTld(this)">.co.in</div>
-      <div class="ds-tld-chip active" onclick="dsToggleTld(this)">.ai</div>
-      <div class="ds-tld-chip active" onclick="dsToggleTld(this)">.tv</div>
+      <div class="ds-tld-chip" onclick="dsToggleTld(this)">.in</div>
+      <div class="ds-tld-chip" onclick="dsToggleTld(this)">.co.in</div>
+      <div class="ds-tld-chip" onclick="dsToggleTld(this)">.net</div>
+      <div class="ds-tld-chip" onclick="dsToggleTld(this)">.org</div>
+      <div class="ds-tld-chip active" onclick="dsToggleTld(this)">.io</div>
+      <div class="ds-tld-chip" onclick="dsToggleTld(this)">.co</div>
+      <div class="ds-tld-chip" onclick="dsToggleTld(this)">.ai</div>
+      <div class="ds-tld-chip" onclick="dsToggleTld(this)">.app</div>
+      <div class="ds-tld-chip" onclick="dsToggleTld(this)">.shop</div>
+      <div class="ds-tld-chip" onclick="dsToggleTld(this)">.store</div>
+      <div class="ds-tld-chip" onclick="dsToggleTld(this)">.online</div>
+      <div class="ds-tld-chip" onclick="dsToggleTld(this)">.xyz</div>
+      <div class="ds-tld-chip" onclick="dsToggleTld(this)">.tech</div>
+      <div class="ds-tld-chip" onclick="dsToggleTld(this)">.site</div>
+      <div class="ds-tld-chip" onclick="dsToggleTld(this)">.tv</div>
     </div>
 
     <div id="dsResults">
@@ -540,7 +551,7 @@ footer{border-top:1px solid var(--line);padding:24px 40px;display:flex;justify-c
 <div class="copy-toast" id="copyToast">Copied!</div>
 
 <script>
-const GROQ_KEY='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';
+const GROQ_KEY='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';
 let liked=JSON.parse(localStorage.getItem('o7_liked')||'[]');
 const CS=15;
 const BATCH_SIZE=100;
@@ -679,12 +690,35 @@ function quickGo(){
 }
 
 /* ===== DOMAIN SEARCH ===== */
+let dsAllSuggestions=[];
+let dsLoadingMore=false;
+let dsReachedMax=false;
+let dsScrollAttached=false;
+
 async function dsCheck(){
   const raw=document.getElementById('ds-input').value.trim().toLowerCase();
-  if(!raw){showToast('Please enter a domain name first!');return}
-  const base=raw.replace(/\s+/g,'').replace(/\.(com|in|co\.in|ai|tv|org|net|io)$/,'');
   const tlds=[...document.querySelectorAll('.ds-tld-chip.active')].map(c=>c.textContent.trim());
   if(!tlds.length){showToast('Please select at least one TLD');return}
+
+  if(!raw){
+    // No name entered: show 100 brandable suggestions, infinite scroll to 500
+    dsAllSuggestions=[];
+    dsReachedMax=false;
+    const resBox=document.getElementById('dsResults');
+    resBox.innerHTML='<div class="ai-loader" style="padding:50px 20px"><div class="ai-orb"></div><div class="ai-loader-text"><div class="ai-loader-title">Generating suggestions...</div><div class="ai-loader-sub">Finding brandable names for you</div></div></div>';
+    const batch=await dsFetchSuggestionBatch(tlds,0);
+    if(!batch){
+      resBox.innerHTML='<div class="ds-empty" style="color:#c23b2e">Something went wrong. Please try again.</div>';
+      return;
+    }
+    dsAllSuggestions=batch;
+    resBox.innerHTML=`<div class="ds-results" id="dsResultsList">${dsAllSuggestions.map(x=>dsRenderRow(x)).join('')}</div><div id="dsLoadMoreSlot"></div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);margin-top:14px;text-align:center">Estimate only — confirm on registrar before buying</div>`;
+    dsAttachInfiniteScroll();
+    return;
+  }
+
+  const base=raw.replace(/\s+/g,'').replace(/\.(com|in|co\.in|net|org|io|co|ai|app|shop|store|online|xyz|tech|site|tv)$/,'');
 
   const resBox=document.getElementById('dsResults');
   resBox.innerHTML='<div class="ai-loader" style="padding:50px 20px"><div class="ai-orb"></div><div class="ai-loader-text"><div class="ai-loader-title">Checking...</div><div class="ai-loader-sub">Checking '+tlds.length+' domains</div></div></div>';
@@ -697,23 +731,95 @@ Respond ONLY raw JSON array, no markdown, no backticks, one entry per TLD in the
     const r=await fetch('https://api.groq.com/openai/v1/chat/completions',{
       method:'POST',
       headers:{'Content-Type':'application/json','Authorization':'Bearer '+GROQ_KEY},
-      body:JSON.stringify({model:'llama-3.3-70b-versatile',max_tokens:1000,temperature:0.4,messages:[{role:'user',content:fullPrompt}]})
+      body:JSON.stringify({model:'llama-3.3-70b-versatile',max_tokens:1500,temperature:0.4,messages:[{role:'user',content:fullPrompt}]})
     });
     const d=await r.json();
     const rawTxt=d.choices[0].message.content.replace(/```json|```/g,'').trim();
     const results=JSON.parse(rawTxt);
-    resBox.innerHTML=`<div class="ds-results">${results.map(x=>`
-      <div class="ds-result-row">
-        <div class="ds-result-domain">${nameOnly(x.domain)}</div>
-        <div class="ds-result-status">
-          <span class="ds-status-pill ${x.likely_available?'av':'un'}">${(isDotCom(x.domain)&&x.likely_available)?'<span class="ds-status-dot"></span>':''}${x.likely_available?'Likely Available':'Possibly Taken'}</span>
-          <a class="ds-result-buy" href="https://www.namecheap.com/domains/registration/results/?domain=${encodeURIComponent(x.domain)}" target="_blank">Buy Now</a>
-        </div>
-      </div>`).join('')}</div>
+    resBox.innerHTML=`<div class="ds-results">${results.map(x=>dsRenderRow(x)).join('')}</div>
       <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);margin-top:14px;text-align:center">Estimate only — confirm on registrar before buying</div>`;
   }catch(e){
     resBox.innerHTML='<div class="ds-empty" style="color:#c23b2e">Something went wrong. Please try again.</div>';
     console.error(e);
+  }
+}
+
+function dsRenderRow(x){
+  return `<div class="ds-result-row">
+    <div class="ds-result-domain">${nameOnly(x.domain)}</div>
+    <div class="ds-result-status">
+      <span class="ds-status-pill ${x.likely_available?'av':'un'}">${(isDotCom(x.domain)&&x.likely_available)?'<span class="ds-status-dot"></span>':''}${x.likely_available?'Likely Available':'Possibly Taken'}</span>
+      <a class="ds-result-buy" href="https://www.namecheap.com/domains/registration/results/?domain=${encodeURIComponent(x.domain)}" target="_blank">Buy Now</a>
+    </div>
+  </div>`;
+}
+
+async function dsFetchSuggestionBatch(tlds,existingCount){
+  const avoidList = dsAllSuggestions.map(d=>nameOnly(d.domain)).slice(-60);
+  const avoidRule = avoidList.length ? `Avoid repeating these: ${avoidList.join(', ')}. Mix in extra words/syllables for fresh variations.` : '';
+  const fullPrompt=`You are Nameavi, a fast domain branding AI. Generate exactly 50 unique short, brandable, general-purpose startup domain names (not tied to any specific business).
+${avoidRule}
+Use only these TLDs in rotation: ${tlds.join(', ')}.
+Rules: short, catchy, easy to spell, no duplicates.
+likely_available:true if it's a made-up/uncommon word, false if it's a common phrase.
+Respond ONLY raw JSON array, no markdown, no backticks:
+[{"domain":"x.com","likely_available":true}]
+Exactly 50 entries required.`;
+  try{
+    const [a,b]=await Promise.all([1,2].map(async()=>{
+      const r=await fetch('https://api.groq.com/openai/v1/chat/completions',{
+        method:'POST',
+        headers:{'Content-Type':'application/json','Authorization':'Bearer '+GROQ_KEY},
+        body:JSON.stringify({model:'llama-3.3-70b-versatile',max_tokens:2500,temperature:0.95,messages:[{role:'user',content:fullPrompt}]})
+      });
+      const d=await r.json();
+      const raw=d.choices[0].message.content.replace(/```json|```/g,'').trim();
+      return JSON.parse(raw);
+    }));
+    return a.concat(b);
+  }catch(e){
+    console.error(e);
+    return null;
+  }
+}
+
+function dsAttachInfiniteScroll(){
+  if(dsScrollAttached)return;
+  dsScrollAttached=true;
+  const dsPage=document.getElementById('domainSearchPage');
+  dsPage.addEventListener('scroll',function(){
+    if(dsLoadingMore||dsReachedMax)return;
+    if(dsAllSuggestions.length>=MAX_NAMES){dsReachedMax=true;return}
+    const nearBottom = dsPage.scrollTop + dsPage.clientHeight >= dsPage.scrollHeight - 200;
+    if(nearBottom) dsLoadMore();
+  });
+}
+
+async function dsLoadMore(){
+  if(dsLoadingMore||dsReachedMax)return;
+  if(dsAllSuggestions.length>=MAX_NAMES){dsReachedMax=true;return}
+  dsLoadingMore=true;
+  const slot=document.getElementById('dsLoadMoreSlot');
+  if(slot)slot.innerHTML='<div class="rp-loadmore"><div class="ai-orb"></div><div class="rp-loadmore-text">Loading more names...</div></div>';
+
+  const tlds=[...document.querySelectorAll('.ds-tld-chip.active')].map(c=>c.textContent.trim());
+  const batch=await dsFetchSuggestionBatch(tlds,dsAllSuggestions.length);
+  dsLoadingMore=false;
+  if(!batch){
+    if(slot)slot.innerHTML='<div class="rp-done-text">Could not load more — scroll to retry</div>';
+    return;
+  }
+  let newOnes=batch.filter(b=>!dsAllSuggestions.some(a=>nameOnly(a.domain).toLowerCase()===nameOnly(b.domain).toLowerCase()));
+  let remaining=MAX_NAMES-dsAllSuggestions.length;
+  if(newOnes.length>remaining)newOnes=newOnes.slice(0,remaining);
+  dsAllSuggestions=dsAllSuggestions.concat(newOnes);
+  const list=document.getElementById('dsResultsList');
+  if(list)list.insertAdjacentHTML('beforeend',newOnes.map(x=>dsRenderRow(x)).join(''));
+  if(dsAllSuggestions.length>=MAX_NAMES){
+    dsReachedMax=true;
+    if(slot)slot.innerHTML='<div class="rp-done-text">All 500 names loaded</div>';
+  }else if(slot){
+    slot.innerHTML='';
   }
 }
 
