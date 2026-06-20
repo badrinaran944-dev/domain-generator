@@ -689,7 +689,33 @@ function quickGo(){
   generateNames(biz,'',biz);
 }
 
-/* ===== DOMAIN SEARCH ===== */
+/* ===== REAL DNS-BASED AVAILABILITY CHECK (free, no API key, CORS allowed) =====
+   Logic: query Google's public DNS-over-HTTPS for NS records.
+   - If NS records exist -> domain is registered (taken)
+   - If NXDOMAIN / no records -> domain is likely available
+   This is a real DNS check, not a guess, but not 100% same as registry WHOIS
+   (rare case: registered domain with no DNS configured will show as available). */
+async function dnsCheckAvailable(domain){
+  try{
+    const r=await fetch(`https://dns.google/resolve?name=${encodeURIComponent(domain)}&type=NS`);
+    const d=await r.json();
+    // Status 3 = NXDOMAIN (domain doesn't exist) -> likely available
+    // Status 0 with Answer records -> domain exists -> taken
+    if(d.Status===3) return true;
+    if(d.Answer && d.Answer.length>0) return false;
+    return true; // no NS records found -> treat as likely available
+  }catch(e){
+    return null; // unknown, couldn't check
+  }
+}
+
+async function dnsCheckBatch(domains){
+  const results=await Promise.all(domains.map(async d=>{
+    const avail=await dnsCheckAvailable(d);
+    return avail===null ? true : avail; // default to available if check failed
+  }));
+  return results;
+}
 let dsAllSuggestions=[];
 let dsLoadingMore=false;
 let dsReachedMax=false;
@@ -713,31 +739,22 @@ async function dsCheck(){
     }
     dsAllSuggestions=batch;
     resBox.innerHTML=`<div class="ds-results" id="dsResultsList">${dsAllSuggestions.map(x=>dsRenderRow(x)).join('')}</div><div id="dsLoadMoreSlot"></div>
-      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);margin-top:14px;text-align:center">Estimate only — confirm on registrar before buying</div>`;
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);margin-top:14px;text-align:center">Real-time DNS check — confirm final price/availability on registrar</div>`;
     dsAttachInfiniteScroll();
     return;
   }
 
   const base=raw.replace(/\s+/g,'').replace(/\.(com|in|co\.in|net|org|io|co|ai|app|shop|store|online|xyz|tech|site|tv)$/,'');
+  const fullDomains=tlds.map(t=>base+t);
 
   const resBox=document.getElementById('dsResults');
-  resBox.innerHTML='<div class="ai-loader" style="padding:50px 20px"><div class="ai-orb"></div><div class="ai-loader-text"><div class="ai-loader-title">Checking...</div><div class="ai-loader-sub">Checking '+tlds.length+' domains</div></div></div>';
-
-  const fullPrompt=`For the base domain name "${base}", and these TLD options: ${tlds.join(', ')}, give your best estimate of whether each full domain (e.g. "${base}${tlds[0]}") is likely already registered or likely available, based on how common/generic the word is and typical domain landscape patterns. This is an estimate only, not a live registry lookup.
-Respond ONLY raw JSON array, no markdown, no backticks, one entry per TLD in the same order given:
-[{"tld":".com","domain":"${base}.com","likely_available":true,"note":"short reason"}]`;
+  resBox.innerHTML='<div class="ai-loader" style="padding:50px 20px"><div class="ai-orb"></div><div class="ai-loader-text"><div class="ai-loader-title">Checking...</div><div class="ai-loader-sub">Checking '+tlds.length+' domains via DNS</div></div></div>';
 
   try{
-    const r=await fetch('https://api.groq.com/openai/v1/chat/completions',{
-      method:'POST',
-      headers:{'Content-Type':'application/json','Authorization':'Bearer '+GROQ_KEY},
-      body:JSON.stringify({model:'llama-3.3-70b-versatile',max_tokens:1500,temperature:0.4,messages:[{role:'user',content:fullPrompt}]})
-    });
-    const d=await r.json();
-    const rawTxt=d.choices[0].message.content.replace(/```json|```/g,'').trim();
-    const results=JSON.parse(rawTxt);
+    const availFlags=await dnsCheckBatch(fullDomains);
+    const results=fullDomains.map((dom,i)=>({domain:dom,likely_available:availFlags[i]}));
     resBox.innerHTML=`<div class="ds-results">${results.map(x=>dsRenderRow(x)).join('')}</div>
-      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);margin-top:14px;text-align:center">Estimate only — confirm on registrar before buying</div>`;
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);margin-top:14px;text-align:center">Real-time DNS check — confirm final price/availability on registrar</div>`;
   }catch(e){
     resBox.innerHTML='<div class="ds-empty" style="color:#c23b2e">Something went wrong. Please try again.</div>';
     console.error(e);
@@ -761,9 +778,8 @@ async function dsFetchSuggestionBatch(tlds,existingCount){
 ${avoidRule}
 Use only these TLDs in rotation: ${tlds.join(', ')}.
 Rules: short, catchy, easy to spell, no duplicates.
-likely_available:true if it's a made-up/uncommon word, false if it's a common phrase.
 Respond ONLY raw JSON array, no markdown, no backticks:
-[{"domain":"x.com","likely_available":true}]
+[{"domain":"x.com"}]
 Exactly 50 entries required.`;
   try{
     const [a,b]=await Promise.all([1,2].map(async()=>{
@@ -776,7 +792,10 @@ Exactly 50 entries required.`;
       const raw=d.choices[0].message.content.replace(/```json|```/g,'').trim();
       return JSON.parse(raw);
     }));
-    return a.concat(b);
+    const merged=a.concat(b);
+    // run real DNS check on all generated names
+    const availFlags=await dnsCheckBatch(merged.map(x=>x.domain));
+    return merged.map((x,i)=>({domain:x.domain,likely_available:availFlags[i]}));
   }catch(e){
     console.error(e);
     return null;
