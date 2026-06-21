@@ -551,7 +551,7 @@ footer{border-top:1px solid var(--line);padding:24px 40px;display:flex;justify-c
 <div class="copy-toast" id="copyToast">Copied!</div>
 
 <script>
-const GROQ_KEY='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';
+const GROQ_KEY='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';
 let liked=JSON.parse(localStorage.getItem('o7_liked')||'[]');
 const CS=15;
 const BATCH_SIZE=100;
@@ -782,14 +782,13 @@ Respond ONLY raw JSON array, no markdown, no backticks:
 [{"domain":"x.com"}]
 Exactly 50 entries required.`;
   try{
-    const [a,b]=await Promise.all([1,2].map(async()=>{
-      const r=await fetch('https://api.groq.com/openai/v1/chat/completions',{
-        method:'POST',
-        headers:{'Content-Type':'application/json','Authorization':'Bearer '+GROQ_KEY},
-        body:JSON.stringify({model:'llama-3.3-70b-versatile',max_tokens:2500,temperature:0.95,messages:[{role:'user',content:fullPrompt}]})
-      });
-      const d=await r.json();
-      const raw=d.choices[0].message.content.replace(/```json|```/g,'').trim();
+  const r=await fetch('https://api.anthropic.com/v1/messages',{
+  method:'POST',
+  headers:{'Content-Type':'application/json','x-api-key':CLAUDE_KEY,'anthropic-version':'2023-06-01'},
+  body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:2500,messages:[{role:'user',content:fullPrompt}]})
+});
+const d=await r.json();
+const raw=d.content[0].text.replace(/```json|```/g,'').trim();
       return JSON.parse(raw);
     }));
     const merged=a.concat(b);
@@ -910,13 +909,14 @@ Respond ONLY raw JSON array, no markdown, no backticks, no extra text:
 [{"domain":"x.com","reason":"why","top":true,"likely_available":true}]
 Exactly ${count} entries required.`;
 
-  const r=await fetch('https://api.groq.com/openai/v1/chat/completions',{
-    method:'POST',
-    headers:{'Content-Type':'application/json','Authorization':'Bearer '+GROQ_KEY},
-    body:JSON.stringify({model:'llama-3.3-70b-versatile',max_tokens:4000,temperature:0.9,messages:[{role:'user',content:fullPrompt}]})
-  });
-  const d=await r.json();
-  const raw=d.choices[0].message.content.replace(/```json|```/g,'').trim();
+ // NAYA
+const r=await fetch('https://api.anthropic.com/v1/messages',{
+  method:'POST',
+  headers:{'Content-Type':'application/json','x-api-key':CLAUDE_KEY,'anthropic-version':'2023-06-01'},
+  body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:4000,messages:[{role:'user',content:fullPrompt}]})
+});
+const d=await r.json();
+const raw=d.content[0].text.replace(/```json|```/g,'').trim();
   return JSON.parse(raw);
 }
 
