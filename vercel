@@ -1,0 +1,7 @@
+{
+  "functions": {
+    "api/check-domains.js": {
+      "maxDuration": 30
+    }
+  }
+}
