@@ -1,6 +1,6 @@
 {
   "functions": {
-    "api/check-domains.js": {
+    "api/generate-names.js": {
       "maxDuration": 30
     }
   }
