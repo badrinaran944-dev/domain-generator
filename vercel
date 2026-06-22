@@ -1,7 +1,0 @@
-{
-  "functions": {
-    "api/generate-names.js": {
-      "maxDuration": 30
-    }
-  }
-}
