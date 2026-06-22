@@ -790,7 +790,6 @@ Exactly 50 entries required.`;
 const d=await r.json();
 const raw=d.text.replace(/```json|```/g,'').trim();
       return JSON.parse(raw);
-    }));
     const merged=a.concat(b);
     // run real DNS check on all generated names
     const availFlags=await dnsCheckBatch(merged.map(x=>x.domain));
