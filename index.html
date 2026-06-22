@@ -551,7 +551,10 @@ footer{border-top:1px solid var(--line);padding:24px 40px;display:flex;justify-c
 <div class="copy-toast" id="copyToast">Copied!</div>
 
 <script>
-const CLAUDE_KEY='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';
+const DEBUG_NAME_GENERATION=true;
+function debugNameGeneration(label, value){
+  if(DEBUG_NAME_GENERATION) console.log(`[Nameavi debug] ${label}:`, value);
+}
 let liked=JSON.parse(localStorage.getItem('o7_liked')||'[]');
 const CS=15;
 const BATCH_SIZE=100;
@@ -685,6 +688,7 @@ function showLoader(){
 /* ===== QUICK GENERATE (home search) ===== */
 function quickGo(){
   const biz=document.getElementById('bi').value.trim();
+  debugNameGeneration('quick input', {biz});
   if(!biz)return;
   generateNames(biz,'',biz);
 }
@@ -788,7 +792,14 @@ Exactly 50 entries required.`;
   body:JSON.stringify({prompt:fullPrompt})
 });
 const d=await r.json();
-const raw=d.text.replace(/```json|```/g,'').trim();
+debugNameGeneration('domain search API response', {ok:r.ok, status:r.status, response:d});
+if(!r.ok || d.error){
+  throw new Error(d.error || `API request failed with status ${r.status}`);
+}
+const raw=(d.text||'').replace(/```json|```/g,'').trim();
+if(!raw){
+  throw new Error('API response did not include suggestion text');
+}
       return JSON.parse(raw);
     const merged=a.concat(b);
     // run real DNS check on all generated names
@@ -859,11 +870,13 @@ function formGo(){
   if(size)  prompt+=`Domain length preference: ${size}. `;
 
   const label=names||desc||ind||'Your Business';
+  debugNameGeneration('form values', {names, desc, ind, size, prompt, label});
   generateNames(prompt, size, label);
 }
 
 /* ===== CORE GENERATE (first batch) ===== */
 async function generateNames(prompt, size, label){
+  debugNameGeneration('generateNames called', {prompt, size, label});
   currentPrompt=prompt;
   currentSize=size;
   allDomains=[];
@@ -877,6 +890,7 @@ async function generateNames(prompt, size, label){
   renderSaved();
 
   const batch=await fetchBatch(prompt,size,0);
+  debugNameGeneration('generated names array', batch);
   // first batch now uses 2 parallel 50-name calls under the hood for speed
   if(batch===null){
     document.getElementById('rpGrid').innerHTML='<div style="text-align:center;padding:60px 20px;grid-column:1/-1"><div style="font-family:\'Space Grotesk\',sans-serif;font-size:16px;color:#c23b2e;font-weight:600">Something went wrong. Please try again.</div></div>';
@@ -886,12 +900,13 @@ async function generateNames(prompt, size, label){
   document.getElementById('rpCount').textContent=allDomains.length+' names';
   document.getElementById('rpResLabel').textContent=allDomains.length+' brand names generated';
   document.getElementById('rpGrid').innerHTML=allDomains.map((x,i)=>renderCard(x,i)).join('')+renderLoadMoreSlot();
+  debugNameGeneration('rendered results', {count: allDomains.length, gridChildren: document.getElementById('rpGrid').children.length});
   renderSaved();
   attachInfiniteScroll();
 }
 
 /* ===== FETCH ONE BATCH FROM GROQ (split into 2 parallel calls of 50 for speed) ===== */
-async function fetchHalfBatch(prompt,size,count,recentAvoid){
+async function fetchHalfBatch(prompt,size,count,recentAvoid,batchLabel='batch'){
   const sizeRule = size==='Short'?'Prefer short domains (4-6 characters without TLD).':
                    size==='Medium'?'Prefer medium domains (7-10 characters without TLD).':'';
 
@@ -902,7 +917,7 @@ Include names that contain the main keyword(s) from the business description, mi
 ${sizeRule}
 ${avoidRule}
 TLD: mix of .com .in .co.in .ai .tv
-Rules: short, memorable, no duplicates. If a keyword-only name is unavailable as an idea, blend it with another short word instead.
+Rules: short, memorable, no duplicates. If a keyword-only name is unavailable as an idea, blend it with another short word instead. Variation set: ${batchLabel}.
 First 4: top:true, rest top:false. likely_available:true if made-up word, false if common phrase.
 Respond ONLY raw JSON array, no markdown, no backticks, no extra text:
 [{"domain":"x.com","reason":"why","top":true,"likely_available":true}]
@@ -914,7 +929,14 @@ const r=await fetch('/api/generate-names',{
   body:JSON.stringify({prompt:fullPrompt})
 });
 const d=await r.json();
-const raw=d.text.replace(/```json|```/g,'').trim();
+debugNameGeneration('API response', {ok:r.ok, status:r.status, batchLabel, response:d});
+if(!r.ok || d.error){
+  throw new Error(d.error || `API request failed with status ${r.status}`);
+}
+const raw=(d.text||'').replace(/```json|```/g,'').trim();
+if(!raw){
+  throw new Error('API response did not include generated names text');
+}
   return JSON.parse(raw);
 }
 
@@ -922,8 +944,8 @@ async function fetchBatch(prompt,size,existingCount){
   try{
     const recentAvoid=allDomains.map(d=>nameOnly(d.domain)).slice(-60);
     const [a,b]=await Promise.all([
-      fetchHalfBatch(prompt,size,50,recentAvoid),
-      fetchHalfBatch(prompt,size,50,recentAvoid)
+      fetchHalfBatch(prompt,size,50,recentAvoid,'A'),
+      fetchHalfBatch(prompt,size,50,recentAvoid,'B')
     ]);
     return a.concat(b);
   }catch(e){
