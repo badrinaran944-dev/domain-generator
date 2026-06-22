@@ -1,7 +1,3 @@
-// api/generate-names.js
-// Vercel serverless function — Claude API ko safely call karta hai.
-// API key kabhi yahan likhi NAHI hai — Vercel ke environment variable se aati hai.
-
 export default async function handler(req, res) {
   // Sirf POST request allow karo
   if (req.method !== 'POST') {
