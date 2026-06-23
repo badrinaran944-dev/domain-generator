@@ -923,7 +923,7 @@ Respond ONLY raw JSON array, no markdown, no backticks, no extra text:
 [{"domain":"x.com","reason":"why","top":true,"likely_available":true}]
 Exactly ${count} entries required.`;
 
-const r=await fetch('/api/generate-names',{
+const r=await fetch('/api/generate-names',
   method:'POST',
   headers:{'Content-Type':'application/json'},
   body:JSON.stringify({prompt:fullPrompt})
