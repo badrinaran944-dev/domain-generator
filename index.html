@@ -786,25 +786,24 @@ Respond ONLY raw JSON array, no markdown, no backticks:
 [{"domain":"x.com"}]
 Exactly 50 entries required.`;
   try{
- const r=await fetch('/api/generate-names',{
-  method:'POST',
-  headers:{'Content-Type':'application/json'},
-  body:JSON.stringify({prompt:fullPrompt})
-});
-const d=await r.json();
-debugNameGeneration('domain search API response', {ok:r.ok, status:r.status, response:d});
-if(!r.ok || d.error){
-  throw new Error(d.error || `API request failed with status ${r.status}`);
-}
-const raw=(d.text||'').replace(/```json|```/g,'').trim();
-if(!raw){
-  throw new Error('API response did not include suggestion text');
-}
-      return JSON.parse(raw);
-    const merged=a.concat(b);
+    const r=await fetch('/api/generate-names',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({prompt:fullPrompt})
+    });
+    const d=await r.json();
+    debugNameGeneration('domain search API response', {ok:r.ok, status:r.status, response:d});
+    if(!r.ok || d.error){
+      throw new Error(d.error || `API request failed with status ${r.status}`);
+    }
+    const raw=(d.text||'').replace(/```json|```/g,'').trim();
+    if(!raw){
+      throw new Error('API response did not include suggestion text');
+    }
+    const parsed=JSON.parse(raw);
     // run real DNS check on all generated names
-    const availFlags=await dnsCheckBatch(merged.map(x=>x.domain));
-    return merged.map((x,i)=>({domain:x.domain,likely_available:availFlags[i]}));
+    const availFlags=await dnsCheckBatch(parsed.map(x=>x.domain));
+    return parsed.map((x,i)=>({domain:x.domain,likely_available:availFlags[i]}));
   }catch(e){
     console.error(e);
     return null;
@@ -923,20 +922,20 @@ Respond ONLY raw JSON array, no markdown, no backticks, no extra text:
 [{"domain":"x.com","reason":"why","top":true,"likely_available":true}]
 Exactly ${count} entries required.`;
 
-const r=await fetch('/api/generate-names',
-  method:'POST',
-  headers:{'Content-Type':'application/json'},
-  body:JSON.stringify({prompt:fullPrompt})
-});
-const d=await r.json();
-debugNameGeneration('API response', {ok:r.ok, status:r.status, batchLabel, response:d});
-if(!r.ok || d.error){
-  throw new Error(d.error || `API request failed with status ${r.status}`);
-}
-const raw=(d.text||'').replace(/```json|```/g,'').trim();
-if(!raw){
-  throw new Error('API response did not include generated names text');
-}
+  const r=await fetch('/api/generate-names',{
+    method:'POST',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({prompt:fullPrompt})
+  });
+  const d=await r.json();
+  debugNameGeneration('API response', {ok:r.ok, status:r.status, batchLabel, response:d});
+  if(!r.ok || d.error){
+    throw new Error(d.error || `API request failed with status ${r.status}`);
+  }
+  const raw=(d.text||'').replace(/```json|```/g,'').trim();
+  if(!raw){
+    throw new Error('API response did not include generated names text');
+  }
   return JSON.parse(raw);
 }
 
