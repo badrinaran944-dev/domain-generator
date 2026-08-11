@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name='impact-site-verification' value='823171f2-d471-4c99-95d5-e3e27491c79c'>
-<title>Nameavi — AI Domain Name Generator</title>
+<title>OrbitoLabs — AI Domain Name Generator</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -314,7 +314,7 @@ footer{border-top:1px solid var(--line);padding:24px 40px;display:flex;justify-c
 <div id="homePage">
 
 <nav>
-  <div class="logo"><span class="logo-dot"></span>NAMEAVI</div>
+  <div class="logo"><span class="logo-dot"></span>ORBITOLABS</div>
   <a href="https://www.design.com" target="_blank" class="nav-logo-btn">
     <span class="nav-logo-text">Logo Design</span>
     <span class="nav-logo-sub">design.com</span>
@@ -322,9 +322,9 @@ footer{border-top:1px solid var(--line);padding:24px 40px;display:flex;justify-c
 </nav>
 
 <div class="hero">
-  <div class="hero-tag"><span class="dot"></span> Nameavi AI · India's Favourite</div>
+  <div class="hero-tag"><span class="dot"></span> OrbitoLabs AI · World's Favourite</div>
   <h1>Find <em>Brand</em> Names</h1>
-  <p class="hero-sub">Describe your business in any language — Nameavi AI generates 100 creative domain names in seconds</p>
+  <p class="hero-sub">Describe your business in any language — OrbitoLabs AI generates creative domain names in seconds</p>
   <div class="cta-row">
     <div class="cta-btn-group">
       <button onclick="openForm()" class="cta-main">Find Brand Name</button>
@@ -349,8 +349,8 @@ footer{border-top:1px solid var(--line);padding:24px 40px;display:flex;justify-c
     </div>
     <div class="how-card">
       <div class="how-num">02 — GENERATE</div>
-      <div class="how-h">Nameavi generates names</div>
-      <div class="how-p">Nameavi AI instantly generates creative, brandable domain names.</div>
+      <div class="how-h">OrbitoLabs generates names</div>
+      <div class="how-p">OrbitoLabs AI instantly generates creative, brandable domain names.</div>
     </div>
     <div class="how-card">
       <div class="how-num">03 — LAUNCH</div>
@@ -385,7 +385,7 @@ footer{border-top:1px solid var(--line);padding:24px 40px;display:flex;justify-c
 <div class="monkb-wrap">
   <div class="monkb">
     <div class="ml">
-      <div class="ml-tag">Powered by Nameavi</div>
+      <div class="ml-tag">Powered by OrbitoLabs</div>
       <div class="ml-title">Sell more on Instagram<br>with <span>MONKB</span></div>
       <div class="ml-desc">Link in Bio + Auto DM + Order Management — everything an Instagram seller needs.</div>
       <div class="ml-btns">
@@ -397,15 +397,15 @@ footer{border-top:1px solid var(--line);padding:24px 40px;display:flex;justify-c
       <div class="mr-emoji"></div>
       <div>
         <div class="mr-name">MONKB</div>
-        <div class="mr-sub">by Nameavi</div>
+        <div class="mr-sub">by OrbitoLabs</div>
       </div>
     </div>
   </div>
 </div>
 
 <footer>
-  <div class="foot-logo">Nameavi.ai</div>
-  <div class="foot-made">Made in India</div>
+  <div class="foot-logo">OrbitoLabs.ai</div>
+  <div class="foot-made">Made in Silicon Valley</div>
   <div class="foot-links">
     <a class="foot-link" href="#">Privacy</a>
     <a class="foot-link" href="#">Terms</a>
@@ -553,7 +553,7 @@ footer{border-top:1px solid var(--line);padding:24px 40px;display:flex;justify-c
 <script>
 const DEBUG_NAME_GENERATION=true;
 function debugNameGeneration(label, value){
-  if(DEBUG_NAME_GENERATION) console.log(`[Nameavi debug] ${label}:`, value);
+  if(DEBUG_NAME_GENERATION) console.log(`[OrbitoLabs debug] ${label}:`, value);
 }
 let liked=JSON.parse(localStorage.getItem('o7_liked')||'[]');
 const CS=15;
@@ -677,7 +677,7 @@ function showLoader(){
   return`<div class="ai-loader">
     <div class="ai-orb"></div>
     <div class="ai-loader-text">
-      <div class="ai-loader-title">Nameavi AI is working...</div>
+      <div class="ai-loader-title">OrbitoLabs AI is working...</div>
       <div class="ai-loader-sub">Generating brand names for you</div>
       <div class="ai-words">${wordsHTML}</div>
     </div>
@@ -778,7 +778,7 @@ function dsRenderRow(x){
 async function dsFetchSuggestionBatch(tlds,existingCount){
   const avoidList = dsAllSuggestions.map(d=>nameOnly(d.domain)).slice(-60);
   const avoidRule = avoidList.length ? `Avoid repeating these: ${avoidList.join(', ')}. Mix in extra words/syllables for fresh variations.` : '';
-  const fullPrompt=`You are Nameavi, a fast domain branding AI. Generate exactly 50 unique short, brandable, general-purpose startup domain names (not tied to any specific business).
+  const fullPrompt=`You are OrbitoLabs, a fast domain branding AI. Generate exactly 50 unique short, brandable, general-purpose startup domain names (not tied to any specific business).
 ${avoidRule}
 Use only these TLDs in rotation: ${tlds.join(', ')}.
 Rules: short, catchy, easy to spell, no duplicates.
@@ -911,7 +911,7 @@ async function fetchHalfBatch(prompt,size,count,recentAvoid,batchLabel='batch'){
 
   const avoidRule = recentAvoid && recentAvoid.length ? `Avoid these recent names: ${recentAvoid.join(', ')}. If you run out of fresh keyword ideas, mix in 1-2 extra words/syllables to create new variations instead of repeating.` : '';
 
-  const fullPrompt=`You are Nameavi, a fast domain branding AI. Generate exactly ${count} unique creative brandable domain names for: "${prompt}".
+  const fullPrompt=`You are OrbitoLabs, a fast domain branding AI. Generate exactly ${count} unique creative brandable domain names for: "${prompt}".
 Include names that contain the main keyword(s) from the business description, mixed with short portmanteau/brandable names.
 ${sizeRule}
 ${avoidRule}
